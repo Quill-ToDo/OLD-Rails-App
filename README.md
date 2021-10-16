@@ -1,2 +1,2 @@
 # COSC415-ToDo
-Creating a to-do app that's intuitive and powerful
+### Creating a to-do app that's intuitive and powerful
