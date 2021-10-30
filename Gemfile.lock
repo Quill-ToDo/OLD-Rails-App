@@ -62,7 +62,10 @@ GEM
       zeitwerk (~> 2.3)
     addressable (2.8.0)
       public_suffix (>= 2.0.2, < 5.0)
+<<<<<<< HEAD
     bcrypt (3.1.16)
+=======
+>>>>>>> main
     bindex (0.8.1)
     bootsnap (1.9.1)
       msgpack (~> 1.0)
@@ -79,12 +82,6 @@ GEM
       xpath (~> 3.2)
     concurrent-ruby (1.1.9)
     crass (1.0.6)
-    devise (4.8.0)
-      bcrypt (~> 3.0)
-      orm_adapter (~> 0.1)
-      railties (>= 4.1.0)
-      responders
-      warden (~> 1.2.3)
     diff-lcs (1.4.4)
     docile (1.4.0)
     erubi (1.10.0)
@@ -114,7 +111,6 @@ GEM
       racc (~> 1.4)
     nokogiri (1.12.5-x86_64-linux)
       racc (~> 1.4)
-    orm_adapter (0.5.0)
     pg (1.2.3)
     public_suffix (4.0.6)
     puma (5.5.2)
@@ -156,9 +152,6 @@ GEM
     rb-inotify (0.10.1)
       ffi (~> 1.0)
     regexp_parser (2.1.1)
-    responders (3.0.1)
-      actionpack (>= 5.0)
-      railties (>= 5.0)
     rspec (3.10.0)
       rspec-core (~> 3.10.0)
       rspec-expectations (~> 3.10.0)
@@ -231,7 +224,6 @@ DEPENDENCIES
   bootsnap (>= 1.4.4)
   byebug
   capybara
-  devise
   jbuilder (~> 2.7)
   listen (~> 3.3)
   pg
