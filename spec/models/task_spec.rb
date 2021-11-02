@@ -4,7 +4,7 @@ RSpec.describe Task, type: :model do
   describe 'check attributes and methods' do
     it 'should be able to create a Task object which has the correct methods on it' do
       dt = DateTime.new
-      task = Task.create!(title: 'test', description: 'desc', start: dt.noon, due: dt.midnight)
+      task = Task.create!(title: 'test', description: 'desc', start: dt.midnight, due: dt.noon)
       expect(task).to respond_to :title
       expect(task).to respond_to :description
       expect(task).to respond_to :start

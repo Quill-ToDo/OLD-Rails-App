@@ -1,2 +1,35 @@
-<h1>Tasks#new</h1>
-<p>Find me in app/views/tasks/new.html.erb</p>
+<%= form_with model: @task, method: :post, url: tasks_path, local: true do |f| %>
+  <div class="row">
+    <div class="col-md-3">
+      <%= f.label :title %>
+    </div>
+    <div class="col-md-4">
+      <%= f.text_field :title %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-3">
+      <%= f.label :description %>
+    </div>
+    <div class="col-md-6">
+      <%= f.text_area :description %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-3">
+      <%= f.label :start %>
+    </div>
+    <div class="col-md-6">
+      <%= f.datetime_select :start %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-3">
+      <%= f.label :due %>
+    </div>
+    <div class="col-md-6">
+      <%= f.datetime_select :due %>
+    </div>
+  </div>
+  <%= f.submit "Create task" %>
+<% end %>

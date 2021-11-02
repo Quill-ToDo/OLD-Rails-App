@@ -1,4 +1,7 @@
 class TasksController < ApplicationController
+  rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
+  # before_action :user_signed_in?, only: [:index, :new, :create]
+
   def index
     @tasks = Task.all
   end
@@ -8,11 +11,14 @@ class TasksController < ApplicationController
   end
 
   def create
-    @task = Task.new(project_params)
+    @task = Task.new(task_params)
     if @task.save
       flash[:notice] = "New task #{@task.title} created"
-      redirect_to
-    # validations
+      redirect_to tasks_path and return
+    else
+      flash[:alert] = 'Failed to create new task'
+      redirect_to new_tasks_path and return
+    end
   end
 
   def show
@@ -28,7 +34,12 @@ class TasksController < ApplicationController
   end
 
   private
-    def set_task
-      @task = Task.find(params[:id])
+    def record_not_found
+      flash[:alert] = 'Task not found!'
+      redirect_to products_path and return
+    end
+
+    def task_params
+      params.require(:task).permit(:title, :description, :start, :due)
     end
 end
