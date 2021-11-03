@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Task, type: :model do
+RSpec.describe 'Task', type: :model do
   describe 'check attributes and methods' do
     it 'should be able to create a Task object which has the correct methods on it' do
       dt = DateTime.new
