@@ -1,8 +1,15 @@
 //
-//= require rails-ujs
 //= require_tree .
-//= require moment 
-//= require fullcalendar
+//= require main
+//= require locales-all
 //= require jquery
+//= require moment 
+//= require jquery_ujs
 
-$('#calendar').fullCalendar({ });
+document.addEventListener('DOMContentLoaded', function() {
+    var calendarEl = document.getElementById('calendar');
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+      initialView: 'dayGridMonth'
+    });
+    calendar.render();
+  });

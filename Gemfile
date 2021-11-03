@@ -3,6 +3,11 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '3.0.2'
 
+# Calendar
+gem 'jquery-rails'
+gem 'fullcalendar-rails'
+gem 'momentjs-rails'
+
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails', branch: 'main'
 gem 'rails', '~> 6.1.4'
 # Use Puma as the app server
@@ -22,11 +27,6 @@ gem 'bootsnap', '>= 1.4.4', require: false
 
 # Secure User Authentication
 gem 'devise'
-
-# Calendar
-gem 'fullcalendar-rails'
-gem 'momentjs-rails'
-gem 'jquery-rails'
 
 group :development, :test do
   # Use sqlite3 as the database for Active Record
