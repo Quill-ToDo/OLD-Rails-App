@@ -1,1 +1,34 @@
-## Welcome to Erb.
+ <div class="row">
+    <div class="col-md-3">
+      <h3>Your Tasks!</h3>
+    </div>
+  </div>
+  <table class="table">
+    <thead class="thead-light">
+      <tr class="list_header">
+        <th>Title</th>
+        <th>Description</th>
+        <th>Due</th>
+        <th>Start</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @tasks.each do |t| %>
+        <tr class="task">
+          <td class="tasktitle">
+            <%= t.title %>
+          </td>
+          <td class="taskdesc">
+            <%= t.description %>
+          </td>
+          <td class="taskdue">
+            <%= t.due %>
+          </td>
+          <td class="taskstart">
+            <%= t.start %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
