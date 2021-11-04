@@ -36,6 +36,10 @@ group :development, :test do
   gem 'rspec'
   gem 'rspec-rails'
   gem 'capybara'
+  gem 'selenium-webdriver'
+  gem 'webdrivers', '~> 5.0', require: false
+  gem 'rexml'
+  gem 'execjs'
   gem 'simplecov', require: false
 end
 
