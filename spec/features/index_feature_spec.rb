@@ -11,8 +11,8 @@ RSpec.describe "index page", type: :feature, js: true do
   end
 
   it "should render the calendar view" do
-    expect(page).to find('.fc-toolbar-chunk')
     byebug
+    expect(page).to have_css('#calendar')
   end
 
   after(:all) do
