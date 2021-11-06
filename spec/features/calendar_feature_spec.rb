@@ -14,12 +14,10 @@ RSpec.describe "the calendar view", type: :feature, js: true do
     Task.create!(title: 'Write Capybara tests', description: "not boring", start: DateTime.new(2021, 11, 3),  due: DateTime.new(2021, 11, 3))
     Task.create!(title: 'Put away christmas decorations', due: DateTime.new(2022, 01, 7))
     visit root_path
-    byebug
   end
 
   it "should show all tasks for the current month" do
-    byebug
-    expect(page).to have_css('.fc', wait: 5)
+    #TODO
   end
 
   after(:all) do
