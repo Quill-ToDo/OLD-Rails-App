@@ -21,6 +21,7 @@ class TasksController < ApplicationController
   end
 
   def get_tasks
+    byebug
     @tasks = Task.all.where('due <= ?', Time.at(params['end'].to_datetime).to_formatted_s(:db)).or(Task.all.where('due <= ?', Time.at(params['end'].to_datetime).to_formatted_s(:db)).where('start >= ?', Time.at(params['start'].to_datetime).to_formatted_s(:db)))
     events = []
     @tasks.each do |task|
@@ -42,6 +43,7 @@ class TasksController < ApplicationController
       events << h
     end
     puts events
+    puts "#{Task.all.count} This is inside the controller#get_tasks method"
     render :json => events.to_json
   end
 end

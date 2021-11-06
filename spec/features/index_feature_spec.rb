@@ -6,13 +6,8 @@ RSpec.describe "index page", type: :feature, js: true do
     Capybara.current_driver = :selenium
   end
 
-  before :each do
-    visit root_path
-  end
-
   it "should render the calendar view" do
-    byebug
-    expect(page).to have_css('#calendar')
+    expect(page).to have_css('.fc')
   end
 
   after(:all) do

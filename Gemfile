@@ -38,6 +38,7 @@ group :development, :test do
   gem 'capybara'
   gem 'execjs'
   gem 'simplecov', require: false
+  gem 'database_cleaner'
 end
 
 group :test do
