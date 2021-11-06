@@ -1,2 +1,4 @@
-<h1>Tasks#new</h1>
-<p>Find me in app/views/tasks/new.html.erb</p>
+<h1> Create a Task <h1>
+<%= form_with model: @task, url: tasks_path, method: :post, local: true do |form| %>
+  <% render 'form_fields', f: form, submit_text: 'Create task' %>
+<% end %>
