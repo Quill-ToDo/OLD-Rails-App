@@ -15,3 +15,69 @@
  *= require main
  */
 
+:root {
+  --bg: #232323;
+  --light-font: #cdcdcd;
+  --mid-font: #636363;
+  --mid-dark: #191919;
+  --darkest-dark: #111111;
+
+  --calendar-h1-size: 100px;
+}
+
+body {
+  margin: 0;
+  background-color: none;
+  background: var(--bg);
+}
+
+#list-wrapper {
+  grid-area: list;
+}
+
+#calendar-wrapper {
+  grid-area: calendar;
+}
+
+#left-menu {
+  grid-area: left-menu;
+}
+
+#right-menu {
+  grid-area: right-menu;
+}
+
+#slider {
+  width: ;
+}
+
+.menu {
+  background-color: var(--darkest-dark);
+}
+
+/* @media screen and (min-width: 769px) { */
+.index-wrapper {
+  display: grid;
+  grid-template-areas: "left-menu list slider calendar right-menu";
+  grid-template-columns: 40px 1fr 5px 2fr 40px;
+}
+/* } */
+
+/* Calendar */
+
+.fc .fc-toolbar-title {
+  font-family: "Gloria Hallelujah", cursive;
+  color: var(--light-font);
+  font-size: var(--calendar-h1-size);
+}
+
+.fc .fc-col-header-cell-cushion {
+  font-family: "Dongle", sans-serif;
+  color: var(--light-font);
+}
+
+/* Need to figure out how to override this */
+.fc-theme-standard td,
+.fc-theme-standard th {
+  border: none;
+}

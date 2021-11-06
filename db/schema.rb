@@ -16,7 +16,7 @@ ActiveRecord::Schema.define(version: 2021_10_28_014000) do
     t.string "title"
     t.text "description"
     t.datetime "start"
-    t.datetime "due", null: false
+    t.datetime "due"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
