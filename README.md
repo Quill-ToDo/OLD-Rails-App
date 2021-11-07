@@ -1,5 +1,5 @@
 # Spike's To-Do - Creating a to-do app that's intuitive and powerful
-## [Heroku Link](https://ancient-wave-58090.herokuapp.com/)
+## [Heroku App](https://ancient-wave-58090.herokuapp.com/)
 
 ## [Documentation](https://docs.google.com/document/d/1sRqvjrhXCQqVU--eE-5izc8l61-ruSX7MC8zW1Kevcs/edit#heading=h.lpem5zhmyz2k)
 ## Getting Started
