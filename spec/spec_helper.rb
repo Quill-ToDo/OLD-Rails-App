@@ -3,9 +3,9 @@ require 'simplecov'
 require 'capybara/rspec'
 
 SimpleCov.start do 
-  add_filter '/spec/'
-  add_filter '/app/controllers/users/'
-  add_filter '/config/'
+  add_filter 'spec'
+  add_filter 'config'
+  add_filter 'features'
 end
 
 
@@ -65,11 +65,11 @@ RSpec.configure do |config|
     DatabaseCleaner.clean_with(:truncation)
   end
 
-  config.around(:each) do |example|
-    DatabaseCleaner.cleaning do
-      example.run
-    end
-  end
+  # config.around(:each) do |example|
+  #   DatabaseCleaner.cleaning do
+  #     example.run
+  #   end
+  # end
 
 # The settings below are suggested to provide a good initial experience
 # with RSpec, but feel free to customize to your heart's content.

@@ -1,5 +1,6 @@
 class TasksController < ApplicationController
   def index
+    @tasks = Task.all
   end
 
   def new
@@ -41,8 +42,6 @@ class TasksController < ApplicationController
       h[:end] = DateTime.iso8601(task.due.iso8601).next.iso8601
       events << h
     end
-    puts events
-    puts "#{Task.all.count} This is inside the controller#get_tasks method"
     render :json => events.to_json
   end
 end
