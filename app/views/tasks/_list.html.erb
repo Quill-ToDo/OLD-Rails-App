@@ -1,0 +1,34 @@
+ <div class="row">
+    <div class="col-md-3">
+      <h1>List View</h1>
+    </div>
+  </div>
+  <table class="table">
+    <thead class="thead-light">
+      <tr class="list_header">
+        <th>Title</th>
+        <th>Description</th>
+        <th>Due</th>
+        <th>Start</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @tasks.each do |task| %>
+        <tr class="task">
+          <td class="tasktitle">
+            <%= link_to task.title, tasks_path(task) %>
+          </td>
+          <td class="taskdesc">
+            <%= task.description %>
+          </td>
+          <td class="taskdue">
+            <%= task.due %>
+          </td>
+          <td class="taskstart">
+            <%= task.start %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

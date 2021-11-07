@@ -22,6 +22,7 @@ class TasksController < ApplicationController
   end
 
   def show
+    @task = Task.find(params[:id])
   end
 
   def edit
@@ -45,15 +46,43 @@ class TasksController < ApplicationController
   end
 
   def destroy
+    @task = Task.find(params[:id])
+    @task.destroy
+    flash[:alert] = "#{@task.title} deleted"
+    redirect_to tasks_path
   end
 
   private
     def record_not_found
       flash[:alert] = 'Task not found!'
-      redirect_to products_path and return
+      redirect_to tasks_path and return
     end
 
     def task_params
       params.require(:task).permit(:title, :description, :start, :due)
     end
+
+  def get_tasks
+    @tasks = Task.all.where('due <= ?', Time.at(params['end'].to_datetime).to_formatted_s(:db)).or(Task.all.where('due <= ?', Time.at(params['end'].to_datetime).to_formatted_s(:db)).where('start >= ?', Time.at(params['start'].to_datetime).to_formatted_s(:db)))
+    events = []
+    @tasks.each do |task|
+      h = Hash.new()
+      h[:id] = task.id
+      h[:title] = task.title
+
+      unless task.description.nil?
+        h[:description] = task.description
+      end
+
+      if task.start.nil?
+        h[:start] = DateTime.iso8601(task.due.iso8601).next.iso8601
+      else
+        h[:start] = DateTime.iso8601(task.start.iso8601).next.iso8601
+      end
+
+      h[:end] = DateTime.iso8601(task.due.iso8601).next.iso8601
+      events << h
+    end
+    render :json => events.to_json
+  end
 end
