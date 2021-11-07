@@ -32,6 +32,13 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'capybara'
   gem 'simplecov', require: false
+  gem 'database_cleaner'
+end
+
+group :test do
+  gem 'selenium-webdriver', '~> 4.0.3'
+  gem 'webdrivers', '~> 4.0', require: true
+  gem 'rexml'
 end
 
 group :development do
