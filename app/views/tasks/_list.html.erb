@@ -10,6 +10,7 @@
         <th>Description</th>
         <th>Due</th>
         <th>Start</th>
+        <th>Complete?</th>
       </tr>
     </thead>
     <tbody>
@@ -26,6 +27,13 @@
           </td>
           <td class="taskstart">
             <%= t.start %>
+          </td>
+          <td class="taskcomplete">
+            <% if !t.complete %>
+              <button> Mark as complete
+            <% else %>
+              <button> Mark as incomplete
+            <% end %>
           </td>
         </tr>
       <% end %>

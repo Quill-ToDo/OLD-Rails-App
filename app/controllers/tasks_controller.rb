@@ -44,4 +44,8 @@ class TasksController < ApplicationController
     end
     render :json => events.to_json
   end
+
+  def complete_task
+    Task.complete = !Task.complete
+  end
 end
