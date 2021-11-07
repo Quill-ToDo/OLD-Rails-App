@@ -40,7 +40,7 @@
         "lines": [
           1,
           1,
-          1,
+          0,
           null,
           null,
           1,
@@ -62,27 +62,27 @@
           null,
           null,
           1,
-          2,
-          2,
-          2,
-          12,
-          12,
-          12,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
           null,
-          12,
-          6,
-          null,
-          null,
-          12,
-          2,
-          null,
-          10,
+          0,
+          0,
           null,
           null,
-          12,
-          12,
+          0,
+          0,
           null,
-          2,
+          0,
+          null,
+          null,
+          0,
+          0,
+          null,
+          0,
           null,
           null
         ]
@@ -90,10 +90,14 @@
       "/mnt/c/Users/james/Desktop/COSC415-ToDo/app/controllers/application_controller.rb": {
         "lines": [
           1,
+          1,
+          1,
+          0,
+          null,
           null
         ]
       }
     },
-    "timestamp": 1636324118
+    "timestamp": 1636328418
   }
 }
