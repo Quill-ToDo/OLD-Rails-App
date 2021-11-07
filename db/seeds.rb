@@ -5,6 +5,8 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+Task.create(title: 'Do cosc415 reading', due: DateTime.new)
+Task.create(title: 'Do cosc415 reading', description: 'hi :)', start:DateTime.new.noon, due: DateTime.new)
 Task.create(title: 'Do cosc415 reading', due: DateTime.new(2021, 11, 7))
 Task.create(title: 'SWE iteration 2', start: DateTime.new(2021, 11, 8),  due: DateTime.new(2021, 11, 21))
 Task.create(title: 'SWE iteration 3', start: DateTime.new(2021, 11, 22),  due: DateTime.new(2021, 12, 5))
