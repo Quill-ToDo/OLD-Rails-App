@@ -10,9 +10,11 @@
  * files in this directory. Styles in this file should be added after the last require_* statement.
  * It is generally better to create a new file per style scope.
  *
- *= require_tree .
+ * make sure main is before calendar
  *= require_self
  *= require main
+ *= require calendar
+ *= require_tree .
  */
 
 :root {
@@ -46,10 +48,10 @@ body {
 #right-menu {
   grid-area: right-menu;
 }
-
+/* 
 #slider {
   width: ;
-}
+} */
 
 .menu {
   background-color: var(--darkest-dark);
@@ -62,22 +64,3 @@ body {
   grid-template-columns: 40px 1fr 5px 2fr 40px;
 }
 /* } */
-
-/* Calendar */
-
-.fc .fc-toolbar-title {
-  font-family: "Gloria Hallelujah", cursive;
-  color: var(--light-font);
-  font-size: var(--calendar-h1-size);
-}
-
-.fc .fc-col-header-cell-cushion {
-  font-family: "Dongle", sans-serif;
-  color: var(--light-font);
-}
-
-/* Need to figure out how to override this */
-.fc-theme-standard td,
-.fc-theme-standard th {
-  border: none;
-}

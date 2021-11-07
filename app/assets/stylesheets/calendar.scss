@@ -1,0 +1,24 @@
+
+
+/* Calendar */
+
+.fc .fc-toolbar-title {
+  font-family: "Gloria Hallelujah", cursive;
+  color: var(--light-font);
+  font-size: var(--calendar-h1-size);
+}
+
+.fc .fc-col-header-cell-cushion {
+  font-family: "Dongle", sans-serif;
+  color: var(--light-font);
+}
+
+/* Need to figure out how to override this */
+.fc-theme-standard td,
+.fc-theme-standard th {
+  border: none;
+}
+
+.fc-theme-standard .fc-scrollgrid {
+  border: none;
+}
