@@ -46,6 +46,9 @@ class TasksController < ApplicationController
   end
 
   def complete_task
-    Task.complete = !Task.complete
+    t = Task.find(params[:id])
+    t.complete_task
+    t.save
+    redirect_to root_path
   end
 end

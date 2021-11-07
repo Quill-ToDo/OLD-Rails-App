@@ -30,9 +30,9 @@
           </td>
           <td class="taskcomplete">
             <% if !t.complete %>
-              <button> Mark as complete
+              <%= button_to "Mark as complete" , tasks_complete_task_path, method: :post, params: { id: t.id } %>
             <% else %>
-              <button> Mark as incomplete
+              <%= button_to "Mark as incomplete" , tasks_complete_task_path, method: :post, params: { id: t.id } %>
             <% end %>
           </td>
         </tr>
