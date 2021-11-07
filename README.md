@@ -8,14 +8,7 @@
 ```
 
 ## Commits, Branches, and Pull Requests
-- Before starting anything, make sure you:
-    - ```bash
-      git checkout main
-      git pull
-      git checkout -b "branch-name"
-      ```
-    - This ensures that you are working on the newest copy of the project.
-- Make sure your commit messages are descriptive, and in the present tense (per convention)
+- Note: Make sure your commit messages are descriptive, and in the present tense (per convention)
     - Example (using active voice)
     ```
       // Bad:
@@ -27,5 +20,29 @@
         - update image size
     ```
     - Your commit message should look like a list of instructions
+   
+### To work on a feature
+1. Pull 
+   - `$ git pull` 
+2. Create a branch for the feature if there is not one already                                   
+   - `$ git branch  [feature branch name]`
+   - `$ git checkout [feature branch name]`
+3. Make a working branch for your code based off of the feature branch 
+   - `$ git branch  [working branch name]`
+   - `$ git checkout [working branch name]`
+4. Code on the working branch
+5. Commit your changes
+   - `$ git add -A`
+   - `$ git commit -m "[your commit message. include a # issue number to link it]"`
+5. Merge your working with the feature branch
+   - `$ git checkout [feature branch name]`
+   - `$ git merge [working branch name]`
+   - If there are merge conflicts, manually change the files listed under "merge" and commit changes
+6. To push to main when feature is done, push local feature branch to remote
+   - `$ git checkout [feature branch name]`
+   - `$ git push origin [feature branch name]`
+7. On GitHub, click pull request button on code page and submit PR
+8. If there is a merge conflict...
+   - I think merge the main branch with the feature branch and push to remote feature branch
 
 ![](mascot.jpg)

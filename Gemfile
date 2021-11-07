@@ -3,6 +3,11 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '3.0.2'
 
+# Calendar
+gem 'jquery-rails'
+gem 'fullcalendar-rails'
+gem 'momentjs-rails'
+
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails', branch: 'main'
 gem 'rails', '~> 6.1.4'
 # Use Puma as the app server
@@ -31,6 +36,7 @@ group :development, :test do
   gem 'rspec'
   gem 'rspec-rails'
   gem 'capybara'
+  gem 'execjs'
   gem 'simplecov', require: false
   gem 'database_cleaner'
 end
