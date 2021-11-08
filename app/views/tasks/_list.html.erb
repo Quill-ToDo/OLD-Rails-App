@@ -10,6 +10,7 @@
         <th>Description</th>
         <th>Due</th>
         <th>Start</th>
+        <th>Complete?</th>
       </tr>
     </thead>
     <tbody>
@@ -26,6 +27,13 @@
           </td>
           <td class="taskstart">
             <%= t.start %>
+          </td>
+          <td class="taskcomplete">
+            <% if !t.complete %>
+              <%= button_to "Mark as complete" , tasks_complete_task_path, method: :post, params: { id: t.id } %>
+            <% else %>
+              <%= button_to "Mark as incomplete" , tasks_complete_task_path, method: :post, params: { id: t.id } %>
+            <% end %>
           </td>
         </tr>
       <% end %>
