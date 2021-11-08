@@ -19,10 +19,30 @@ RSpec.describe "create page", type: :view do
     click_on 'Create new task'
     fill_in 'Title', with: 'foo'
     fill_in 'Description', with: 'description'
-    fill_in 'Start', with: DateTime.now
-    fill_in 'Due', with: DateTime.now.days_ago(-5)
+    fill_in 'Start', with: '2021-11-12T00:00:00-05:00'
+    fill_in 'Due', with: '2021-12-12T00:00:00-05:00'
     click_on 'Create task'
     expect(page.current_path).to eq(root_path)
     expect(page).to have_content('New task foo created')
+  end
+
+  it 'should allow a user to create a task without a start date or description' do
+    click_on 'Create new task'
+    fill_in 'Title', with: 'bar'
+    fill_in 'Due', with: '2021-12-12T00:00:00-05:00'
+    click_on 'Create task'
+    expect(page.current_path).to eq(root_path)
+    expect(page).to have_content('New task bar created')
+  end
+
+  it 'should not allow a user to create a task with a start date after the due date' do
+    click_on 'Create new task'
+    fill_in 'Title', with: 'poo'
+    fill_in 'Description', with: 'description'
+    fill_in 'Due', with: '2021-12-12T00:00:10-05:00'
+    fill_in 'Due', with: '2021-12-12T00:00:00-05:00'
+    click_on 'Create task'
+    expect(page.current_path).to eq(root_path)
+    expect(page).to have_content('New task poo created')
   end
 end
