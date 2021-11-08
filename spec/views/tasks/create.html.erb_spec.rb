@@ -12,11 +12,11 @@ RSpec.describe "create page", type: :view do
   it 'should not give the user the option to create a task if not signed in' do
     sign_out @user
     visit root_path
-    expect(page).not_to have_content('Create new task')
+    expect(current_path).to eq('/users/sign_in')
   end
 
   it 'should allow a user to create a task if signed in' do
-    click_on 'Create new task'
+    find('#btn-add').click
     fill_in 'Title', with: 'foo'
     fill_in 'Description', with: 'description'
     fill_in 'Start', with: '2021-11-12T00:00:00-05:00'
@@ -27,7 +27,7 @@ RSpec.describe "create page", type: :view do
   end
 
   it 'should allow a user to create a task without a start date or description' do
-    click_on 'Create new task'
+    find('#btn-add').click
     fill_in 'Title', with: 'bar'
     fill_in 'Due', with: '2021-12-12T00:00:00-05:00'
     click_on 'Create task'
@@ -36,7 +36,7 @@ RSpec.describe "create page", type: :view do
   end
 
   it 'should not allow a user to create a task with a start date after the due date' do
-    click_on 'Create new task'
+    find('#btn-add').click
     fill_in 'Title', with: 'poo'
     fill_in 'Description', with: 'description'
     fill_in 'Due', with: '2021-12-12T00:00:10-05:00'
