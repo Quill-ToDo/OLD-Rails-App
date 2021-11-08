@@ -16,7 +16,7 @@
       <% @tasks.each do |task| %>
         <tr class="task">
           <td class="tasktitle">
-            <%= link_to task.title, tasks_path(task) %>
+            <%= link_to task.title, task_path(task) %>
           </td>
           <td class="taskdesc">
             <%= task.description %>
