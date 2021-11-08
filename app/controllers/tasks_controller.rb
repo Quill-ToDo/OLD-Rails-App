@@ -79,17 +79,17 @@ class TasksController < ApplicationController
     render :json => events.to_json
   end
 
+  def complete_task
+    t = Task.find(params[:id])
+    t.complete_task
+    t.save
+    redirect_to root_path
+  end
+
   private
     def record_not_found
       flash[:alert] = 'Task not found!'
       redirect_to tasks_path and return
-    end
-  
-    def complete_task
-      t = Task.find(params[:id])
-      t.complete_task
-      t.save
-      redirect_to root_path
     end
 
     def task_params
