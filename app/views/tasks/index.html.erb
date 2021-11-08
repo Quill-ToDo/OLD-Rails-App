@@ -1,10 +1,12 @@
 <div class="index-wrapper"> 
     <div id="left-menu" class="menu">
-    </div>
-    <div id="list-wrapper" class="section"> 
         <% if user_signed_in? %>
-            <%= link_to "Create new task", new_task_path, :class => "btn btn-primary" %>
+            <%= link_to new_task_path do %>
+                <%= image_tag "add" %>
+            <% end %>
         <% end %>
+    </div>
+    <div id="list-wrapper"> 
         <%= render 'list' %>
     </div>
     <div id="slider"></div>

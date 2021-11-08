@@ -26,7 +26,7 @@
   --darkest-dark: #111111;
 
   --section-gap: 15px;
-  --inner-box-padding: 15px;
+  --inner-box-padding: 20px;
   --box-corner-rounding: 40px;
 
   --calendar-h1-size: 35px;
@@ -40,7 +40,8 @@ body {
 
 #list-wrapper {
   grid-area: list;
-  margin: var(--section-gap) 0 var(--section-gap) var(--section-gap);
+  margin: var(--section-gap) 0 0 0;
+  display: grid;
 }
 
 #calendar-wrapper {
@@ -50,6 +51,8 @@ body {
 
 #left-menu {
   grid-area: left-menu;
+  display: flex;
+  justify-content: center;
 }
 
 #right-menu {
@@ -61,10 +64,26 @@ body {
   grid-area: slider;
 }
 
+#left-menu a {
+  height: fit-content;
+  width: fit-content;
+  display: flex;
+  justify-content: center;
+  margin-top: var(--section-gap);
+}
+
+#left-menu a img {
+  width: 70%;
+}
+
 .section {
   background-color: var(--mid-dark);
   border-radius: var(--box-corner-rounding);
   padding: var(--inner-box-padding);
+}
+
+#list-wrapper .section {
+  margin: 0 0 var(--section-gap) var(--section-gap);
 }
 
 .section h2,
@@ -84,9 +103,13 @@ body {
 
 /* @media screen and (min-width: 769px) { */
 .index-wrapper {
-  height: 100vh;
   display: grid;
   grid-template-areas: "left-menu list slider calendar right-menu";
   grid-template-columns: 50px 2fr min-content 5fr 50px;
 }
 /* } */
+
+.centered {
+  display: flex;
+  justify-content: center;
+}
