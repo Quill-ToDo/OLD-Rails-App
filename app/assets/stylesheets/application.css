@@ -11,10 +11,11 @@
  * It is generally better to create a new file per style scope.
  *
  * make sure main is before calendar
- *= require_self
  *= require main
  *= require calendar
+ *= require tasks 
  *= require_tree .
+ *= require_self
  */
 
 :root {
@@ -24,7 +25,11 @@
   --mid-dark: #191919;
   --darkest-dark: #111111;
 
-  --calendar-h1-size: 100px;
+  --section-gap: 15px;
+  --inner-box-padding: 15px;
+  --box-corner-rounding: 40px;
+
+  --calendar-h1-size: 35px;
 }
 
 body {
@@ -35,10 +40,12 @@ body {
 
 #list-wrapper {
   grid-area: list;
+  margin: var(--section-gap) 0 var(--section-gap) var(--section-gap);
 }
 
 #calendar-wrapper {
   grid-area: calendar;
+  margin: var(--section-gap) var(--section-gap) var(--section-gap) 0;
 }
 
 #left-menu {
@@ -48,10 +55,28 @@ body {
 #right-menu {
   grid-area: right-menu;
 }
-/* 
+
 #slider {
-  width: ;
-} */
+  width: var(--section-gap);
+  grid-area: slider;
+}
+
+.section {
+  background-color: var(--mid-dark);
+  border-radius: var(--box-corner-rounding);
+  padding: var(--inner-box-padding);
+}
+
+.section h2,
+.fc .fc-toolbar-title {
+  font-family: "Dongle", sans-serif;
+  /* text-transform: uppercase; */
+  font-weight: 600;
+  color: var(--light-font);
+  font-size: 60px;
+  padding: 0;
+  margin: 0;
+}
 
 .menu {
   background-color: var(--darkest-dark);
@@ -59,8 +84,9 @@ body {
 
 /* @media screen and (min-width: 769px) { */
 .index-wrapper {
+  height: 100vh;
   display: grid;
   grid-template-areas: "left-menu list slider calendar right-menu";
-  grid-template-columns: 40px 1fr 5px 2fr 40px;
+  grid-template-columns: 50px 2fr min-content 5fr 50px;
 }
 /* } */

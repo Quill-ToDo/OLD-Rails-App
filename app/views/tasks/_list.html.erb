@@ -1,34 +1,20 @@
- <div class="row">
-    <div class="col-md-3">
-      <h1>List View</h1>
-    </div>
-  </div>
-  <table class="table">
-    <thead class="thead-light">
-      <tr class="list_header">
-        <th>Title</th>
-        <th>Description</th>
-        <th>Due</th>
-        <th>Start</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @tasks.each do |t| %>
-        <tr class="task">
-          <td class="tasktitle">
-            <%= t.title %>
-          </td>
-          <td class="taskdesc">
-            <%= t.description %>
-          </td>
-          <td class="taskdue">
-            <%= t.due %>
-          </td>
-          <td class="taskstart">
-            <%= t.start %>
-          </td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-</div>
+<h2>To-Do</h2>
+<ul>
+  <% @tasks.each do |t| %>
+    <li class="task">
+      <div class="task-wrapper">
+        <label>
+          <input type="checkbox">
+          <div class="title-date-wrapper">
+            <p class="title"><%= t.title %></p>
+            <% if t.start.nil?%>
+              <p class="date"><%= t.due.strftime(format='%-m/%-d/%C') %></p>
+            <% else %>
+              <p class="date"><%= t.start.strftime(format='%-m/%-d/%C') %> - <%= t.due.strftime(format='%-m/%-d/%C') %></p>
+            <% end %>
+          </div>
+        </label>
+      </div>
+    </li>
+  <% end %>
+  </ul>
