@@ -79,20 +79,36 @@ class TasksController < ApplicationController
     render :json => events.to_json
   end
 
-  def complete_task
-    t = Task.find(params[:id])
-    t.complete_task
-    t.save
-    redirect_to root_path
-  end
-
   private
     def record_not_found
       flash[:alert] = 'Task not found!'
       redirect_to tasks_path and return
     end
+  
+    def complete_task
+      t = Task.find(params[:id])
+      t.complete_task
+      t.save
+      redirect_to root_path
+    end
 
     def task_params
-      params.require(:task).permit(:title, :description, :start, :due)
+      p = params.require(:task).permit(:title, :description, :start, :due)
+      h = p.to_hash
+      if h.include?('start')
+        begin
+          h[:start] = DateTime.parse(h['start'])
+        rescue ArgumentError
+          h[:start] = nil
+        end
+      end
+      if h.include?('due')
+        begin
+          h[:due] = DateTime.parse(h['due'])
+        rescue ArgumentError
+          return
+        end
+      end
+      params = ActionController::Parameters.new(h).permit(:title, :description, :start, :due)
     end
 end
