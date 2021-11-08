@@ -1,35 +1,4 @@
-<%= form_with model: @task, method: :post, url: tasks_path, local: true do |f| %>
-  <div class="row">
-    <div class="col-md-3">
-      <%= f.label :title %>
-    </div>
-    <div class="col-md-4">
-      <%= f.text_field :title %>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-md-3">
-      <%= f.label :description %>
-    </div>
-    <div class="col-md-6">
-      <%= f.text_area :description %>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-md-3">
-      <%= f.label :start %>
-    </div>
-    <div class="col-md-6">
-      <%= f.text_field :start %>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-md-3">
-      <%= f.label :due %>
-    </div>
-    <div class="col-md-6">
-      <%= f.text_field :due %>
-    </div>
-  </div>
-  <%= f.submit "Create task" %>
+<h1> Create a Task <h1>
+<%= form_with model: @task, url: tasks_path, method: :post, local: true do |form| %>
+  <%= render 'form_fields', f: form, submit_text: 'Create task' %>
 <% end %>
