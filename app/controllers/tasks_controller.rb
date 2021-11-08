@@ -82,7 +82,7 @@ class TasksController < ApplicationController
   private
     def record_not_found
       flash[:alert] = 'Task not found!'
-      redirect_to products_path and return
+      redirect_to tasks_path and return
     end
   
     def complete_task
