@@ -1,4 +1,5 @@
 require 'rails_helper'
+require "spec_helper"
 
 # RSpec.describe "Tasks", type: :request do
 #   describe "GET /index" do

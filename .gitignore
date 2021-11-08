@@ -5,6 +5,9 @@
 #   git config --global core.excludesfile '~/.gitignore_global'
 # Gemfile.lock
 
+#Ignore coverage
+coverage
+
 # Ignore bundler config.
 /.bundle
 
@@ -32,4 +35,3 @@
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
-Gemfile.lock
