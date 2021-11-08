@@ -3,6 +3,13 @@
 <dl>
   <dt>Description</dt><dd><%= @task.description %></dd>
   <dt>Due</dt><dd><%= @task.due %></dd>
+  <dt>Complete?</dt><dd>
+    <% if !@task.complete %>
+      <%= button_to "Mark as complete" , tasks_complete_task_path, method: :post, params: { id: @task.id } %>
+    <% else %>
+      <%= button_to "Mark as incomplete" , tasks_complete_task_path, method: :post, params: { id: @task.id } %>
+    <% end %>
+  </dd>
 </dl>
 
 <br>
