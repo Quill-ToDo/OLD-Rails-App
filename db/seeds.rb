@@ -14,3 +14,4 @@ Task.create(title: 'Physics HW', description: "boring", start: DateTime.new(2021
 Task.create(title: 'Write Capybara tests', description: "not boring", start: DateTime.new(2021, 11, 3),  due: DateTime.new(2021, 11, 3))
 Task.create(title: 'Put away christmas decorations', due: DateTime.new(2022, 01, 7), complete: true)
 User.create!(email: 'spike2@colgate.edu', password: "supersecure")
+
