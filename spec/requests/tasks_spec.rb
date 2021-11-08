@@ -1,6 +1,20 @@
 require 'rails_helper'
+require "spec_helper"
 
 RSpec.describe "Tasks", type: :request do
+  include Devise::Test::IntegrationHelpers
+
+  before :each do
+    user = User.create(:email => 'soren.lorenson@example.com', :password => 'testtest')
+    sign_in user
+  end
+
+  describe "Root Route", :type => :routing do
+    it "redirects to tasks" do
+      expect(get("/")).to route_to("tasks#index")
+    end
+  end
+  
   describe "GET /index" do
     it "returns http success" do
       get "/tasks/index"
@@ -11,7 +25,7 @@ RSpec.describe "Tasks", type: :request do
   describe "GET /new" do
     it "returns http success" do
       get "/tasks/new"
-      expect(response).to have_http_status(:redirect)
+      expect(response).to have_http_status(:success)
     end
   end
 
