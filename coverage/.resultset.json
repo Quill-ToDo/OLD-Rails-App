@@ -1,7 +1,7 @@
 {
   "RSpec": {
     "coverage": {
-      "/mnt/c/Users/james/Desktop/COSC415-ToDo/app/models/user.rb": {
+      "/Users/ralucaghilea/Documents/Fall 2021/COSC 415/COSC415-ToDo/app/models/user.rb": {
         "lines": [
           1,
           null,
@@ -11,89 +11,163 @@
           null
         ]
       },
-      "/mnt/c/Users/james/Desktop/COSC415-ToDo/app/models/application_record.rb": {
+      "/Users/ralucaghilea/Documents/Fall 2021/COSC 415/COSC415-ToDo/app/models/application_record.rb": {
         "lines": [
           1,
           1,
           null
         ]
       },
-      "/mnt/c/Users/james/Desktop/COSC415-ToDo/app/helpers/application_helper.rb": {
+      "/Users/ralucaghilea/Documents/Fall 2021/COSC 415/COSC415-ToDo/app/helpers/application_helper.rb": {
         "lines": [
           1,
           null
         ]
       },
-      "/mnt/c/Users/james/Desktop/COSC415-ToDo/app/helpers/tasks_helper.rb": {
+      "/Users/ralucaghilea/Documents/Fall 2021/COSC 415/COSC415-ToDo/app/helpers/tasks_helper.rb": {
         "lines": [
           1,
           null
         ]
       },
-      "/mnt/c/Users/james/Desktop/COSC415-ToDo/app/models/task.rb": {
-        "lines": [
-          1,
-          null
-        ]
-      },
-      "/mnt/c/Users/james/Desktop/COSC415-ToDo/app/controllers/tasks_controller.rb": {
+      "/Users/ralucaghilea/Documents/Fall 2021/COSC 415/COSC415-ToDo/app/models/task.rb": {
         "lines": [
           1,
           1,
           1,
+          1,
+          1,
+          null,
+          1,
+          0,
           null,
           null,
           1,
+          0,
           null,
           null,
           1,
-          null,
-          null,
           1,
+          8,
+          7,
           null,
-          null,
-          1,
-          null,
-          null,
-          1,
-          null,
-          null,
-          1,
-          null,
-          null,
-          1,
-          2,
-          2,
-          2,
-          12,
-          12,
-          12,
-          null,
-          12,
-          6,
-          null,
-          null,
-          12,
-          2,
-          null,
-          10,
-          null,
-          null,
-          12,
-          12,
-          null,
-          2,
           null,
           null
         ]
       },
-      "/mnt/c/Users/james/Desktop/COSC415-ToDo/app/controllers/application_controller.rb": {
+      "/Users/ralucaghilea/Documents/Fall 2021/COSC 415/COSC415-ToDo/app/controllers/tasks_controller.rb": {
         "lines": [
           1,
+          1,
+          null,
+          null,
+          1,
+          5,
+          5,
+          5,
+          5,
+          null,
+          null,
+          1,
+          1,
+          null,
+          null,
+          1,
+          0,
+          0,
+          0,
+          0,
+          null,
+          0,
+          0,
+          null,
+          null,
+          null,
+          1,
+          0,
+          null,
+          null,
+          1,
+          0,
+          null,
+          null,
+          1,
+          0,
+          0,
+          0,
+          0,
+          null,
+          null,
+          0,
+          0,
+          null,
+          null,
+          null,
+          1,
+          0,
+          null,
+          null,
+          1,
+          0,
+          0,
+          0,
+          0,
+          null,
+          null,
+          1,
+          1,
+          1,
+          1,
+          4,
+          4,
+          4,
+          null,
+          4,
+          1,
+          null,
+          null,
+          4,
+          1,
+          null,
+          3,
+          null,
+          null,
+          4,
+          4,
+          null,
+          1,
+          null,
+          null,
+          1,
+          0,
+          0,
+          0,
+          0,
+          null,
+          null,
+          1,
+          1,
+          0,
+          0,
+          null,
+          null,
+          1,
+          0,
+          null,
+          null
+        ]
+      },
+      "/Users/ralucaghilea/Documents/Fall 2021/COSC 415/COSC415-ToDo/app/controllers/application_controller.rb": {
+        "lines": [
+          1,
+          1,
+          1,
+          0,
+          null,
           null
         ]
       }
     },
-    "timestamp": 1636324118
+    "timestamp": 1636339643
   }
 }

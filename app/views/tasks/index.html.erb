@@ -2,6 +2,9 @@
     <div id="left-menu" class="menu">
     </div>
     <div id="list-wrapper" class="section"> 
+        <% if user_signed_in? %>
+            <%= link_to "Create new task", new_task_path, :class => "btn btn-primary" %>
+        <% end %>
         <%= render 'list' %>
     </div>
     <div id="slider"></div>

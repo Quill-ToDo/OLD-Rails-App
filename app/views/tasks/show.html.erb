@@ -1,2 +1,20 @@
-<h1>Tasks#show</h1>
-<p>Find me in app/views/tasks/show.html.erb</p>
+<h1>Task details</h1>
+<h3><%= @task.title %></h3>
+<dl>
+  <dt>Description</dt><dd><%= @task.description %></dd>
+  <dt>Due</dt><dd><%= @task.due %></dd>
+  <dt>Complete?</dt><dd>
+    <% if !@task.complete %>
+      <%= button_to "Mark as complete" , tasks_complete_task_path, method: :post, params: { id: @task.id } %>
+    <% else %>
+      <%= button_to "Mark as incomplete" , tasks_complete_task_path, method: :post, params: { id: @task.id } %>
+    <% end %>
+  </dd>
+</dl>
+
+<br>
+<%= link_to "Delete task", task_path(@task), method: :delete, class: "btn btn-danger" %>
+<br>
+<%= link_to 'Edit task details', edit_task_path(@task), class: 'btn btn-secondary' %>
+<br>
+<%= link_to "Back to index", tasks_path, class: "btn btn-primary"%>
