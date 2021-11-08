@@ -14,19 +14,19 @@
       </tr>
     </thead>
     <tbody>
-      <% @tasks.each do |t| %>
+      <% @tasks.each do |task| %>
         <tr class="task">
           <td class="tasktitle">
-            <%= t.title %>
+            <%= link_to task.title, task_path(task) %>
           </td>
           <td class="taskdesc">
-            <%= t.description %>
+            <%= task.description %>
           </td>
           <td class="taskdue">
-            <%= t.due %>
+            <%= task.due %>
           </td>
           <td class="taskstart">
-            <%= t.start %>
+            <%= task.start %>
           </td>
           <td class="taskcomplete">
             <% if !t.complete %>
