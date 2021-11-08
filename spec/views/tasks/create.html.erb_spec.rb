@@ -4,12 +4,12 @@ RSpec.describe "create page", type: :view do
   include Devise::Test::IntegrationHelpers
 
   before :each do
-    @user = User.create!(email: 'admin@colgate.edu', password: 'testtest')
+    @user = User.create(email: 'admin@colgate.edu', password: 'testtest')
     sign_in @user
     visit root_path
   end
 
-  it 'should not give the user the option to create a product if not signed in' do
+  it 'should not give the user the option to create a task if not signed in' do
     sign_out @user
     visit root_path
     expect(page).not_to have_content('Create new task')

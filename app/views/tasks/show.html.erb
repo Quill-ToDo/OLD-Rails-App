@@ -1,13 +1,40 @@
-<h1>Task details</h1>
-<h3><%= @task.title %></h3>
-<dl>
-  <dt>Description</dt><dd><%= @task.description %></dd>
-  <dt>Due</dt><dd><%= @task.due %></dd>
-</dl>
+<div class="show-wrapper">
+  <div class="section">
+    <div class="aligned-buttons">
+      <%= link_to task_path(@task), method: :delete, class: "btn btn-danger" do %>
+        <%= image_tag "bin" %>
+      <% end %>
+            <%= link_to tasks_path, class: "btn btn-primary" do %>
+        <%= image_tag "home" %>
+      <% end %>
+      <%= link_to edit_task_path(@task), class: 'btn btn-secondary' do %>
+        <%= image_tag "editing" %>
+      <% end %>
+    </div>
 
-<br>
-<%= link_to "Delete task", task_path(@task), method: :delete, class: "btn btn-danger" %>
-<br>
-<%= link_to 'Edit task details', edit_task_path(@task), class: 'btn btn-secondary' %>
-<br>
-<%= link_to "Back to index", tasks_path, class: "btn btn-primary"%>
+    <h2><%= @task.title %></h2>
+
+    <div>
+      <p>Start<p>
+      <p class="date"><%= @task.start if !@task.start.nil? %></p>
+    </div>
+    <div>
+      <p>Due</p>
+      <p class="date"><%= @task.due %></p>
+    </div>
+
+    <% if !@task.description.nil? %>
+      <br>
+      <p><%= @task.description %></p>
+    <% end %>
+
+    <div class="centered">
+      <% if !@task.complete %>
+        <%= button_to "Mark complete" , tasks_complete_task_path, class: "btn btn-complete", method: :post, params: { id: @task.id } %>
+      <% else %>
+        <%= button_to "Mark incomplete" , tasks_complete_task_path, class: "btn btn-incomplete", method: :post, params: { id: @task.id } %>
+      <% end %>
+    </div>
+  </div>
+</div>
+

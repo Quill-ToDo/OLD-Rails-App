@@ -3,7 +3,10 @@ class TasksController < ApplicationController
   # before_action :user_signed_in?, only: [:index, :new, :create]
 
   def index
-    @tasks = Task.all
+    @overdue = Task.order('due DESC').where('due < ?', DateTime.now)
+    @today_due = Task.order('due DESC').where('due >= ?', Date.today).where('due < ?', Date.tomorrow)
+    @today_work = Task.order('due DESC').where('start <= ?', Date.today).where('due >= ?', Date.tomorrow)
+    @upcoming = Task.order('due DESC').where('start > ?', Date.today).or(Task.order('due DESC').where('start IS NULL').where('due >= ?', Date.tomorrow))
   end
 
   def new
@@ -52,16 +55,6 @@ class TasksController < ApplicationController
     redirect_to tasks_path
   end
 
-  private
-    def record_not_found
-      flash[:alert] = 'Task not found!'
-      redirect_to tasks_path and return
-    end
-
-    def task_params
-      params.require(:task).permit(:title, :description, :start, :due)
-    end
-
   def get_tasks
     @tasks = Task.all.where('due <= ?', Time.at(params['end'].to_datetime).to_formatted_s(:db)).or(Task.all.where('due <= ?', Time.at(params['end'].to_datetime).to_formatted_s(:db)).where('start >= ?', Time.at(params['start'].to_datetime).to_formatted_s(:db)))
     events = []
@@ -90,6 +83,13 @@ class TasksController < ApplicationController
     def record_not_found
       flash[:alert] = 'Task not found!'
       redirect_to products_path and return
+    end
+  
+    def complete_task
+      t = Task.find(params[:id])
+      t.complete_task
+      t.save
+      redirect_to root_path
     end
 
     def task_params
