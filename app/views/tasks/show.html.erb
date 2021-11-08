@@ -1,2 +1,40 @@
-<h1>Tasks#show</h1>
-<p>Find me in app/views/tasks/show.html.erb</p>
+<div class="show-wrapper">
+  <div class="section">
+    <div class="aligned-buttons">
+      <%= link_to task_path(@task), method: :delete, class: "btn btn-danger" do %>
+        <%= image_tag "bin.png" %>
+      <% end %>
+            <%= link_to tasks_path, class: "btn btn-primary" do %>
+        <%= image_tag "home.png" %>
+      <% end %>
+      <%= link_to edit_task_path(@task), class: 'btn btn-secondary' do %>
+        <%= image_tag "editing.png" %>
+      <% end %>
+    </div>
+
+    <h2><%= @task.title %></h2>
+
+    <div>
+      <p>Start<p>
+      <p class="date"><%= @task.start if !@task.start.nil? %></p>
+    </div>
+    <div>
+      <p>Due</p>
+      <p class="date"><%= @task.due %></p>
+    </div>
+
+    <% if !@task.description.nil? %>
+      <br>
+      <p><%= @task.description %></p>
+    <% end %>
+
+    <div class="centered">
+      <% if !@task.complete %>
+        <%= button_to "Mark complete" , tasks_complete_task_path, class: "btn btn-complete", method: :post, params: { id: @task.id } %>
+      <% else %>
+        <%= button_to "Mark incomplete" , tasks_complete_task_path, class: "btn btn-incomplete", method: :post, params: { id: @task.id } %>
+      <% end %>
+    </div>
+  </div>
+</div>
+

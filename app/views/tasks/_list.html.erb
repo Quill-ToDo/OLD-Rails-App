@@ -1,34 +1,77 @@
- <div class="row">
-    <div class="col-md-3">
-      <h1>List View</h1>
-    </div>
-  </div>
-  <table class="table">
-    <thead class="thead-light">
-      <tr class="list_header">
-        <th>Title</th>
-        <th>Description</th>
-        <th>Due</th>
-        <th>Start</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @tasks.each do |t| %>
-        <tr class="task">
-          <td class="tasktitle">
-            <%= t.title %>
-          </td>
-          <td class="taskdesc">
-            <%= t.description %>
-          </td>
-          <td class="taskdue">
-            <%= t.due %>
-          </td>
-          <td class="taskstart">
-            <%= t.start %>
-          </td>
-        </tr>
+<% unless @overdue.empty? %>
+  <div class="overdue section">
+    <h2>Overdue<h2>
+      <ul>
+      <% @overdue.each do |t| %>
+        <li class="task">
+          <div class="task-wrapper">
+            <div class="title-date-wrapper">
+              <p class="title"><%= link_to t.title, task_path(t) %></p>
+              <p class="date"><%= t.due.strftime(format='%-m/%-d/%C') %></p>
+            </div>
+          </div>
+        </li>
       <% end %>
-    </tbody>
-  </table>
+      </ul>
+  </div>
+<% end %>
+
+<div class="today section">
+  <h2>Today<h2>
+  <h3>due<h3>
+  <% unless @today_due.empty? %>
+    <ul>
+    <% @today_due.each do |t| %>
+      <li class="task">
+        <div class="task-wrapper">
+          <div class="title-date-wrapper">
+            <p class="title"><%= link_to t.title, task_path(t) %></p>
+          </div>
+        </div>
+      </li>
+    <% end %>
+    </ul>
+  <% else %>
+    <p>No tasks due today!</p>
+  <% end %>
+  <h3>work<h3>
+  <% unless @today_work.empty? %>
+    <ul>
+    <% @today_work.each do |t| %>
+      <li class="task">
+        <div class="task-wrapper">
+          <div class="title-date-wrapper">
+            <p class="title"><%= link_to t.title, task_path(t) %></p>
+          </div>
+        </div>
+      </li>
+    <% end %>
+    </ul>
+  <% else %>
+    <p>No tasks to work on today!</p>
+  <% end %>
 </div>
+
+<div class="upcoming section">
+  <h2>Upcoming<h2>
+  <% unless @upcoming.empty? %>
+      <ul>
+      <% @upcoming.each do |t| %>
+        <li class="task">
+          <div class="task-wrapper">
+            <div class="title-date-wrapper">
+            <p class="title"><%= link_to t.title, task_path(t) %></p>
+            <% if t.start.nil?%>
+              <p class="date"><%= t.due.strftime(format='%-m/%-d/%C') %></p>
+            <% else %>
+              <p class="date"><%= t.start.strftime(format='%-m/%-d/%C') %> - <%= t.due.strftime(format='%-m/%-d/%C') %></p>
+            <% end %>
+            </div>
+          </div>
+        </li>
+      <% end %>
+      </ul>
+  <% else %>
+    <p>No upcoming tasks!</p>
+  <% end %>
+ </div>

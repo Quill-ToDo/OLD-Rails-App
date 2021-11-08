@@ -1,0 +1,40 @@
+.show-wrapper {
+  width: 100%;
+}
+
+.show-wrapper .section {
+  width: 50%;
+}
+
+.aligned-buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.aligned-buttons a {
+  height: fit-content;
+  width: fit-content;
+  display: flex;
+}
+
+.aligned-buttons a img {
+  width: 50%;
+}
+
+.btn {
+  margin: 20px;
+  border: 0;
+  padding: 10px;
+  border-radius: 15px;
+  font-family: "Dongle", sans-serif;
+  color: var(--light-font);
+  font-size: 30px;
+}
+
+.btn-incomplete {
+  background-color: var(--darkest-dark);
+}
+
+.btn-complete {
+  background-color: rgb(60, 175, 60);
+}

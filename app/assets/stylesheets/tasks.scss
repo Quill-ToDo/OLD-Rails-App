@@ -1,3 +1,65 @@
 // Place all the styles related to the Tasks controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
+
+#list-wrapper h3 {
+  color: var(--mid-font);
+  font-family: "Dongle", sans-serif;
+  font-size: 40px;
+  margin: 0;
+  justify-self: center;
+  align-self: center;
+  text-align: center;
+}
+
+ul {
+  padding: 0;
+  margin: 0;
+}
+
+li {
+  margin: 0;
+  list-style: none;
+}
+
+.title-date-wrapper {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  align-items: baseline;
+  margin: 0;
+}
+
+.task input {
+  float: left;
+}
+
+.task label {
+  display: flex;
+  justify-items: flex-start;
+  flex-wrap: nowrap;
+}
+
+p {
+  color: var(--light-font);
+  font-family: "Dongle", sans-serif;
+  font-size: 30px;
+  margin: 0;
+}
+
+p a {
+  text-decoration: none;
+  color: var(--light-font);
+}
+
+p.desc {
+  margin-left: 30px;
+  color: var(--mid-font);
+  font-size: 28px;
+}
+
+p.date {
+  color: var(--mid-font);
+  font-family: "Azeret Mono", monospace;
+  font-size: 15px;
+}
