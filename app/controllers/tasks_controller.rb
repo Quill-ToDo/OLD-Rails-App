@@ -17,10 +17,10 @@ class TasksController < ApplicationController
     @task = Task.new(task_params)
     if @task.save
       flash[:notice] = "New task #{@task.title} created"
-      redirect_to tasks_path and return
+      redirect_to root_path and return
     else
       flash[:alert] = 'Failed to create new task'
-      redirect_to new_tasks_path and return
+      redirect_to tasks_new_path and return
     end
   end
 
@@ -52,7 +52,7 @@ class TasksController < ApplicationController
     @task = Task.find(params[:id])
     @task.destroy
     flash[:alert] = "#{@task.title} deleted"
-    redirect_to tasks_path
+    redirect_to root_path
   end
 
   def get_tasks
@@ -89,7 +89,7 @@ class TasksController < ApplicationController
   private
     def record_not_found
       flash[:alert] = 'Task not found!'
-      redirect_to tasks_path and return
+      redirect_to root_path and return
     end
 
     def task_params

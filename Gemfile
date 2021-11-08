@@ -42,7 +42,7 @@ group :development, :test do
 end
 
 group :test do
-  gem 'selenium-webdriver'
+  gem 'selenium-webdriver', '~> 4.0.3'
   gem 'webdrivers', '~> 4.0', require: true
   gem 'rexml'
 end

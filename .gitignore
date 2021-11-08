@@ -30,7 +30,9 @@ coverage
 /storage/*
 !/storage/.keep
 
-/public/assets
+public/assets
+public/dev-assets
+public/vendor
 .byebug_history
 
 # Ignore master key for decrypting credentials and more.
