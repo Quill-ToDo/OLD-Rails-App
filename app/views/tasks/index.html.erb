@@ -1,2 +1,17 @@
-<%= render 'list' %>
-<%= render 'calendar' %>
+<div class="index-wrapper"> 
+    <div id="left-menu" class="menu">
+        <% if user_signed_in? %>
+            <%= link_to new_task_path do %>
+                <%= image_tag "add" %>
+            <% end %>
+        <% end %>
+    </div>
+    <div id="list-wrapper"> 
+        <%= render 'list' %>
+    </div>
+    <div id="slider"></div>
+    <div id="calendar-wrapper" class="section"> 
+        <%= render 'calendar' %>
+    </div>
+    <div id="right-menu" class="menu">
+<div>

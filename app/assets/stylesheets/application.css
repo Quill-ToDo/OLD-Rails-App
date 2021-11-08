@@ -10,8 +10,106 @@
  * files in this directory. Styles in this file should be added after the last require_* statement.
  * It is generally better to create a new file per style scope.
  *
+ * make sure main is before calendar
+ *= require main
+ *= require calendar
+ *= require tasks 
  *= require_tree .
  *= require_self
- *= require main
  */
 
+:root {
+  --bg: #232323;
+  --light-font: #cdcdcd;
+  --mid-font: #636363;
+  --mid-dark: #191919;
+  --darkest-dark: #111111;
+
+  --section-gap: 15px;
+  --inner-box-padding: 20px;
+  --box-corner-rounding: 40px;
+
+  --calendar-h1-size: 35px;
+}
+
+body {
+  margin: 0;
+  background-color: none;
+  background: var(--bg);
+}
+
+#list-wrapper {
+  grid-area: list;
+  margin: var(--section-gap) 0 0 0;
+  display: grid;
+}
+
+#calendar-wrapper {
+  grid-area: calendar;
+  margin: var(--section-gap) var(--section-gap) var(--section-gap) 0;
+}
+
+#left-menu {
+  grid-area: left-menu;
+  display: flex;
+  justify-content: center;
+}
+
+#right-menu {
+  grid-area: right-menu;
+}
+
+#slider {
+  width: var(--section-gap);
+  grid-area: slider;
+}
+
+#left-menu a {
+  height: fit-content;
+  width: fit-content;
+  display: flex;
+  justify-content: center;
+  margin-top: var(--section-gap);
+}
+
+#left-menu a img {
+  width: 70%;
+}
+
+.section {
+  background-color: var(--mid-dark);
+  border-radius: var(--box-corner-rounding);
+  padding: var(--inner-box-padding);
+}
+
+#list-wrapper .section {
+  margin: 0 0 var(--section-gap) var(--section-gap);
+}
+
+.section h2,
+.fc .fc-toolbar-title {
+  font-family: "Dongle", sans-serif;
+  /* text-transform: uppercase; */
+  font-weight: 600;
+  color: var(--light-font);
+  font-size: 60px;
+  padding: 0;
+  margin: 0;
+}
+
+.menu {
+  background-color: var(--darkest-dark);
+}
+
+/* @media screen and (min-width: 769px) { */
+.index-wrapper {
+  display: grid;
+  grid-template-areas: "left-menu list slider calendar right-menu";
+  grid-template-columns: 50px 2fr min-content 5fr 50px;
+}
+/* } */
+
+.centered {
+  display: flex;
+  justify-content: center;
+}

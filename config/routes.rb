@@ -11,6 +11,6 @@ Rails.application.routes.draw do
   get 'tasks/get_tasks'
   post 'tasks/complete_task'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
-  resource :tasks
+  resources :tasks
   root 'tasks#index'
 end
