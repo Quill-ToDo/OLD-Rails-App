@@ -44,4 +44,11 @@ class TasksController < ApplicationController
     end
     render :json => events.to_json
   end
+
+  def complete_task
+    t = Task.find(params[:id])
+    t.complete_task
+    t.save
+    redirect_to root_path
+  end
 end
