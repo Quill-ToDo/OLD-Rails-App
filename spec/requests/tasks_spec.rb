@@ -16,12 +16,16 @@ require "spec_helper"
 #     end
 #   end
 
-#   describe "GET /create" do
-#     it "returns http success" do
-#       get "/tasks/create"
-#       expect(response).to have_http_status(:success)
-#     end
-#   end
+
+  describe "GET /create" do
+    it "returns http redirect" do
+      t = Task.new(title: 'Do cosc415 reading', due: DateTime.new)
+      # expect(TasksController).to receive(:task_params).and_return({})
+      expect(Task).to receive(:new).and_return(t)
+      get "/tasks/create", params: {:task => {:title => 'Do cosc415 reading', :due => '2021-12-12T00:00:00-05:00'.to_datetime}}
+      expect(response).to have_http_status(:redirect)
+    end
+  end
 
 #   describe "GET /show" do
 #     it "returns http success" do
