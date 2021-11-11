@@ -17,6 +17,7 @@ RSpec.describe "show page", type: :feature, js: true do
   end
 
   it "should be able to mark a task as complete" do
+    byebug
     click_on('Do cosc415 reading')
     click_on('Mark complete')
     click_on('Do cosc415 reading')
