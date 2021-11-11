@@ -82,7 +82,6 @@ RSpec.describe "Tasks", type: :request do
     it "should return to the main tasks view if a nonexistent task is searched for" do
       visit "/tasks/99999"
       expect(page.current_path).to eq(root_path)
-      byebug
       expect(page).to have_content('Task not found!')
     end
   end

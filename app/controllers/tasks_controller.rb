@@ -6,7 +6,7 @@ class TasksController < ApplicationController
     @overdue = Task.order('due DESC').where('due < ?', DateTime.now.to_formatted_s(:db))
     @today_due = Task.order('due DESC').where('due >= ?', DateTime.now.to_formatted_s(:db)).where('due < ?', DateTime.now.to_date.tomorrow.to_formatted_s(:db))
     @today_work = Task.order('due DESC').where('start <= ?', DateTime.now.to_date.to_formatted_s(:db)).where('due >= ?', DateTime.now.to_date.tomorrow.to_formatted_s(:db))
-    @upcoming = Task.order('due DESC').where('start > ?', DateTime.now.to_date.to_formatted_s(:db)).or(Task.order('due DESC').where('start IS NULL').where('due >= ?', DateTime.now.to_date.tomorrow.to_formatted_s(:db))
+    @upcoming = Task.order('due DESC').where('start > ?', DateTime.now.to_date.to_formatted_s(:db)).or(Task.order('due DESC').where('start IS NULL').where('due >= ?', DateTime.now.to_date.tomorrow.to_formatted_s(:db)))
   end
 
   def new
