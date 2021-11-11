@@ -1,14 +1,14 @@
 require 'rails_helper'
 require "spec_helper"
 
-# RSpec.describe "Tasks", type: :request do
-#   include Devise::Test::IntegrationHelpers
+RSpec.describe "Tasks", type: :request do
+  include Devise::Test::IntegrationHelpers
 
-#   before :each do
-#     user = User.create(:email => 'soren.lorenson@example.com', :password => 'testtest')
-#     sign_in user
-#     visit root_path
-#   end
+  before :each do
+    user = User.create(:email => 'soren.lorenson@example.com', :password => 'testtest')
+    sign_in user
+    visit root_path
+  end
 
 #   describe "GET /index" do
 #     it "returns http success" do
@@ -78,4 +78,11 @@ require "spec_helper"
 #     end
 #   end
 
-# end
+  describe "record_not_found behaves appropriately" do
+    it "should return to the main tasks view if a nonexistent task is searched for" do
+      visit "/tasks/99999"
+      expect(page.current_path).to eq(root_path)
+      expect(page).to have_content('Task not found!')
+    end
+  end
+end
