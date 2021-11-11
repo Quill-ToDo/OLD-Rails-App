@@ -20,6 +20,12 @@ RSpec.describe "index page", type: :view do
     expect(page).to have_content("make dinner")
   end
 
+  it "should return to the main tasks view if a nonexistent task is searched for" do
+    get "/tasks/a"
+    expect(page.current_path).to eq(root_path)
+    expect(page).to have_content('Task not found!')
+  end
+
   # it "should allow tasks to be completed" do
   # end
 

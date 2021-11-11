@@ -42,7 +42,7 @@ RSpec.describe "create page", type: :view do
     fill_in 'Due', with: '2021-12-12T00:00:10-05:00'
     fill_in 'Due', with: '2021-12-12T00:00:00-05:00'
     click_on 'Create task'
-    expect(page.current_path).to eq(root_path)
-    expect(page).to have_content('New task poo created')
+    expect(page.current_path).to eq(tasks_new_path)
+    expect(page).to have_content('Failed to create new task')
   end
 end

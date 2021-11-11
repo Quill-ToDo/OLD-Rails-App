@@ -24,12 +24,11 @@ RSpec.describe "update page", type: :feature, js: true do
     expect(page).to have_button 'Update task'  
   end
 
-  it "should make changes the task object attributes" do
-    fill_in 'Description', with: 'new description!'
+  it "should not update if start date is changed to after the due date" do
+    fill_in 'Start', with: '2021-11-15 00:00:00 UTC'
     click_on('Update task')
-    #expect(page.current_path).to eq(task_path(@task)) 
-    expect(page).to have_content("new description!")
-    #expect(@task.reload.description).to eq('new description!')
+    expect(controller).to set_flash[:alert]
+    #expect(page).to have_content("new description!")
   end
 
 end
