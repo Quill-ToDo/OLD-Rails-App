@@ -3,10 +3,10 @@ class TasksController < ApplicationController
   # before_action :user_signed_in?, only: [:index, :new, :create]
 
   def index
-    @overdue = Task.order('due DESC').where('due < ?', DateTime.now)
-    @today_due = Task.order('due DESC').where('due >= ?', Date.today).where('due < ?', Date.tomorrow)
-    @today_work = Task.order('due DESC').where('start <= ?', Date.today).where('due >= ?', Date.tomorrow)
-    @upcoming = Task.order('due DESC').where('start > ?', Date.today).or(Task.order('due DESC').where('start IS NULL').where('due >= ?', Date.tomorrow))
+    @overdue = Task.order('due DESC').where('due < ?', DateTime.now.to_formatted_s(:db))
+    @today_due = Task.order('due DESC').where('due >= ?', DateTime.now.to_formatted_s(:db)).where('due < ?', DateTime.now.to_date.tomorrow.to_formatted_s(:db))
+    @today_work = Task.order('due DESC').where('start <= ?', DateTime.now.to_date.to_formatted_s(:db)).where('due >= ?', DateTime.now.to_date.tomorrow.to_formatted_s(:db))
+    @upcoming = Task.order('due DESC').where('start > ?', DateTime.now.to_date.to_formatted_s(:db)).or(Task.order('due DESC').where('start IS NULL').where('due >= ?', DateTime.now.to_date.tomorrow.to_formatted_s(:db)))
   end
 
   def today_work

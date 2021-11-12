@@ -4,10 +4,6 @@ class Task < ApplicationRecord
   validates :due, presence: true
   validate :start_not_after_due?
 
-  def self.default_sort
-    tasks = Task.order('due DESC')
-  end
-
   def complete_task
     self.complete = !self.complete
   end
