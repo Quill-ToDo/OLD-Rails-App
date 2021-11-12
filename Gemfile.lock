@@ -130,8 +130,6 @@ GEM
       railties (>= 3.1)
     msgpack (1.4.2)
     nio4r (2.5.8)
-    nokogiri (1.12.5-x86_64-linux)
-      racc (~> 1.4)
     nokogiri (1.12.5-x86_64-darwin)
       racc (~> 1.4)
     nokogiri (1.12.5-x86_64-linux)
@@ -256,7 +254,6 @@ GEM
     zeitwerk (2.5.1)
 
 PLATFORMS
-  arm64-darwin-21
   x86_64-darwin-20
   x86_64-linux
 
@@ -280,16 +277,16 @@ DEPENDENCIES
   rspec
   rspec-rails
   sass-rails (>= 6)
-  selenium-webdriver
+  selenium-webdriver (~> 4.0.3)
   simplecov
   spring
   sqlite3 (~> 1.4)
   tzinfo-data
   web-console (>= 4.1.0)
-  webdrivers (~> 4.0)
+  webdrivers
 
 RUBY VERSION
    ruby 3.0.2p107
 
 BUNDLED WITH
-   2.2.30
+   2.2.26

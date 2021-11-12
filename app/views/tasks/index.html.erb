@@ -1,8 +1,8 @@
 <div class="index-wrapper"> 
     <div id="left-menu" class="menu">
         <% if user_signed_in? %>
-            <%= link_to new_task_path do %>
-                <%= image_tag "add.png" %>
+            <%= link_to(new_task_path, id: "btn-add", alt: "Add") do %>
+                <%= image_tag "add.png"%>
             <% end %>
         <% end %>
     </div>
