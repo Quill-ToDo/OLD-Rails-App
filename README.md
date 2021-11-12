@@ -47,4 +47,16 @@
 8. If there is a merge conflict...
    - I think merge the main branch with the feature branch and push to remote feature branch
 
+### To test your feature
+
+#### Install selenium drivers for JS tests
+1. Install NPM if you don't have it
+2. `$ npm install -g webdriver-manager`
+3. `$ webdriver-manager update`
+4. `$ sudo apt install firefox`
+
+#### Run tests
+5. `$ rails spec`
+
+
 ![](mascot.jpg)
