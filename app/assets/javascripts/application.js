@@ -9,6 +9,7 @@
 var calendar;
 
 document.addEventListener('DOMContentLoaded', function() {
+
     var calendarEl = document.getElementById('calendar');
     calendar = new FullCalendar.Calendar(calendarEl, {
       initialView: 'dayGridMonth',
@@ -22,10 +23,5 @@ document.addEventListener('DOMContentLoaded', function() {
       // ]
     });
     calendar.render();
-
-    // document.getElementById('test-add').addEventListener('click', function() {
-    //   calendar.addEvent({title: "Test", start:'2021-11-10', end:'2021-11-11'});
-    //   calendar.render();
-    // });
   });
 
