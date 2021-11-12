@@ -3,7 +3,6 @@ require 'rails_helper'
 RSpec.describe "show page", type: :feature, js: true do
 
   before :all do 
-    Capybara.use_default_driver
     visit root_path
 
     Task.create!(title: 'Do cosc415 reading', description: 'hi :)', start:DateTime.new.noon, due: DateTime.new(2021, 11, 11), complete: false)

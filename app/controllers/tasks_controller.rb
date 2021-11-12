@@ -9,6 +9,10 @@ class TasksController < ApplicationController
     @upcoming = Task.order('due DESC').where('start > ?', Date.today).or(Task.order('due DESC').where('start IS NULL').where('due >= ?', Date.tomorrow))
   end
 
+  def today_work
+    Task.order('due DESC').where('start <= ?', Date.today).where('due >= ?', Date.tomorrow)
+  end
+
   def new
     @task = Task.new
   end

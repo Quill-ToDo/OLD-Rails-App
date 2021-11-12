@@ -26,4 +26,11 @@ RSpec.describe "index page", type: :view do
 
   it "should display overdue tasks" do
   end
+
+  it "should not display overdue completed tasks"
+
+  it "should render completed tasks tick boxes as selected"
+  it "should not render uncompleted tick boxes as selected"
+  it "should render tick boxes next to tasks"
+
 end

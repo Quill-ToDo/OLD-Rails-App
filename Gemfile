@@ -36,6 +36,7 @@ group :development, :test do
   gem 'rspec'
   gem 'rspec-rails'
   gem 'capybara'
+  gem 'webdrivers', '~> 4.0', require: false
   gem 'execjs'
   gem 'simplecov', require: false
   gem 'database_cleaner'
