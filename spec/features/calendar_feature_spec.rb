@@ -3,10 +3,6 @@ require 'rails_helper'
 RSpec.describe "the calendar view", type: :feature, js: true do
   include Devise::Test::IntegrationHelpers
 
-  before(:all) do
-    Capybara.current_driver = :selenium
-  end
-
   before :each do
     user = User.create(:email => 'soren.lorenson@example.com', :password => 'testtest')
     sign_in user
@@ -21,9 +17,5 @@ RSpec.describe "the calendar view", type: :feature, js: true do
 
   it "should show all tasks for the current month" do
     expect(page).to have_css('.fc', wait: 5)
-  end
-
-  after(:all) do
-    Capybara.use_default_driver
   end
 end
