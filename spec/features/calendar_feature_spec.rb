@@ -4,7 +4,6 @@ RSpec.describe "the calendar view", type: :feature, js: true do
   include Devise::Test::IntegrationHelpers
 
   before(:all) do
-    Capybara.current_driver = :selenium
     user = User.create(:email => 'soren.lorenson@example.com', :password => 'testtest')
     sign_in user
     Task.create!(title: 'Do cosc415 reading', due: DateTime.new(2021, 11, 7))
@@ -16,15 +15,7 @@ RSpec.describe "the calendar view", type: :feature, js: true do
     visit root_path
   end
 
-  # before :each do
-    
-  # end
-
   it "should show all tasks for the current month" do
     expect(page).to have_css('.fc', wait: 5)
-  end
-
-  after(:all) do
-    Capybara.use_default_driver
   end
 end
