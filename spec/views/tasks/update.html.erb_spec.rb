@@ -3,10 +3,6 @@ require 'rails_helper'
 RSpec.describe "update page", type: :feature, js: true do
   include Devise::Test::IntegrationHelpers
 
-  before :all do 
-    Capybara.use_default_driver
-  end
-
   before :each do
     Task.create!(title: 'Do cosc415 reading', description: 'hi :)', start:DateTime.new(2021, 11, 8), due: DateTime.new(2021, 11, 11), complete: false)
     user = User.create!(email: 'testing@example.com', password: 'testtest')
@@ -29,5 +25,4 @@ RSpec.describe "update page", type: :feature, js: true do
     click_on('Update task')
     expect(page).to have_content("Task couldn't be updated")
   end
-
 end
