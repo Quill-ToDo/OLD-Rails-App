@@ -17,10 +17,10 @@ RSpec.describe "edit page", type: :feature, js: true do
   end
 
   it "should have correctly populated form fields" do
-    expect('Title').to have_content("Do cosc415 reading")
-    expect('Description').to have_content("hi :)")
-    expect('Start').to have_content("2021-11-08 00:00:00 UTC")
-    expect('Due').to have_content("2021-11-11 00:00:00 UTC")
+    expect(page).to have_field('Title', with: 'Do cosc415 reading')
+    expect(page).to have_field('Description', with: 'hi :)')
+    expect(page).to have_field('Start', with: '2021-11-08 00:00:00 UTC')
+    expect(page).to have_field('Due', with: '2021-11-11 00:00:00 UTC')
     expect(page).to have_button 'Update task'  
   end
 
@@ -29,7 +29,6 @@ RSpec.describe "edit page", type: :feature, js: true do
     click_on('Update task')
     #expect(page.current_path).to eq(task_path) 
     expect(page).to have_content("new description!")
-    #expect(@task.reload.description).to eq('new description!')
   end
 
 end

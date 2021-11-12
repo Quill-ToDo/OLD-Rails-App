@@ -17,18 +17,17 @@ RSpec.describe "update page", type: :feature, js: true do
   end
 
   it "should have correctly populated form fields" do
-    expect('Title').to have_content("Do cosc415 reading")
-    expect('Description').to have_content("hi :)")
-    expect('Start').to have_content("2021-11-08 00:00:00 UTC")
-    expect('Due').to have_content("2021-11-11 00:00:00 UTC")
-    expect(page).to have_button 'Update task'  
+    expect(page).to have_field('Title', with: 'Do cosc415 reading')
+    expect(page).to have_field('Description', with: 'hi :)')
+    expect(page).to have_field('Start', with: '2021-11-08 00:00:00 UTC')
+    expect(page).to have_field('Due', with: '2021-11-11 00:00:00 UTC')
+    expect(page).to have_button 'Update task'    
   end
 
   it "should not update if start date is changed to after the due date" do
     fill_in 'Start', with: '2021-11-15 00:00:00 UTC'
     click_on('Update task')
-    expect(controller).to set_flash[:alert]
-    #expect(page).to have_content("new description!")
+    expect(page).to have_content("Task couldn't be updated")
   end
 
 end
