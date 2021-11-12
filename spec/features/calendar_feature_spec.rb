@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe "the calendar view", type: :feature, js: true do
   include Devise::Test::IntegrationHelpers
 
-  before(:all) do
+  before :each do
     user = User.create(:email => 'soren.lorenson@example.com', :password => 'testtest')
     sign_in user
     Task.create!(title: 'Do cosc415 reading', due: DateTime.new(2021, 11, 7))
@@ -16,6 +16,6 @@ RSpec.describe "the calendar view", type: :feature, js: true do
   end
 
   it "should show all tasks for the current month" do
-    expect(page).to have_css('.fc', wait: 5)
+    expect(page).to have_css('.fc')
   end
 end
