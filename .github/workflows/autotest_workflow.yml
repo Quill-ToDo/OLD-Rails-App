@@ -19,7 +19,8 @@ jobs:
           bundler-cache: true
 
       - name: Run tests
-        run: >
+        run: |
+          gem install bundler
           bundle exec db:create RAILS_ENV=test
           bundle exec db:migrate RAILS_ENV=test
           bundle exec rspec
