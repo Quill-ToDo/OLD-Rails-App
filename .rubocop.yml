@@ -1,0 +1,34 @@
+AllCops:
+  NewCops: disable
+  Exclude:
+    - '**/Gemfile'
+    - '**/Gemfile.lock'
+    - '**/Rakefile'
+    - '**/config.ru'
+    - '**/spec/**/*'
+    - '**/db/**/*'
+    - '**/config/**/*'
+    - '**/script/**/*'
+    - '**/bin/**/*'
+    - '**/lib/**/*'
+    - '**/app/models/application_record.rb'
+    - '**/app/helpers/application_helper.rb'
+  DisabledByDefault: true
+Style:
+  Enabled: true
+Style/FrozenStringLiteralComment: 
+  Enabled: false
+Style/ClassVars:
+  Enabled: false
+Layout:
+  Enabled: true
+Lint:
+  Enabled: true
+Metrics:
+  Enabled: false
+Naming:
+  Enabled: true
+Security:
+  Enabled: true
+Bundler:
+  Enabled: true
