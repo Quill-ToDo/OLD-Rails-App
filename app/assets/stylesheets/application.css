@@ -20,14 +20,17 @@
 
 :root {
   --bg: #232323;
-  --light-font: #cdcdcd;
+  --lightest-font: #cccbcb;
+  --light-font: #bdbdbd;
   --mid-font: #636363;
+  --subdued: #494949;
   --mid-dark: #191919;
   --darkest-dark: #111111;
 
   --section-gap: 15px;
   --inner-box-padding: 20px;
   --box-corner-rounding: 40px;
+  --check-box-size: 17px;
 
   --calendar-h1-size: 35px;
 }
@@ -86,13 +89,14 @@ body {
   margin: 0 0 var(--section-gap) var(--section-gap);
 }
 
+/* Titles */
 .section h2,
 .fc .fc-toolbar-title {
-  font-family: "Dongle", sans-serif;
+  font-family: "Secular One", sans-serif;
   /* text-transform: uppercase; */
   font-weight: 600;
-  color: var(--light-font);
-  font-size: 60px;
+  color: var(--lightest-font);
+  font-size: 40px;
   padding: 0;
   margin: 0;
 }

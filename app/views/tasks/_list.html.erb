@@ -5,8 +5,17 @@
       <% @overdue.each do |t| %>
         <li class="task">
           <div class="task-wrapper">
+            <% if t.complete%>
+            <input type="checkbox" data-task-id="<%=t.id%>" checked>
+            <% else %>
+            <input type="checkbox" data-task-id="<%=t.id%>">
+            <% end %>
             <div class="title-date-wrapper">
-              <p class="title"><%= link_to t.title, task_path(t) %></p>
+              <% if t.complete %>
+                <p class="title completed"><%= link_to t.title, task_path(t) %></p>
+              <% else %>
+                <p class="title"><%= link_to t.title, task_path(t) %></p>
+              <% end %>
               <p class="date"><%= t.due.strftime(format='%-m/%-d/%C') %></p>
             </div>
           </div>
@@ -24,6 +33,11 @@
     <% @today_due.each do |t| %>
       <li class="task">
         <div class="task-wrapper">
+        <% if t.complete%>
+        <input type="checkbox" data-task-id="<%=t.id%>" checked>
+        <% else %>
+        <input type="checkbox" data-task-id="<%=t.id%>">
+        <% end %>
           <div class="title-date-wrapper">
             <p class="title"><%= link_to t.title, task_path(t) %></p>
           </div>
@@ -37,39 +51,28 @@
   <h3>work<h3>
   <% unless @today_work.empty? %>
     <ul>
-    <%= collection_check_boxes(:task, :complete, @today_work, :id, :title) do |b| %>
-      <li> 
+      <% @today_work.each do |t| %>
+      <li class="task">
         <div class="task-wrapper">
-          <%= b.check_box %>
+        <% if t.complete%>
+        <input type="checkbox" data-task-id="<%=t.id%>" checked>
+        <% else %>
+        <input type="checkbox" data-task-id="<%=t.id%>">
+        <% end %>
           <div class="title-date-wrapper">
-            <p class="title">
-              <%= link_to b.label, task_path(b.object) %>
-            </p>
-            <% if b.object.start.nil?%>
-              <p class="date"><%= b.object.due.strftime(format='%-m/%-d/%C') %></p>
+            <p class="title"><%= link_to t.title, task_path(t) %></p>
+            <% if t.start.nil?%>
+              <p class="date"><%= t.due.strftime(format='%-m/%-d/%y') %></p>
             <% else %>
-              <p class="date"><%= b.object.start.strftime(format='%-m/%-d/%C') %> - <%= b.object.due.strftime(format='%-m/%-d/%C') %></p>
+              <p class="date"><%= t.start.strftime(format='%-m/%-d/%y') %> - <%= t.due.strftime(format='%-m/%-d/%y') %></p>
             <% end %>
           </div>
         </div>
-      </li>
-    <% end %>
-
-    <!--
-    <ul>
-    <% @today_work.each do |t| %>
-      <%# <li class="task">
-        <div class="task-wrapper">
-          <%= check_box_tag %>
-          <div class="title-date-wrapper">
-            <p class="title"><%= link_to t.title, task_path(t) %></p>
-          </div>
-        </div>
-      </li> -->
-    <% end %>
+      </li> 
+      <% end %>
     </ul>
   <% else %>
-    <p>No tasks to work on today!</p>
+  <p>No tasks to work on today!</p>
   <% end %>
 </div>
 
@@ -80,13 +83,21 @@
       <% @upcoming.each do |t| %>
         <li class="task">
           <div class="task-wrapper">
+            <div class="check-box-wrapper"> 
+              <% if t.complete%>
+                <input type="checkbox" data-task-id="<%=t.id%>" checked>
+              <% else %>
+                <input type="checkbox" data-task-id="<%=t.id%>">
+              <% end %>
+              <span class="checkmark"></span>
+            </div>
             <div class="title-date-wrapper">
-            <p class="title"><%= link_to t.title, task_path(t) %></p>
-            <% if t.start.nil?%>
-              <p class="date"><%= t.due.strftime(format='%-m/%-d/%C') %></p>
-            <% else %>
-              <p class="date"><%= t.start.strftime(format='%-m/%-d/%C') %> - <%= t.due.strftime(format='%-m/%-d/%C') %></p>
-            <% end %>
+              <p class="title"><%= link_to t.title, task_path(t) %></p>
+              <% if t.start.nil?%>
+                <p class="date"><%= t.due.strftime(format='%-m/%-d/%C') %></p>
+              <% else %>
+                <p class="date"><%= t.start.strftime(format='%-m/%-d/%C') %> - <%= t.due.strftime(format='%-m/%-d/%C') %></p>
+              <% end %>
             </div>
           </div>
         </li>
