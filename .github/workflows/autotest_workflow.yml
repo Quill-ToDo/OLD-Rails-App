@@ -19,7 +19,9 @@ jobs:
           bundler-cache: true
 
       - name: Run tests
-        run: bundle exec rspec
+        run: >
+          rails db:migrate RAILS_ENV=test
+          bundle exec rspec
 
       - name: Upload coverage
         uses: actions/upload-artifact@v2
