@@ -5,19 +5,19 @@ RSpec.describe "Tasks", type: :request do
   include Devise::Test::IntegrationHelpers
 
   before :each do
-    user = User.create(:email => 'soren.lorenson@example.com', :password => 'testtest')
+    user = User.create!(:email => 'soren.lorenson@example.com', :password => 'testtest')
     sign_in user
     visit root_path
   end
 
-#   describe "GET /index" do
-#     it "returns http success" do
-#       byebug
-#       get "/tasks/index"
-#       byebug
-#       expect(response).to have_http_status(:success)
-#     end
-#   end
+  # describe "GET /index" do
+  #   it "returns http success" do
+  #     byebug
+  #     get "/tasks/index"
+  #     byebug
+  #     expect(response).to have_http_status(:success)
+  #   end
+  # end
 
 #   describe "GET /new" do
 #     it "returns http success" do
@@ -65,18 +65,18 @@ RSpec.describe "Tasks", type: :request do
 #     end
 #   end
 
-#   describe "GET /get_tasks" do
-#     it "responds with JSON" do
-#       get "/tasks/get_tasks", params: {:start => '2021-10-31T00:00:00-04:00', :end => '2021-12-12T00:00:00-05:00'}
-#       expect(response).to have_http_status(:success)
-#       expect(response['Content-Type']).to eq("application/json; charset=utf-8")
-#     end
+  describe "GET /get_tasks" do
+    it "responds with JSON" do
+      get "/tasks/get_tasks", params: {:start => '2021-10-31T00:00:00-04:00', :end => '2021-12-12T00:00:00-05:00'}
+      expect(response).to have_http_status(:success)
+      expect(response['Content-Type']).to eq("application/json; charset=utf-8")
+    end
 
-#     it "returns all tasks in JSON format" do
-#       get "/tasks/get_tasks", params: {:start => '2021-10-31T00:00:00-04:00', :end => '2021-12-12T00:00:00-05:00'}
-#       #TO DO
-#     end
-#   end
+    it "returns all tasks in JSON format" do
+      get "/tasks/get_tasks", params: {:start => '2021-10-31T00:00:00-04:00', :end => '2021-12-12T00:00:00-05:00'}
+      #TO DO
+    end
+  end
 
   describe "record_not_found behaves appropriately" do
     it "should return to the main tasks view if a nonexistent task is searched for" do

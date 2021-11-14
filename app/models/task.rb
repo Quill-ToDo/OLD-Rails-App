@@ -11,7 +11,7 @@ class Task < ApplicationRecord
   private
   def due_after_start?
     if !due.nil?
-      errors.add(:due, 'due date must be after start date') if !start.nil? && !due.after?(start)
+      errors.add(:due, 'due date must be after start date') if !start.nil? && due.before?(start)
     end
   end
 end

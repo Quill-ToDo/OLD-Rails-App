@@ -3,10 +3,10 @@ class TasksController < ApplicationController
   # before_action :user_signed_in?, only: [:index, :new, :create]
 
   def index
-    @overdue = Task.order('due DESC').where('due < ?', DateTime.now.to_formatted_s(:db))
-    @today_due = Task.order('due DESC').where('due >= ?', DateTime.now.to_formatted_s(:db)).where('due < ?', DateTime.now.to_date.tomorrow.to_formatted_s(:db))
-    @today_work = Task.order('due DESC').where('start <= ?', DateTime.now.to_date.to_formatted_s(:db)).where('due >= ?', DateTime.now.to_date.tomorrow.to_formatted_s(:db))
-    @upcoming = Task.order('due DESC').where('start > ?', DateTime.now.to_date.to_formatted_s(:db)).or(Task.order('due DESC').where('start IS NULL').where('due >= ?', DateTime.now.to_date.tomorrow.to_formatted_s(:db)))
+    @overdue = Task.order('due ASC').where('due < ?', DateTime.now.to_date.to_formatted_s(:db))
+    @today_due = Task.order('due DESC').where('due >= ?', DateTime.now.to_date.to_formatted_s(:db)).where('due < ?', DateTime.now.to_date.tomorrow.to_formatted_s(:db))
+    @today_work = Task.order('due DESC').where('start < ?', DateTime.now.to_date.tomorrow.to_formatted_s(:db)).where('due >= ?', DateTime.now.to_date.tomorrow.to_formatted_s(:db))
+    @upcoming = Task.order('due DESC').where('start >= ?', DateTime.now.to_date.tomorrow.to_formatted_s(:db)).or(Task.order('due DESC').where('start IS NULL').where('due >= ?', DateTime.now.to_date.tomorrow.to_formatted_s(:db)))
   end
 
   def new
@@ -69,11 +69,12 @@ class TasksController < ApplicationController
 
       if task.start.nil?
         h[:start] = DateTime.iso8601(task.due.iso8601).next.iso8601
+        h[:end] = task.due
       else
         h[:start] = DateTime.iso8601(task.start.iso8601).next.iso8601
+        h[:end] = DateTime.iso8601(task.due.iso8601).next.iso8601
       end
 
-      h[:end] = DateTime.iso8601(task.due.iso8601).next.iso8601
       events << h
     end
     render :json => events.to_json
@@ -93,11 +94,14 @@ class TasksController < ApplicationController
     end
 
     def task_params
-      p = params.require(:task).permit(:title, :description, :start, :due)
+      p = params.require(:task).permit(:title, :description, :start, :due, :calendar)
       h = p.to_hash
       if h.include?('start')
         begin
           h[:start] = DateTime.parse(h['start'])
+          if h.include?('calendar')
+            h[:start] = h[:start].yesterday
+          end
         rescue ArgumentError
           h[:start] = nil
         end
@@ -105,10 +109,14 @@ class TasksController < ApplicationController
       if h.include?('due')
         begin
           h[:due] = DateTime.parse(h['due'])
+          if h.include?('calendar')
+            h[:due] = h[:due].yesterday
+          end
         rescue ArgumentError
           return
         end
       end
+      h = h.except!('calendar')
       params = ActionController::Parameters.new(h).permit(:title, :description, :start, :due)
     end
 end

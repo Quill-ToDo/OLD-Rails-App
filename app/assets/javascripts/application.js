@@ -6,58 +6,47 @@
 //= require moment 
 //= require jquery_ujs
 
-var calendar;
+// var calendar;
 
 document.addEventListener('DOMContentLoaded', function() {
 
     var calendarEl = document.getElementById('calendar');
-    calendar = new FullCalendar.Calendar(calendarEl, {
+    var calendar = new FullCalendar.Calendar(calendarEl, {
       selectable: true,
       headerToolbar: {
         left: 'prev,next today',
         center: 'title',
         right: 'dayGridMonth,timeGridWeek,timeGridDay'
       },
+      eventSources: [
+        {
+          url: '/tasks/get_tasks',
+          method: 'GET',
+          failure: function() {
+            alert('there was an error while fetching tasks!');
+          }
+        }
+      ],
       select: function(info) {
         console.log(info);
         var title = prompt('Enter Title');
         if(title){
-          // AJAX call to DB
-          jQuery.get(
-            "tasks/create", 
+          jQuery.post(
+            "/tasks", 
             {
               task: {
                 title: title,
                 start: info.start,
-                due: info.end
+                due: info.end,
+                calendar: true
               }
             }
           );
-          //render
-          calendar.render();
-          // calendar.addEvent({
-          //   title: title,
-          //   start: info.start,
-          //   allDay: true
-          // });
+          calendar.refetchEvents();
+          calendar.unselect();
         }
-        console.log(title);
-        var newEvent = new Object();
-        newEvent.title = title;
-        newEvent.start = moment(info.start).format();
-        console.log(newEvent)
-        console.log(this)
-        // alert('selected ' + info.startStr + ' to ' + info.endStr);
       },
-      initialView: 'dayGridMonth',
-      events: "/tasks/get_tasks"
-      // events: [
-      //   { // this object will be "parsed" into an Event Object
-      //     title: 'First Event Ever!!', // a property!
-      //     start: '2021-11-05', // a property!
-      //     end: '2021-11-07' // a property! ** see important note below about 'end' **
-      //   }
-      // ]
+      initialView: 'dayGridMonth'
     });
     calendar.render();
   });
