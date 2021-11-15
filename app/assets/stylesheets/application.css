@@ -40,12 +40,15 @@ body {
   margin: 0;
   background-color: none;
   background: var(--bg);
+  overflow: hidden;
 }
 
 #list-wrapper {
   grid-area: list;
-  margin: var(--section-gap) 0 0 0;
+  margin: 0;
   display: grid;
+  overscroll-behavior: contain;
+  overflow-y: scroll;
 }
 
 #calendar-wrapper {
@@ -86,9 +89,6 @@ body {
   padding: var(--inner-box-padding);
 }
 
-#list-wrapper section {
-  margin: 0 0 var(--section-gap) var(--section-gap);
-}
 
 /* Titles */
 section h2,
@@ -119,6 +119,7 @@ p {
   display: grid;
   grid-template-areas: "left-menu list slider calendar right-menu";
   grid-template-columns: 50px 2fr min-content 5fr 50px;
+  grid-template-rows: 100vh auto 100vh 100vh 100vh;
 }
 /* } */
 
