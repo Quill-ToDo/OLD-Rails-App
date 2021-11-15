@@ -9,6 +9,8 @@ AllCops:
     - '**/db/**/*'
     - '**/config/**/*'
     - '**/script/**/*'
+    - '**/public/**/*'
+    - '**/vendor/**/*'
     - '**/bin/**/*'
     - '**/lib/**/*'
     - '**/app/models/application_record.rb'
