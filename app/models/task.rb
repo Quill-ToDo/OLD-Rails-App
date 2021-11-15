@@ -6,7 +6,7 @@ class Task < ApplicationRecord
   validate :start_not_after_due?
 
   def complete_task
-    self.complete = !self.complete
+    self.complete = !complete
   end
 
   private
@@ -15,4 +15,3 @@ class Task < ApplicationRecord
     errors.add(:due, 'start must not come after the due date') if !start.nil? && !due.nil? && start.after?(due)
   end
 end
-
