@@ -111,4 +111,9 @@ RSpec.configure do |config|
   config.include Devise::Test::ControllerHelpers, type: :view
 end
 
-Capybara.javascript_driver = :selenium_headless 
+Capybara.configure do |config|
+    # config.ignore_hidden_elements = false
+    # config.enable_aria_label = true
+    config.test_id  = "aria-labelledby"
+    config.javascript_driver = :selenium_headless 
+end
