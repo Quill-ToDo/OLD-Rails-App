@@ -14,7 +14,9 @@ document.addEventListener('DOMContentLoaded', function () {
   var calendarEl = document.getElementById('calendar');
   calendar = new FullCalendar.Calendar(calendarEl, {
     initialView: 'dayGridMonth',
-    events: "/tasks/get_tasks"
+    events: "/tasks/get_tasks",
+    expandRows: true,
+    height: "100%",
     // events: [
     //   { // this object will be "parsed" into an Event Object
     //     title: 'First Event Ever!!', // a property!
@@ -22,6 +24,7 @@ document.addEventListener('DOMContentLoaded', function () {
     //     end: '2021-11-07' // a property! ** see important note below about 'end' **
     //   }
     // ]
+    dayCellClassNames: 'dark-section'
   });
   calendar.render();
 });

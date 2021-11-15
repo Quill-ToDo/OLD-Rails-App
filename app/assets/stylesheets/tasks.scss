@@ -21,7 +21,7 @@
   color: var(--mid-font);
   font-family: "Quicksand", sans-serif;
   font-weight: 700;
-  font-size: 30px;
+  font-size: var(--h3-size);
   margin: 0;
   padding-top: 10px;
   justify-self: center;
@@ -42,7 +42,7 @@
   font-family: "Quicksand", sans-serif;
   font-weight: 600;
   // font-family: "Azeret Mono", monospace;
-  font-size: 20px;
+  font-size: var(--p-size);
 }
 
 ul {
@@ -81,16 +81,16 @@ li:not(:last-child) {
   text-decoration: none;
 }
 
-.title-date-wrapper p.desc {
-  margin-left: 30px;
-  color: var(--mid-font);
-  font-size: 28px;
-}
+// .title-date-wrapper p.desc {
+//   margin-left: 30px;
+//   color: var(--mid-font);
+//   font-size: 28px;
+// }
 
 .title-date-wrapper p.date {
   color: var(--subdued);
   font-family: "Azeret Mono", monospace;
-  font-size: 15px;
+  font-size: var(--smaller-p-size);
 }
 
 .title-date-wrapper .completed {
