@@ -20,7 +20,6 @@ jobs:
 
       - name: Run tests
         run: |
-          gem install bundler
           bundle exec db:create RAILS_ENV=test
           bundle exec db:migrate RAILS_ENV=test
           bundle exec rspec
