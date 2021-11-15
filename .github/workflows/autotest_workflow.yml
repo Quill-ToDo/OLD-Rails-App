@@ -20,8 +20,8 @@ jobs:
 
       - name: Run tests
         run: |
-          bundle exec db:create RAILS_ENV=test
-          bundle exec db:migrate RAILS_ENV=test
+          bundle exec rails db:create RAILS_ENV=test
+          bundle exec rails db:migrate RAILS_ENV=test
           bundle exec rspec
 
       - name: Upload coverage
