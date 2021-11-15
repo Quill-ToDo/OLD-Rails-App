@@ -20,12 +20,7 @@ RSpec.describe "index page", type: :view do
     expect(page).to have_content("make dinner")
   end
 
-  # it "should allow tasks to be completed" do
-  # end
+  it "should display overdue tasks"
+  # it "should not display overdue completed tasks"
 
-  # it "should allow completed tasks to be marked incomplete" do
-  # end
-
-  # it "should display overdue tasks" do
-  # end
 end
