@@ -27,5 +27,4 @@ RSpec.describe "show page", type: :feature, js: true do
     click_on('Do cosc415 reading')
     expect(page).to have_button 'Mark complete'  
   end
-
 end
