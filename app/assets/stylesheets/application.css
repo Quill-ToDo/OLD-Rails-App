@@ -102,6 +102,14 @@ section h2,
   margin: 0;
 }
 
+p {
+  font-family: "Quicksand", sans-serif;
+  font-weight: 600;
+  font-size: 20px;
+  margin: 0;
+  color: var(--light-font);
+}
+
 .menu {
   background-color: var(--darkest-dark);
 }
