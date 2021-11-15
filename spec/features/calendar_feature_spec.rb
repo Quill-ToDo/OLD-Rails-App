@@ -16,7 +16,6 @@ RSpec.describe "the calendar view", type: :feature, js: true do
   end
 
   it "should show all tasks for the current month" do
-    byebug
     expect(page).to have_css('.fc')
   end
 end
