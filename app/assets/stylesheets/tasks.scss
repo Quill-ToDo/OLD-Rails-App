@@ -4,12 +4,30 @@
 
 #list-wrapper h3 {
   color: var(--mid-font);
-  font-family: "Dongle", sans-serif;
-  font-size: 40px;
+  font-family: "Quicksand", sans-serif;
+  font-weight: 700;
+  font-size: 30px;
   margin: 0;
+  padding-top: 10px;
   justify-self: center;
   align-self: center;
   text-align: center;
+}
+
+.dark-section {
+  background-color: var(--darkest-dark);
+  padding: var(--inner-box-padding);
+  border-radius: var(--box-corner-rounding);
+  margin-top: var(--section-gap);
+}
+
+.subtle {
+  font-style: italic;
+  color: var(--dark-font);
+  font-family: "Quicksand", sans-serif;
+  font-weight: 600;
+  // font-family: "Azeret Mono", monospace;
+  font-size: 20px;
 }
 
 ul {
@@ -38,14 +56,19 @@ li:not(:last-child) {
   flex-wrap: wrap;
   align-items: baseline;
   margin: 0;
+  width: 100%;
+  padding-bottom: 3px;
 }
 
+// .title-date-wrapper .title {
+// }
+
 .title-date-wrapper p {
-  font-family: "Dongle", sans-serif;
-  font-size: 33px;
+  font-family: "Quicksand", sans-serif;
+  font-weight: 600;
+  font-size: 20px;
   margin: 0;
-  line-height: 0.8;
-  padding-top: 6px;
+  // padding-top: 6px;
 }
 
 .title-date-wrapper p a {
@@ -61,7 +84,7 @@ li:not(:last-child) {
 }
 
 .title-date-wrapper p.date {
-  color: var(--mid-font);
+  color: var(--subdued);
   font-family: "Azeret Mono", monospace;
   font-size: 15px;
 }
@@ -98,7 +121,7 @@ li:not(:last-child) {
 }
 
 .check-box-wrapper input a {
-  line-height: 0.5;
+  // line-height: 0.5;
 }
 
 .checkmark {
@@ -107,7 +130,7 @@ li:not(:last-child) {
   left: 0;
   height: var(--check-box-size);
   width: var(--check-box-size);
-  border: 2px solid var(--mid-font);
+  border: 2px solid var(--subdued);
 }
 
 /* Create the checkmark/indicator (hidden when not checked) */

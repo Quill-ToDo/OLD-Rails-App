@@ -21,9 +21,10 @@
 :root {
   --bg: #232323;
   --lightest-font: #cccbcb;
-  --light-font: #bdbdbd;
-  --mid-font: #636363;
-  --subdued: #494949;
+  --light-font: #9c9c9c;
+  --mid-font: #5e5e5e;
+  --subdued: #414141;
+  --dark-font: #2c2c2c;
   --mid-dark: #191919;
   --darkest-dark: #111111;
 
@@ -79,18 +80,18 @@ body {
   width: 70%;
 }
 
-.section {
+.mid-section {
   background-color: var(--mid-dark);
   border-radius: var(--box-corner-rounding);
   padding: var(--inner-box-padding);
 }
 
-#list-wrapper .section {
+#list-wrapper section {
   margin: 0 0 var(--section-gap) var(--section-gap);
 }
 
 /* Titles */
-.section h2,
+section h2,
 .fc .fc-toolbar-title {
   font-family: "Secular One", sans-serif;
   /* text-transform: uppercase; */

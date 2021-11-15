@@ -1,109 +1,144 @@
 <% unless @overdue.empty? %>
-  <div class="overdue section">
-    <h2>Overdue<h2>
+<section class="section">
+  <div class="overdue mid-section">
+    <h2>Overdue</h2>
+    <div class="dark-section">
       <ul>
       <% @overdue.each do |t| %>
         <li class="task">
           <div class="task-wrapper">
-            <% if t.complete%>
-            <input type="checkbox" data-task-id="<%=t.id%>" checked>
-            <% else %>
-            <input type="checkbox" data-task-id="<%=t.id%>">
-            <% end %>
+            <div class="check-box-wrapper"> 
+              <% if t.complete%>
+                <input type="checkbox" data-task-id="<%=t.id%>" aria-labelledby="<%=t.title%>" checked>
+              <% else %>
+                <input type="checkbox" data-task-id="<%=t.id%>" aria-labelledby="<%=t.title%>">
+              <% end %>
+              <span class="checkmark"></span>
+            </div>
             <div class="title-date-wrapper">
               <% if t.complete %>
-                <p class="title completed"><%= link_to t.title, task_path(t) %></p>
-              <% else %>
-                <p class="title"><%= link_to t.title, task_path(t) %></p>
-              <% end %>
+                  <p class="title"><%= link_to t.title, task_path(t), class:"completed", "data-task-id" => t.id %></p>
+                <% else %>
+                  <p class="title"><%= link_to t.title, task_path(t), "data-task-id" => t.id  %></p>
+                <% end %>
               <p class="date"><%= t.due.strftime(format='%-m/%-d/%C') %></p>
             </div>
           </div>
         </li>
       <% end %>
       </ul>
+    </div>
   </div>
+</section>
 <% end %>
 
-<div class="today section">
-  <h2>Today<h2>
-  <h3>due<h3>
-  <% unless @today_due.empty? %>
-    <ul>
-    <% @today_due.each do |t| %>
-      <li class="task">
-        <div class="task-wrapper">
-        <% if t.complete%>
-        <input type="checkbox" data-task-id="<%=t.id%>" checked>
-        <% else %>
-        <input type="checkbox" data-task-id="<%=t.id%>">
-        <% end %>
-          <div class="title-date-wrapper">
-            <p class="title"><%= link_to t.title, task_path(t) %></p>
-          </div>
-        </div>
-      </li>
-    <% end %>
-    </ul>
-  <% else %>
-    <p>No tasks due today!</p>
-  <% end %>
-  <h3>work<h3>
-  <% unless @today_work.empty? %>
-    <ul>
-      <% @today_work.each do |t| %>
-      <li class="task">
-        <div class="task-wrapper">
-        <% if t.complete%>
-        <input type="checkbox" data-task-id="<%=t.id%>" checked>
-        <% else %>
-        <input type="checkbox" data-task-id="<%=t.id%>">
-        <% end %>
-          <div class="title-date-wrapper">
-            <p class="title"><%= link_to t.title, task_path(t) %></p>
-            <% if t.start.nil?%>
-              <p class="date"><%= t.due.strftime(format='%-m/%-d/%y') %></p>
-            <% else %>
-              <p class="date"><%= t.start.strftime(format='%-m/%-d/%y') %> - <%= t.due.strftime(format='%-m/%-d/%y') %></p>
-            <% end %>
-          </div>
-        </div>
-      </li> 
-      <% end %>
-    </ul>
-  <% else %>
-  <p>No tasks to work on today!</p>
-  <% end %>
-</div>
-
-<div class="upcoming section">
-  <h2>Upcoming<h2>
-  <% unless @upcoming.empty? %>
+<section class="section">
+  <div class="today mid-section">
+    <h2>Today</h2>
+    <h3>due</h3>
+    <div class="dark-section">
+    <% unless @today_due.empty? %>
       <ul>
-      <% @upcoming.each do |t| %>
+      <% @today_due.each do |t| %>
         <li class="task">
           <div class="task-wrapper">
             <div class="check-box-wrapper"> 
               <% if t.complete%>
-                <input type="checkbox" data-task-id="<%=t.id%>" checked>
+                <input type="checkbox" data-task-id="<%=t.id%>" aria-labelledby="<%=t.title%>" checked>
               <% else %>
-                <input type="checkbox" data-task-id="<%=t.id%>">
+                <input type="checkbox" data-task-id="<%=t.id%>" aria-labelledby="<%=t.title%>">
               <% end %>
               <span class="checkmark"></span>
             </div>
             <div class="title-date-wrapper">
-              <p class="title"><%= link_to t.title, task_path(t) %></p>
-              <% if t.start.nil?%>
-                <p class="date"><%= t.due.strftime(format='%-m/%-d/%C') %></p>
+              <% if t.complete %>
+                <p class="title"><%= link_to t.title, task_path(t), class:"completed", "data-task-id" => t.id  %></p>
               <% else %>
-                <p class="date"><%= t.start.strftime(format='%-m/%-d/%C') %> - <%= t.due.strftime(format='%-m/%-d/%C') %></p>
+                <p class="title"><%= link_to t.title, task_path(t), "data-task-id" => t.id  %></p>
               <% end %>
             </div>
           </div>
         </li>
       <% end %>
       </ul>
-  <% else %>
-    <p>No upcoming tasks!</p>
-  <% end %>
- </div>
+    <% else %>
+      <p class="subtle centered">No tasks due today!</p>
+    <% end %>
+    </div>
+    <h3>work</h3>
+    <div class="dark-section">
+    <% unless @today_work.empty? %>
+      <ul>
+        <% @today_work.each do |t| %>
+        <li class="task">
+          <div class="task-wrapper">
+            <div class="check-box-wrapper"> 
+              <% if t.complete%>
+                <input type="checkbox" data-task-id="<%=t.id%>" aria-labelledby="<%=t.title%>" checked>
+              <% else %>
+                <input type="checkbox" data-task-id="<%=t.id%>" aria-labelledby="<%=t.title%>">
+              <% end %>
+              <span class="checkmark"></span>
+            </div>
+            <div class="title-date-wrapper">
+              <% if t.complete %>
+                <p class="title"><%= link_to t.title, task_path(t), class:"completed", "data-task-id" => t.id %></p>
+              <% else %>
+                <p class="title"><%= link_to t.title, task_path(t), "data-task-id" => t.id  %></p>
+              <% end %>
+              <% if t.start.nil?%>
+                <p class="date"><%= t.due.strftime(format='%-m/%-d/%y') %></p>
+              <% else %>
+                <p class="date"><%= t.start.strftime(format='%-m/%-d/%y') %> - <%= t.due.strftime(format='%-m/%-d/%y') %></p>
+              <% end %>
+            </div>
+          </div>
+        </li> 
+        <% end %>
+      </ul>
+    <% else %>
+    <p class="subtle centered">No tasks to work on today!</p>
+    <% end %>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="upcoming mid-section">
+  <h2>Upcoming</h2>
+    <div class="dark-section">
+    <% unless @upcoming.empty? %>
+        <ul>
+        <% @upcoming.each do |t| %>
+          <li class="task">
+            <div class="task-wrapper">
+              <div class="check-box-wrapper"> 
+                <% if t.complete%>
+                  <input type="checkbox" data-task-id="<%=t.id%>" aria-labelledby="<%=t.title%>" checked>
+                <% else %>
+                  <input type="checkbox" data-task-id="<%=t.id%>" aria-labelledby="<%=t.title%>">
+                <% end %>
+                <span class="checkmark"></span>
+              </div>
+              <div class="title-date-wrapper">
+                <% if t.complete %>
+                  <p class="title"><%= link_to t.title, task_path(t), class:"completed", "data-task-id" => t.id %></p>
+                <% else %>
+                  <p class="title"><%= link_to t.title, task_path(t), "data-task-id" => t.id %></p>
+                <% end %>
+                <% if t.start.nil?%>
+                  <p class="date"><%= t.due.strftime(format='%-m/%-d/%C') %></p>
+                <% else %>
+                  <p class="date"><%= t.start.strftime(format='%-m/%-d/%C') %> - <%= t.due.strftime(format='%-m/%-d/%C') %></p>
+                <% end %>
+              </div>
+            </div>
+          </li>
+        <% end %>
+        </ul>
+    <% else %>
+      <p class="subtle centered">No upcoming tasks!</p>
+    <% end %>
+    </div>
+  </div>
+</section>
