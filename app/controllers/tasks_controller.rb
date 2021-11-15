@@ -1,18 +1,17 @@
-# frozen_string_literal: true
-
+# Tasks Controller
 class TasksController < ApplicationController
   rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
   # before_action :user_signed_in?, only: [:index, :new, :create]
 
   def index
     @overdue = Task.order('due DESC').where('due < ?', DateTime.now.to_formatted_s(:db))
-    @today_due = Task.order('due DESC').where('due >= ?', DateTime.now.to_formatted_s(:db)).where('due < ?',
-                                                                                                  DateTime.now.to_date.tomorrow.to_formatted_s(:db))
-    @today_work = Task.order('due DESC').where('start <= ?', DateTime.now.to_date.to_formatted_s(:db)).where('due > ?',
-                                                                                                             DateTime.now.to_date.tomorrow.to_formatted_s(:db))
-    @upcoming = Task.order('due DESC').where('start > ?',
-                                             DateTime.now.to_date.tomorrow.to_formatted_s(:db)).or(Task.order('due DESC').where('start IS NULL').where('due >= ?',
-                                                                                                                                                       DateTime.now.to_date.tomorrow.to_formatted_s(:db)))
+    @today_due = Task.order('due DESC').where('due >= ?', DateTime.now.to_formatted_s(:db))
+                     .where('due < ?', DateTime.now.to_date.tomorrow.to_formatted_s(:db))
+    @today_work = Task.order('due DESC').where('start <= ?', DateTime.now.to_date.to_formatted_s(:db))
+                      .where('due >= ?', DateTime.now.to_date.tomorrow.to_formatted_s(:db))
+    @upcoming = Task.order('due DESC').where('start > ?', DateTime.now.to_date.to_formatted_s(:db))
+                    .or(Task.order('due DESC').where('start IS NULL')
+                    .where('due >= ?', DateTime.now.to_date.tomorrow.to_formatted_s(:db)))
   end
 
   def new
@@ -61,11 +60,10 @@ class TasksController < ApplicationController
     redirect_to root_path
   end
 
-  def get_tasks
-    @tasks = Task.all.where('due <= ?',
-                            Time.at(params['end'].to_datetime).to_formatted_s(:db)).or(Task.all.where('due <= ?', Time.at(params['end'].to_datetime).to_formatted_s(:db)).where(
-                                                                                         'start >= ?', Time.at(params['start'].to_datetime).to_formatted_s(:db)
-                                                                                       ))
+  def calendar_tasks
+    @tasks = Task.all.where('due <= ?', Time.at(params['end'].to_datetime).to_formatted_s(:db))
+                 .or(Task.all.where('due <= ?', Time.at(params['end'].to_datetime).to_formatted_s(:db))
+                      .where('start >= ?', Time.at(params['start'].to_datetime).to_formatted_s(:db)))
     events = []
     @tasks.each do |task|
       h = {}
@@ -117,6 +115,6 @@ class TasksController < ApplicationController
         return
       end
     end
-    params = ActionController::Parameters.new(h).permit(:title, :description, :start, :due)
+    ActionController::Parameters.new(h).permit(:title, :description, :start, :due)
   end
 end
