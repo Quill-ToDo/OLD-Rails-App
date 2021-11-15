@@ -1,12 +1,17 @@
+# Tasks Controller
 class TasksController < ApplicationController
   rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
   # before_action :user_signed_in?, only: [:index, :new, :create]
 
   def index
     @overdue = Task.order('due DESC').where('due < ?', DateTime.now.to_formatted_s(:db))
-    @today_due = Task.order('due DESC').where('due >= ?', DateTime.now.to_formatted_s(:db)).where('due < ?', DateTime.now.to_date.tomorrow.to_formatted_s(:db))
-    @today_work = Task.order('due DESC').where('start <= ?', DateTime.now.to_date.to_formatted_s(:db)).where('due > ?', DateTime.now.to_date.tomorrow.to_formatted_s(:db))
-    @upcoming = Task.order('due DESC').where('start > ?', DateTime.now.to_date.tomorrow.to_formatted_s(:db)).or(Task.order('due DESC').where('start IS NULL').where('due >= ?', DateTime.now.to_date.tomorrow.to_formatted_s(:db)))
+    @today_due = Task.order('due DESC').where('due >= ?', DateTime.now.to_formatted_s(:db))
+                     .where('due < ?', DateTime.now.to_date.tomorrow.to_formatted_s(:db))
+    @today_work = Task.order('due DESC').where('start <= ?', DateTime.now.to_date.to_formatted_s(:db))
+                      .where('due >= ?', DateTime.now.to_date.tomorrow.to_formatted_s(:db))
+    @upcoming = Task.order('due DESC').where('start > ?', DateTime.now.to_date.to_formatted_s(:db))
+                    .or(Task.order('due DESC').where('start IS NULL')
+                    .where('due >= ?', DateTime.now.to_date.tomorrow.to_formatted_s(:db)))
   end
 
   def new
@@ -55,28 +60,28 @@ class TasksController < ApplicationController
     redirect_to root_path
   end
 
-  def get_tasks
-    @tasks = Task.all.where('due <= ?', Time.at(params['end'].to_datetime).to_formatted_s(:db)).or(Task.all.where('due <= ?', Time.at(params['end'].to_datetime).to_formatted_s(:db)).where('start >= ?', Time.at(params['start'].to_datetime).to_formatted_s(:db)))
+  def calendar_tasks
+    @tasks = Task.all.where('due <= ?', Time.at(params['end'].to_datetime).to_formatted_s(:db))
+                 .or(Task.all.where('due <= ?', Time.at(params['end'].to_datetime).to_formatted_s(:db))
+                      .where('start >= ?', Time.at(params['start'].to_datetime).to_formatted_s(:db)))
     events = []
     @tasks.each do |task|
-      h = Hash.new()
+      h = {}
       h[:id] = task.id
       h[:title] = task.title
 
-      unless task.description.nil?
-        h[:description] = task.description
-      end
+      h[:description] = task.description unless task.description.nil?
 
-      if task.start.nil?
-        h[:start] = DateTime.iso8601(task.due.iso8601).next.iso8601
-      else
-        h[:start] = DateTime.iso8601(task.start.iso8601).next.iso8601
-      end
+      h[:start] = if task.start.nil?
+                    DateTime.iso8601(task.due.iso8601).next.iso8601
+                  else
+                    DateTime.iso8601(task.start.iso8601).next.iso8601
+                  end
 
       h[:end] = DateTime.iso8601(task.due.iso8601).next.iso8601
       events << h
     end
-    render :json => events.to_json
+    render json: events.to_json
   end
 
   def complete_task
@@ -87,28 +92,29 @@ class TasksController < ApplicationController
   end
 
   private
-    def record_not_found
-      flash[:alert] = 'Task not found!'
-      redirect_to root_path and return
-    end
 
-    def task_params
-      p = params.require(:task).permit(:title, :description, :start, :due)
-      h = p.to_hash
-      if h.include?('start')
-        begin
-          h[:start] = DateTime.parse(h['start'])
-        rescue ArgumentError
-          h[:start] = nil
-        end
+  def record_not_found
+    flash[:alert] = 'Task not found!'
+    redirect_to root_path and return
+  end
+
+  def task_params
+    p = params.require(:task).permit(:title, :description, :start, :due)
+    h = p.to_hash
+    if h.include?('start')
+      begin
+        h[:start] = DateTime.parse(h['start'])
+      rescue ArgumentError
+        h[:start] = nil
       end
-      if h.include?('due')
-        begin
-          h[:due] = DateTime.parse(h['due'])
-        rescue ArgumentError
-          return
-        end
-      end
-      params = ActionController::Parameters.new(h).permit(:title, :description, :start, :due)
     end
+    if h.include?('due')
+      begin
+        h[:due] = DateTime.parse(h['due'])
+      rescue ArgumentError
+        return
+      end
+    end
+    ActionController::Parameters.new(h).permit(:title, :description, :start, :due)
+  end
 end

@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', function () {
   var calendarEl = document.getElementById('calendar');
   calendar = new FullCalendar.Calendar(calendarEl, {
     initialView: 'dayGridMonth',
-    events: "/tasks/get_tasks"
+    events: "/tasks/calendar_tasks"
     // events: [
     //   { // this object will be "parsed" into an Event Object
     //     title: 'First Event Ever!!', // a property!
