@@ -35,7 +35,7 @@ jobs:
           RUBY_CONFIG_FILE: .rubocop.yml
           VALIDATE_RUBY: true
           VALIDATE_HTML: true
-          VALIDATE_CSS: true
-          VALIDATE_JAVASCRIPT_ES: true
+          VALIDATE_CSS: false
+          VALIDATE_JAVASCRIPT_ES: false
 
 
