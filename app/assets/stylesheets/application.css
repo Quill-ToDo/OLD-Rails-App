@@ -20,14 +20,18 @@
 
 :root {
   --bg: #232323;
-  --light-font: #cdcdcd;
-  --mid-font: #636363;
+  --lightest-font: #cccbcb;
+  --light-font: #9c9c9c;
+  --mid-font: #5e5e5e;
+  --subdued: #414141;
+  --dark-font: #2c2c2c;
   --mid-dark: #191919;
   --darkest-dark: #111111;
 
   --section-gap: 15px;
   --inner-box-padding: 20px;
   --box-corner-rounding: 40px;
+  --check-box-size: 17px;
 
   --calendar-h1-size: 35px;
 }
@@ -76,25 +80,34 @@ body {
   width: 70%;
 }
 
-.section {
+.mid-section {
   background-color: var(--mid-dark);
   border-radius: var(--box-corner-rounding);
   padding: var(--inner-box-padding);
 }
 
-#list-wrapper .section {
+#list-wrapper section {
   margin: 0 0 var(--section-gap) var(--section-gap);
 }
 
-.section h2,
+/* Titles */
+section h2,
 .fc .fc-toolbar-title {
-  font-family: "Dongle", sans-serif;
+  font-family: "Secular One", sans-serif;
   /* text-transform: uppercase; */
   font-weight: 600;
-  color: var(--light-font);
-  font-size: 60px;
+  color: var(--lightest-font);
+  font-size: 40px;
   padding: 0;
   margin: 0;
+}
+
+p {
+  font-family: "Quicksand", sans-serif;
+  font-weight: 600;
+  font-size: 20px;
+  margin: 0;
+  color: var(--light-font);
 }
 
 .menu {

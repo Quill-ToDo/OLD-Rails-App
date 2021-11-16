@@ -9,6 +9,11 @@ AllCops:
     - '**/db/**/*'
     - '**/config/**/*'
     - '**/script/**/*'
+<<<<<<< HEAD
+=======
+    - '**/public/**/*'
+    - '**/vendor/**/*'
+>>>>>>> 0143b88ba2513529181530a0946e162cd5ac55c5
     - '**/bin/**/*'
     - '**/lib/**/*'
     - '**/app/models/application_record.rb'

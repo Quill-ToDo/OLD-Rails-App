@@ -16,6 +16,7 @@ RSpec.describe 'Task', type: :model do
     dt = DateTime.new
     expect{Task.create!(title: 'test', description: 'desc', start: dt.noon)}.to raise_exception ActiveRecord::RecordInvalid
   end
+  
   it "should fail to create a Task if maximum text inputs exceed" do
     dt = DateTime.new
     expect{Task.create!(title: '1'*1000, description: '1'*10000, due: dt.noon)}.to raise_exception ActiveRecord::RecordInvalid
