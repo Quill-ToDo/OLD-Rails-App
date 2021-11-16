@@ -21,6 +21,6 @@ document.addEventListener('DOMContentLoaded', function () {
     // Collapse sections on click 
     $("h2 ~ .section-collapsible").siblings("h2").on("click", function () {
         var section = $($(this).siblings(".section-collapsible"));
-        section.toggle(100, "swing");
+        section.toggle(150, "swing");
     });
 });
