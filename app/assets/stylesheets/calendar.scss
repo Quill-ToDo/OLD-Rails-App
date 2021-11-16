@@ -10,7 +10,8 @@
 }
 
 .fc .fc-header-toolbar.fc-toolbar {
-  padding: 0 var(--inner-box-padding) 0 var(--inner-box-padding);
+  padding: var(--inner-box-padding) var(--inner-box-padding) 0
+    var(--inner-box-padding);
 }
 
 .fc .fc-col-header-cell-cushion {

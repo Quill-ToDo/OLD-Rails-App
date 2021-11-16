@@ -31,7 +31,7 @@
   --success: #20bb20;
 
   --section-gap: 15px;
-  --inner-box-padding: 20px;
+  --inner-box-padding: 17px;
   --box-corner-rounding: 40px;
   --check-box-size: 17px;
 
@@ -39,6 +39,7 @@
   --p-size: 20px;
   --smaller-p-size: 15px;
   --h2-size: 40px;
+  --h2-padding: 15px;
   --h3-size: 30px;
   --event-p-size: 13px;
 }
@@ -56,6 +57,7 @@ body {
   display: grid;
   overscroll-behavior: contain;
   overflow-y: scroll;
+  grid-auto-rows: min-content;
 }
 
 #calendar-wrapper {
@@ -106,6 +108,8 @@ section h2,
   font-size: var(--h2-size);
   padding: 0;
   margin: 0;
+  margin: var(--h2-padding) 0 var(--h2-padding) 0;
+  line-height: 0.2;
 }
 
 p {
