@@ -2,13 +2,28 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
 
+/* Hide scrollbar for Chrome, Safari and Opera */
+#list-wrapper::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+#list-wrapper {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+#list-wrapper section {
+  margin: var(--section-gap) 0 var(--section-gap) var(--section-gap);
+}
+
 #list-wrapper h3 {
   color: var(--mid-font);
   font-family: "Quicksand", sans-serif;
   font-weight: 700;
-  font-size: 30px;
+  font-size: var(--h3-size);
   margin: 0;
-  padding-top: 10px;
+  // padding-top: 10px;
   justify-self: center;
   align-self: center;
   text-align: center;
@@ -21,13 +36,17 @@
   margin-top: var(--section-gap);
 }
 
+.section-collapsible {
+  margin-top: calc(var(--h2-padding) * 3);
+}
+
 .subtle {
   font-style: italic;
   color: var(--dark-font);
   font-family: "Quicksand", sans-serif;
   font-weight: 600;
   // font-family: "Azeret Mono", monospace;
-  font-size: 20px;
+  font-size: var(--p-size);
 }
 
 ul {
@@ -66,16 +85,16 @@ li:not(:last-child) {
   text-decoration: none;
 }
 
-.title-date-wrapper p.desc {
-  margin-left: 30px;
-  color: var(--mid-font);
-  font-size: 28px;
-}
+// .title-date-wrapper p.desc {
+//   margin-left: 30px;
+//   color: var(--mid-font);
+//   font-size: 28px;
+// }
 
 .title-date-wrapper p.date {
   color: var(--subdued);
   font-family: "Azeret Mono", monospace;
-  font-size: 15px;
+  font-size: var(--smaller-p-size);
 }
 
 .title-date-wrapper .completed {
