@@ -52,6 +52,10 @@
   border: none;
 }
 
+.fc .fc-daygrid-day.dark-section {
+  border-radius: calc(var(--box-corner-rounding) - 5px);
+}
+
 // Where the numbers are
 .fc .fc-daygrid-day-top {
   justify-content: center;
