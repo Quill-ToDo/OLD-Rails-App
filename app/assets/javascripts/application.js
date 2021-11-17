@@ -2,8 +2,11 @@
 //= require_tree .
 //= require main
 //= require locales-all
-//= require jquery
-//= require moment 
+//= require jquery3
+//= require popper
+//= require bootstrap-sprockets
+//= require moment
+//= require tempusdominus-bootstrap-4.js
 //= require jquery_ujs
 
 var calendar;
@@ -27,5 +30,8 @@ document.addEventListener('DOMContentLoaded', function() {
     //   calendar.addEvent({title: "Test", start:'2021-11-10', end:'2021-11-11'});
     //   calendar.render();
     // });
-  });
-
+    // document.addEventListener('DOMContentLoaded', function() {
+      // jQuery(document).on('turbolinks:load', function() {
+      // });
+    // });
+});
