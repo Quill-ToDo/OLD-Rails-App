@@ -92,19 +92,28 @@ class TasksController < ApplicationController
       redirect_to root_path and return
     end
 
+    def date_formatter(to_format)
+      split_date = to_format.split('/')
+      month = Date::MONTHNAMES[split_date[0].to_i]
+      "#{split_date[1]} #{month} #{split_date[2]}"
+    end
+
     def task_params
       p = params.require(:task).permit(:title, :description, :start, :due)
       h = p.to_hash
       if h.include?('start')
         begin
-          h[:start] = DateTime.parse(h['start'])
+          # h[:start] = h['start'].to_datetime
+          h[:start] = DateTime.parse(date_formatter(h['start']))
         rescue ArgumentError
           h[:start] = nil
         end
       end
       if h.include?('due')
         begin
-          h[:due] = DateTime.parse(h['due'])
+          # h[:due] = h['due'].to_datetime
+          # h[:due] = DateTime.strptime(h['due'], '%FT%T%:z')
+          h[:due] = DateTime.parse(date_formatter(h['due']))
         rescue ArgumentError
           return
         end
