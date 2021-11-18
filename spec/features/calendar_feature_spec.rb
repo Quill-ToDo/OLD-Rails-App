@@ -18,11 +18,12 @@ RSpec.describe 'the calendar view', type: :feature, js: true do
   end
 
   it 'should show all tasks for the current month' do
-    expect(page.find('#calendar')).to have_content('Do cosc415 reading')
-    expect(page.find('#calendar')).to have_content('SWE iteration 2')
-    expect(page.find('#calendar')).to have_content('SWE iteration 3')
-    expect(page.find('#calendar')).to have_content('Physics HW')
-    expect(page.find('#calendar')).to have_content('Put away christmas decorations')
+    calendar = page.find('#calendar')
+    expect(calendar).to have_content('Do cosc415 reading')
+    expect(calendar).to have_content('SWE iteration 2')
+    expect(calendar).to have_content('SWE iteration 3')
+    expect(calendar).to have_content('Physics HW')
+    expect(calendar).to have_content('Put away christmas decorations')
   end
 
   it 'should add a task to the calendar after clicking on a date' do
