@@ -12,20 +12,51 @@ var calendar;
 
 document.addEventListener('DOMContentLoaded', function () {
   var calendarEl = document.getElementById('calendar');
-  calendar = new FullCalendar.Calendar(calendarEl, {
-    initialView: 'dayGridMonth',
-    events: "/tasks/calendar_tasks",
-    expandRows: true,
-    height: "100%",
-    dayCellClassNames: 'dark-section',
-    // TODO: Eventually should make these each call a different function so we can determine which partials to re-render, not 
-    // all of them
-    eventAdd: reRenderList,
-    eventRemove: reRenderList,
-    eventChange: reRenderList
-  });
-  calendar.render();
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+      selectable: true,
+      headerToolbar: {
+        left: 'prev,next today',
+        center: 'title',
+        right: 'dayGridMonth,timeGridWeek,timeGridDay'
+      },
+      eventSources: [
+        {
+          url: '/tasks/calendar_tasks',
+          method: 'GET',
+          failure: function() {
+            alert('there was an error while fetching tasks!');
+          }
+        }
+      ],
+      select: function(info) {
+        var title = prompt('Enter Title');
+        if(title){
+          jQuery.post(
+            "/tasks", 
+            {
+              task: {
+                title: title,
+                start: info.start,
+                due: info.end,
+                calendar: true
+              }
+            }
+          );
+          calendar.refetchEvents();
+          calendar.unselect();
+        }
+      },
+      initialView: 'dayGridMonth',
+      expandRows: true,
+      height: "100%",
+      dayCellClassNames: 'dark-section',
+      eventAdd: reRenderList,
+      eventRemove: reRenderList,
+      eventChange: reRenderList
+    });
+    calendar.render();
 });
+
 
 function reRenderList(events) {
   $.get("/tasks/tasks_update_partials");

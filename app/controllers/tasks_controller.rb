@@ -80,15 +80,17 @@ class TasksController < ApplicationController
 
       h[:description] = task.description unless task.description.nil?
 
-      h[:start] = if task.start.nil?
-                    DateTime.iso8601(task.due.iso8601).next.iso8601
-                  else
-                    DateTime.iso8601(task.start.iso8601).next.iso8601
-                  end
+      if task.start.nil?
+        h[:start] = DateTime.iso8601(task.due.iso8601).next.iso8601
+        h[:end] = task.due
+      else
+        h[:start] = DateTime.iso8601(task.start.iso8601).next.iso8601
+        h[:end] = DateTime.iso8601(task.due.iso8601).next.iso8601
+      end
 
-      h[:end] = DateTime.iso8601(task.due.iso8601).next.iso8601
       events << h
     end
+
     render json: events.to_json
   end
 
@@ -102,23 +104,25 @@ class TasksController < ApplicationController
   private
 
   def overdue_tasks
-    Task.order('due DESC').where('due < ?', DateTime.now.to_formatted_s(:db))
+    Task.order('due ASC').where('due < ?', DateTime.now.to_date.to_formatted_s(:db))
   end
 
   def today_tasks
-    Task.order('due DESC').where('due >= ?', DateTime.now.to_formatted_s(:db))
+    Task.order('due DESC').where('due >= ?', DateTime.now.to_date.to_formatted_s(:db))
                      .where('due < ?', DateTime.now.to_date.tomorrow.to_formatted_s(:db))
   end
 
   def today_work_tasks
-    Task.order('due DESC').where('start <= ?', DateTime.now.to_date.to_formatted_s(:db))
+    Task.order('due DESC')
+                      .where('start < ?', DateTime.now.to_date.tomorrow.to_formatted_s(:db))
                       .where('due >= ?', DateTime.now.to_date.tomorrow.to_formatted_s(:db))
   end
 
   def upcoming_tasks
-    Task.order('due DESC').where('start > ?', DateTime.now.to_date.to_formatted_s(:db))
-                    .or(Task.order('due DESC').where('start IS NULL')
-                    .where('due >= ?', DateTime.now.to_date.tomorrow.to_formatted_s(:db)))
+    Task.order('due DESC')
+                        .where('start >= ?', DateTime.now.to_date.tomorrow.to_formatted_s(:db))
+                        .or(Task.order('due DESC').where('start IS NULL')
+                                .where('due >= ?', DateTime.now.to_date.tomorrow.to_formatted_s(:db)))
   end
 
   def record_not_found
@@ -127,22 +131,25 @@ class TasksController < ApplicationController
   end
 
   def task_params
-    p = params.require(:task).permit(:title, :description, :start, :due)
+    p = params.require(:task).permit(:title, :description, :start, :due, :calendar)
     h = p.to_hash
     if h.include?('start')
       begin
-        h[:start] = DateTime.parse(h['start'])
+        h['start'] = DateTime.parse(h['start'])
+        h['start'] = h['start'].yesterday if h.include?('calendar') && h['start'].to_date.tomorrow != h['due'].to_date
       rescue ArgumentError
-        h[:start] = nil
+        h['start'] = nil
       end
     end
     if h.include?('due')
       begin
-        h[:due] = DateTime.parse(h['due'])
+        h['due'] = DateTime.parse(h['due'])
+        h['due'] = h['due'].yesterday if h.include?('calendar')
       rescue ArgumentError
         return
       end
     end
+    h = h.except!('calendar')
     ActionController::Parameters.new(h).permit(:title, :description, :start, :due)
   end
 end
