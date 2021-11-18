@@ -1,5 +1,11 @@
 <% unless local_assigns[:overdue].empty? %>
-<section>
-  <%= render 'overdue', overdue: local_assigns[:overdue] %>
-</section>
+  <section>
+    <%= render 'tasks_single_section', title: "Overdue", class: "overdue", tasks: local_assigns[:overdue] %>
+  </section>
 <% end %> 
+<section>
+  <%= render 'tasks_two_section', title: "Today", class: "today", tasks: local_assigns[:today] %>
+</section>
+<section>
+  <%= render 'tasks_single_section', title: "Upcoming", class: "upcoming", tasks: local_assigns[:upcoming] %>
+</section>

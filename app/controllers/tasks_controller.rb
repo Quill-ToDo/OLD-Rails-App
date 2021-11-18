@@ -4,19 +4,17 @@ class TasksController < ApplicationController
   # before_action :user_signed_in?, only: [:index, :new, :create]
 
   def index
-    @overdue = get_overdue_tasks()
-    # render "index", overdue: Task.order('due DESC').where('due < ?', DateTime.now.to_formatted_s(:db))
-    # @today_due = Task.order('due DESC').where('due >= ?', DateTime.now.to_formatted_s(:db))
-    #                  .where('due < ?', DateTime.now.to_date.tomorrow.to_formatted_s(:db))
-    # @today_work = Task.order('due DESC').where('start <= ?', DateTime.now.to_date.to_formatted_s(:db))
-    #                   .where('due >= ?', DateTime.now.to_date.tomorrow.to_formatted_s(:db))
-    # @upcoming = Task.order('due DESC').where('start > ?', DateTime.now.to_date.to_formatted_s(:db))
-    #                 .or(Task.order('due DESC').where('start IS NULL')
-    #                 .where('due >= ?', DateTime.now.to_date.tomorrow.to_formatted_s(:db)))
+    @overdue = overdue_tasks()
+    @today_due = today_tasks()
+    @today_work = today_work()
+    @upcoming = upcoming()
   end
 
   def update_partials
-    @overdue = get_overdue_tasks()
+    @overdue = overdue_tasks()
+    @today_due = today_tasks()
+    @today_work = today_work()
+    @upcoming = upcoming()
     respond_to do |format|
       format.js { 
         render action: "update_partials" and return
@@ -105,8 +103,24 @@ class TasksController < ApplicationController
 
   private
 
-  def get_overdue_tasks
+  def overdue_tasks
     Task.order('due DESC').where('due < ?', DateTime.now.to_formatted_s(:db))
+  end
+
+  def today_tasks
+    Task.order('due DESC').where('due >= ?', DateTime.now.to_formatted_s(:db))
+                     .where('due < ?', DateTime.now.to_date.tomorrow.to_formatted_s(:db))
+  end
+
+  def today_work()
+    Task.order('due DESC').where('start <= ?', DateTime.now.to_date.to_formatted_s(:db))
+                      .where('due >= ?', DateTime.now.to_date.tomorrow.to_formatted_s(:db))
+  end
+
+  def upcoming()
+    Task.order('due DESC').where('start > ?', DateTime.now.to_date.to_formatted_s(:db))
+                    .or(Task.order('due DESC').where('start IS NULL')
+                    .where('due >= ?', DateTime.now.to_date.tomorrow.to_formatted_s(:db)))
   end
 
   def record_not_found

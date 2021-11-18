@@ -1,0 +1,31 @@
+<div class="<%= local_assigns[:class] %> mid-section">
+    <h2><%= local_assigns[:title] %></h2>
+    <div class="section-collapsible">
+        <div class="dark-section">
+        <ul>
+        <% local_assigns[:tasks].each do |t| %>
+            <li class="task">
+            <div class="task-wrapper">
+                <div class="check-box-wrapper"> 
+                <% if t.complete%>
+                    <input type="checkbox" data-task-id="<%=t.id%>" aria-labelledby="<%=t.title%>" checked>
+                <% else %>
+                    <input type="checkbox" data-task-id="<%=t.id%>" aria-labelledby="<%=t.title%>">
+                <% end %>
+                <span class="checkmark"></span>
+                </div>
+                <div class="title-date-wrapper">
+                <% if t.complete %>
+                    <p class="title"><%= link_to t.title, task_path(t), class:"completed", "data-task-id" => t.id %></p>
+                    <% else %>
+                    <p class="title"><%= link_to t.title, task_path(t), "data-task-id" => t.id  %></p>
+                    <% end %>
+                <p class="date"><%= t.due.strftime(format='%-m/%-d/%C') %></p>
+                </div>
+            </div>
+            </li>
+        <% end %>
+        </ul>
+        </div>
+    </div>
+</div>
