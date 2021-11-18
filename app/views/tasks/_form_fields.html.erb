@@ -1,33 +1,15 @@
-<div class="row">
-  <div class="col-md-3">
-    <%= f.label :title %>
+<section class="new-wrapper">
+  <div class="form">
+      <p class="label"> <%= f.label :title %> </p>
+      <p class="input"> <%= f.text_field :title %> </p>
+      <p class="label"> <%= f.label :description %> </p>
+      <p class="input"> <%= f.text_area :description %> </p>
+      <p class="label"> <%= f.label :start %> </p>
+      <p class="input"> <%= f.text_field :start %> </p>
+      <p class="label"> <%= f.label :due %> </p>
+      <p class="input"> <%= f.text_field :due %> </p>
   </div>
-  <div class="col-md-4">
-    <%= f.text_field :title %>
-  </div>
-</div>
-<div class="row">
-  <div class="col-md-3">
-    <%= f.label :description %>
-  </div>
-  <div class="col-md-6">
-    <%= f.text_area :description %>
-  </div>
-</div>
-<div class="row">
-  <div class="col-md-3">
-    <%= f.label :start %>
-  </div>
-  <div class="col-md-6">
-    <%= f.text_field :start %>
+  <div class="centered">
+    <p> <%= button_to submit_text, tasks_path, class: "btn btn-complete", method: :post %> </p>
   </div>
 </div>
-<div class="row">
-  <div class="col-md-3">
-    <%= f.label :due %>
-  </div>
-  <div class="col-md-6">
-    <%= f.text_field :due %>
-  </div>
-</div>
-<%= f.submit submit_text %>
