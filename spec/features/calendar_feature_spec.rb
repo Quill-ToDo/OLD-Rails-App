@@ -14,7 +14,7 @@ RSpec.describe 'the calendar view', type: :feature, js: true do
     Task.create!(title: 'Physics HW', description: 'boring', start: DateTime.new(2021, 11, 3),
                  due: DateTime.new(2021, 11, 4), user_id: user.id)
     # Task.create!(title: 'Write Capybara tests', description: "not boring", start: DateTime.new(2021, 11, 3),  due: DateTime.new(2021, 11, 3))
-    Task.create!(title: 'Put away christmas decorations', due: DateTime.new(2022, 01, 7), user_id: user.id)
+    Task.create!(title: 'Put away christmas decorations', due: DateTime.new(2021, 11, 7), user_id: user.id)
     visit root_path
   end
 
