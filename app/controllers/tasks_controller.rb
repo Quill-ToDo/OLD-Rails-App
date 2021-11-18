@@ -22,8 +22,6 @@ class TasksController < ApplicationController
     end
   end
 
-  def 
-
   def new
     @task = Task.new
   end

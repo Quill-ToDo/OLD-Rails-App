@@ -18,6 +18,8 @@ document.addEventListener('DOMContentLoaded', function () {
     expandRows: true,
     height: "100%",
     dayCellClassNames: 'dark-section',
+    // TODO: Eventually should make these each call a different function so we can determine which partials to re-render, not 
+    // all of them
     eventAdd: reRenderList,
     eventRemove: reRenderList,
     eventChange: reRenderList
