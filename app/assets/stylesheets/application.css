@@ -92,6 +92,15 @@ body {
   width: 70%;
 }
 
+#logout {
+  color: var(--lightest-font);
+  height: fit-content;
+  width: fit-content;
+  margin-top: var(--section-gap);
+  cursor: pointer;
+  display: inline-block;
+}
+
 .mid-section {
   background-color: var(--mid-dark);
   border-radius: var(--box-corner-rounding);
