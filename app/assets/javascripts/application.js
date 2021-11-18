@@ -29,7 +29,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
       ],
       select: function(info) {
-        console.log(info);
         var title = prompt('Enter Title');
         if(title){
           jQuery.post(
