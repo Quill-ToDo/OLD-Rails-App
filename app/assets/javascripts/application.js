@@ -1,16 +1,17 @@
 //
+//= require jquery
+//= require jquery_ujs
 //= require_tree .
 //= require main
 //= require locales-all
-//= require jquery
 //= require moment 
-//= require jquery_ujs
 
-// var calendar;
+"use strict";
 
-document.addEventListener('DOMContentLoaded', function() {
+var calendar;
 
-    var calendarEl = document.getElementById('calendar');
+document.addEventListener('DOMContentLoaded', function () {
+  var calendarEl = document.getElementById('calendar');
     var calendar = new FullCalendar.Calendar(calendarEl, {
       selectable: true,
       headerToolbar: {
@@ -46,8 +47,10 @@ document.addEventListener('DOMContentLoaded', function() {
           calendar.unselect();
         }
       },
-      initialView: 'dayGridMonth'
+      initialView: 'dayGridMonth',
+      expandRows: true,
+      height: "100%",
+      dayCellClassNames: 'dark-section'
     });
     calendar.render();
-  });
-
+});

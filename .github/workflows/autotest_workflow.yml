@@ -1,0 +1,31 @@
+---
+name: Automated test execution (Continuous Integration)
+on: [push, pull_request]
+
+jobs:
+  tests:
+    name: Automated test execution
+    runs-on: ubuntu-latest
+    env:
+      BUNDLE_WITHOUT: production
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup Ruby and install gems
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+
+      - name: Run tests
+        run: |
+          bundle exec rails db:create RAILS_ENV=test
+          bundle exec rails db:migrate RAILS_ENV=test
+          bundle exec rspec
+
+      - name: Upload coverage
+        uses: actions/upload-artifact@v2
+        with:
+          name: code-coverage
+          path: coverage

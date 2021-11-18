@@ -1,0 +1,39 @@
+---
+name: Style-checking and linting 
+on: [push, pull_request]
+
+jobs:
+  tests:
+    name: Style-checking and linting 
+    runs-on: ubuntu-latest
+    env:
+      BUNDLE_WITHOUT: production
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Setup Ruby and install gems
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.0.1
+          bundler-cache: true
+
+      - name: Style check and lint
+        uses: docker://ghcr.io/github/super-linter:slim-v4
+        env:
+          VALIDATE_ALL_CODEBASE: true
+          DEFAULT_BRANCH: main
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          IGNORE_GITIGNORED_FILES: true
+          IGNORE_GENERATED_FILES: true
+          FILTER_REGEX_EXCLUDE: spec/**/*
+          FILTER_REGEX_INCLUDE: app/**/*
+          LINTER_RULES_PATH: /
+          RUBY_CONFIG_FILE: .rubocop.yml
+          VALIDATE_RUBY: true
+          VALIDATE_HTML: true
+
+

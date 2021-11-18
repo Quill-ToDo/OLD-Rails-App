@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
-RSpec.describe "create page", type: :view do
+RSpec.describe 'create page', type: :view do
   include Devise::Test::IntegrationHelpers
 
   before :each do
