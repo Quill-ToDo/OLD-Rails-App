@@ -1,1 +1,1 @@
-$("#list-wrapper").html('<%= escape_javascript(render :partial => "list") %>')
+$("#list-wrapper").html('<%= escape_javascript(render "list", overdue: @overdue) %>')

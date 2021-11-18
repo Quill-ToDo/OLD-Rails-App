@@ -17,7 +17,14 @@ document.addEventListener('DOMContentLoaded', function () {
     events: "/tasks/calendar_tasks",
     expandRows: true,
     height: "100%",
-    dayCellClassNames: 'dark-section'
+    dayCellClassNames: 'dark-section',
+    eventAdd: reRenderList,
+    eventRemove: reRenderList,
+    eventChange: reRenderList
   });
   calendar.render();
 });
+
+function reRenderList(events) {
+  $.get("/tasks/tasks_update_partials");
+}
