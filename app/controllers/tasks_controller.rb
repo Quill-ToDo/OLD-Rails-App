@@ -6,15 +6,15 @@ class TasksController < ApplicationController
   def index
     @overdue = overdue_tasks()
     @today_due = today_tasks()
-    @today_work = today_work()
-    @upcoming = upcoming()
+    @today_work = today_work_tasks()
+    @upcoming = upcoming_tasks()
   end
 
   def update_partials
     @overdue = overdue_tasks()
     @today_due = today_tasks()
-    @today_work = today_work()
-    @upcoming = upcoming()
+    @today_work = today_work_tasks()
+    @upcoming = upcoming_tasks()
     respond_to do |format|
       format.js { 
         render action: "update_partials" and return
@@ -110,12 +110,12 @@ class TasksController < ApplicationController
                      .where('due < ?', DateTime.now.to_date.tomorrow.to_formatted_s(:db))
   end
 
-  def today_work()
+  def today_work_tasks
     Task.order('due DESC').where('start <= ?', DateTime.now.to_date.to_formatted_s(:db))
                       .where('due >= ?', DateTime.now.to_date.tomorrow.to_formatted_s(:db))
   end
 
-  def upcoming()
+  def upcoming_tasks
     Task.order('due DESC').where('start > ?', DateTime.now.to_date.to_formatted_s(:db))
                     .or(Task.order('due DESC').where('start IS NULL')
                     .where('due >= ?', DateTime.now.to_date.tomorrow.to_formatted_s(:db)))
