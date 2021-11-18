@@ -1,6 +1,6 @@
 <div class="index-wrapper"> 
     <div id="left-menu" class="menu">
-        <%= link_to(new_task_path, alt: "Add") do %>
+        <%= link_to(new_task_path, id:"btn-add", alt: "Add") do %>
             <%= image_tag "add.png"%>
         <% end %>
         <%= link_to(destroy_user_session_path, method: :delete, alt: "Logout") do %>
