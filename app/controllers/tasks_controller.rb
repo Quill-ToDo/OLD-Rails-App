@@ -103,7 +103,6 @@ class TasksController < ApplicationController
       h = p.to_hash
       if h.include?('start')
         begin
-          # h[:start] = h['start'].to_datetime
           h[:start] = DateTime.parse(date_formatter(h['start']))
         rescue ArgumentError
           h[:start] = nil
@@ -111,8 +110,6 @@ class TasksController < ApplicationController
       end
       if h.include?('due')
         begin
-          # h[:due] = h['due'].to_datetime
-          # h[:due] = DateTime.strptime(h['due'], '%FT%T%:z')
           h[:due] = DateTime.parse(date_formatter(h['due']))
         rescue ArgumentError
           return
