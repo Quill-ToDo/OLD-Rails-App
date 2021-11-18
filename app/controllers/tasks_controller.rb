@@ -4,10 +4,12 @@ class TasksController < ApplicationController
   # before_action :user_signed_in?, only: [:index, :new, :create]
 
   def index
-    @overdue = Task.order('due ASC').where('due < ?', DateTime.now.to_date.to_formatted_s(:db))
+    @overdue = Task.order('due ASC')
+                  .where('user_id = ?', current_user.id)
+                  .where('due < ?', DateTime.now.to_date.to_formatted_s(:db))
     @today_due = Task.order('due DESC')
-                     .where('due >= ?', DateTime.now.to_date.to_formatted_s(:db))
                      .where('user_id = ?', current_user.id)
+                     .where('due >= ?', DateTime.now.to_date.to_formatted_s(:db))
                      .where('due < ?', DateTime.now.to_date.tomorrow.to_formatted_s(:db))
     @today_work = Task.order('due DESC')
                       .where('user_id = ?', current_user.id)
