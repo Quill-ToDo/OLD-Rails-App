@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', function () {
             task: task
           }
         );
-        calendar.addEvent(task)
+        calendar.addEvent(task);
         calendar.unselect();
       }
     },
@@ -54,6 +54,7 @@ document.addEventListener('DOMContentLoaded', function () {
   });
   calendar.render();
 });
+
 
 function reRenderList() {
   $.get("/tasks/update_partials");
