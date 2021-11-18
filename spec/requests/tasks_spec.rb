@@ -7,7 +7,7 @@ RSpec.describe 'Tasks', type: :request do
   include Devise::Test::IntegrationHelpers
 
   before :each do
-    user = User.create(email: 'soren.lorenson@example.com', password: 'testtest')
+    user = User.create!(:email => 'soren.lorenson@example.com', :password => 'testtest')
     sign_in user
     visit root_path
   end
