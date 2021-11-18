@@ -27,6 +27,7 @@ RSpec.describe 'the calendar view', type: :feature, js: true do
   end
 
   it 'should add a task to the calendar after clicking on a date' do
+    byebug
     current_day = page.find('.fc-day-today')
     current_day.native.click
     dialog = page.driver.browser.switch_to.alert
