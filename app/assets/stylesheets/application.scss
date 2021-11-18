@@ -24,28 +24,44 @@
 
 :root {
   --bg: #232323;
-  --light-font: #cdcdcd;
-  --mid-font: #636363;
+  --lightest-font: #cccbcb;
+  --light-font: #9c9c9c;
+  --mid-font: #5e5e5e;
+  --subdued: #414141;
+  --dark-font: #2c2c2c;
   --mid-dark: #191919;
   --darkest-dark: #111111;
+  --button-primary: #273fac;
+  --success: #20bb20;
 
   --section-gap: 15px;
-  --inner-box-padding: 20px;
+  --inner-box-padding: 17px;
   --box-corner-rounding: 40px;
+  --check-box-size: 17px;
 
   --calendar-h1-size: 35px;
+  --p-size: 20px;
+  --smaller-p-size: 15px;
+  --h2-size: 40px;
+  --h2-padding: 15px;
+  --h3-size: 30px;
+  --event-p-size: 13px;
 }
 
 body {
   margin: 0;
   background-color: none;
   background: var(--bg);
+  overflow: hidden;
 }
 
 #list-wrapper {
   grid-area: list;
-  margin: var(--section-gap) 0 0 0;
+  margin: 0;
   display: grid;
+  overscroll-behavior: contain;
+  overflow-y: scroll;
+  grid-auto-rows: min-content;
 }
 
 #calendar-wrapper {
@@ -80,25 +96,32 @@ body {
   width: 70%;
 }
 
-.section {
+.mid-section {
   background-color: var(--mid-dark);
   border-radius: var(--box-corner-rounding);
   padding: var(--inner-box-padding);
 }
 
-#list-wrapper .section {
-  margin: 0 0 var(--section-gap) var(--section-gap);
-}
-
-.section h2,
+/* Titles */
+section h2,
 .fc .fc-toolbar-title {
-  font-family: "Dongle", sans-serif;
+  font-family: "Secular One", sans-serif;
   /* text-transform: uppercase; */
   font-weight: 600;
-  color: var(--light-font);
-  font-size: 60px;
+  color: var(--lightest-font);
+  font-size: var(--h2-size);
   padding: 0;
   margin: 0;
+  margin: var(--h2-padding) 0 var(--h2-padding) 0;
+  line-height: 0.2;
+}
+
+p {
+  font-family: "Quicksand", sans-serif;
+  font-weight: 600;
+  font-size: var(--p-size);
+  margin: 0;
+  color: var(--light-font);
 }
 
 .menu {
@@ -110,10 +133,31 @@ body {
   display: grid;
   grid-template-areas: "left-menu list slider calendar right-menu";
   grid-template-columns: 50px 2fr min-content 5fr 50px;
+  grid-template-rows: 100vh auto 100vh 100vh 100vh;
 }
 /* } */
 
 .centered {
   display: flex;
   justify-content: center;
+}
+
+button,
+.fc .fc-button.fc-button-primary {
+  background-color: var(--dark-font);
+  border: none;
+  opacity: 1;
+  font-family: "Azeret Mono", monospace;
+  box-shadow: 4px 4px var(--darkest-dark);
+  transition-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+  transition: box-shadow 0.2s, background-color 0.2s, transform 0.2s;
+
+  /* border-radius: 20%; */
+}
+
+button:hover,
+.fc .fc-button.fc-button-primary:hover {
+  background-color: var(--darkest-dark);
+  box-shadow: none;
+  transform: translate(1px, 1px);
 }

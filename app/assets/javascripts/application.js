@@ -1,4 +1,6 @@
 //
+//= require jquery
+//= require jquery_ujs
 //= require_tree .
 //= require main
 //= require locales-all
@@ -11,27 +13,46 @@
 
 var calendar;
 
-document.addEventListener('DOMContentLoaded', function() {
-    var calendarEl = document.getElementById('calendar');
-    calendar = new FullCalendar.Calendar(calendarEl, {
+document.addEventListener('DOMContentLoaded', function () {
+  var calendarEl = document.getElementById('calendar');
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+      selectable: true,
+      headerToolbar: {
+        left: 'prev,next today',
+        center: 'title',
+        right: 'dayGridMonth,timeGridWeek,timeGridDay'
+      },
+      eventSources: [
+        {
+          url: '/tasks/calendar_tasks',
+          method: 'GET',
+          failure: function() {
+            alert('there was an error while fetching tasks!');
+          }
+        }
+      ],
+      select: function(info) {
+        var title = prompt('Enter Title');
+        if(title){
+          jQuery.post(
+            "/tasks", 
+            {
+              task: {
+                title: title,
+                start: info.start,
+                due: info.end,
+                calendar: true
+              }
+            }
+          );
+          calendar.refetchEvents();
+          calendar.unselect();
+        }
+      },
       initialView: 'dayGridMonth',
-      events: "/tasks/get_tasks"
-      // events: [
-      //   { // this object will be "parsed" into an Event Object
-      //     title: 'First Event Ever!!', // a property!
-      //     start: '2021-11-05', // a property!
-      //     end: '2021-11-07' // a property! ** see important note below about 'end' **
-      //   }
-      // ]
+      expandRows: true,
+      height: "100%",
+      dayCellClassNames: 'dark-section'
     });
     calendar.render();
-
-    // document.getElementById('test-add').addEventListener('click', function() {
-    //   calendar.addEvent({title: "Test", start:'2021-11-10', end:'2021-11-11'});
-    //   calendar.render();
-    // });
-    // document.addEventListener('DOMContentLoaded', function() {
-      // jQuery(document).on('turbolinks:load', function() {
-      // });
-    // });
 });

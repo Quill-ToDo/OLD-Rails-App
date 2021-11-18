@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe 'Task', type: :model do
@@ -12,12 +14,18 @@ RSpec.describe 'Task', type: :model do
     end
   end
 
-  it "should fail to create a Task if there is no due date" do
+  it 'should fail to create a Task if there is no due date' do
     dt = DateTime.new
-    expect{Task.create!(title: 'test', description: 'desc', start: dt.noon)}.to raise_exception ActiveRecord::RecordInvalid
+    expect do
+      Task.create!(title: 'test', description: 'desc', start: dt.noon)
+    end.to raise_exception ActiveRecord::RecordInvalid
   end
-  it "should fail to create a Task if maximum text inputs exceed" do
+
+  it 'should fail to create a Task if maximum text inputs exceed' do
     dt = DateTime.new
-    expect{Task.create!(title: '1'*1000, description: '1'*10000, due: dt.noon)}.to raise_exception ActiveRecord::RecordInvalid
+    expect do
+      Task.create!(title: '1' * 1000, description: '1' * 10_000,
+                   due: dt.noon)
+    end.to raise_exception ActiveRecord::RecordInvalid
   end
 end

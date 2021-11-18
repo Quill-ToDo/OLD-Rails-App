@@ -1,13 +1,13 @@
-<div class="show-wrapper">
-  <div class="section">
+<section class="show-wrapper">
+  <div class="mid-section">
     <div class="aligned-buttons">
-      <%= link_to task_path(@task), method: :delete, class: "btn btn-danger" do %>
+      <%= link_to task_path(@task), id: "btn-delete", method: :delete, class: "btn btn-danger" do %>
         <%= image_tag "bin.png" %>
       <% end %>
-            <%= link_to tasks_path, class: "btn btn-primary" do %>
+            <%= link_to root_path, id: "btn-home", class: "btn btn-primary" do %>
         <%= image_tag "home.png" %>
       <% end %>
-      <%= link_to edit_task_path(@task), class: 'btn btn-secondary' do %>
+      <%= link_to edit_task_path(@task), id: "btn-edit", class: 'btn btn-secondary' do %>
         <%= image_tag "editing.png" %>
       <% end %>
     </div>
@@ -37,4 +37,3 @@
     </div>
   </div>
 </div>
-

@@ -1,12 +1,19 @@
+# Tasks Controller
 class TasksController < ApplicationController
   rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
   # before_action :user_signed_in?, only: [:index, :new, :create]
 
   def index
-    @overdue = Task.order('due DESC').where('due < ?', DateTime.now)
-    @today_due = Task.order('due DESC').where('due >= ?', Date.today).where('due < ?', Date.tomorrow)
-    @today_work = Task.order('due DESC').where('start <= ?', Date.today).where('due >= ?', Date.tomorrow)
-    @upcoming = Task.order('due DESC').where('start > ?', Date.today).or(Task.order('due DESC').where('start IS NULL').where('due >= ?', Date.tomorrow))
+    @overdue = Task.order('due ASC').where('due < ?', DateTime.now.to_date.to_formatted_s(:db))
+    @today_due = Task.order('due DESC').where('due >= ?', DateTime.now.to_date.to_formatted_s(:db))
+                     .where('due < ?', DateTime.now.to_date.tomorrow.to_formatted_s(:db))
+    @today_work = Task.order('due DESC')
+                      .where('start < ?', DateTime.now.to_date.tomorrow.to_formatted_s(:db))
+                      .where('due >= ?', DateTime.now.to_date.tomorrow.to_formatted_s(:db))
+    @upcoming = Task.order('due DESC')
+                    .where('start >= ?', DateTime.now.to_date.tomorrow.to_formatted_s(:db))
+                    .or(Task.order('due DESC').where('start IS NULL')
+                            .where('due >= ?', DateTime.now.to_date.tomorrow.to_formatted_s(:db)))
   end
 
   def new
@@ -20,7 +27,7 @@ class TasksController < ApplicationController
       redirect_to root_path and return
     else
       flash[:alert] = 'Failed to create new task'
-      redirect_to tasks_new_path and return
+      redirect_to new_task_path and return
     end
   end
 
@@ -55,28 +62,30 @@ class TasksController < ApplicationController
     redirect_to root_path
   end
 
-  def get_tasks
-    @tasks = Task.all.where('due <= ?', Time.at(params['end'].to_datetime).to_formatted_s(:db)).or(Task.all.where('due <= ?', Time.at(params['end'].to_datetime).to_formatted_s(:db)).where('start >= ?', Time.at(params['start'].to_datetime).to_formatted_s(:db)))
+  def calendar_tasks
+    @tasks = Task.all.where('due <= ?', Time.at(params['end'].to_datetime).to_formatted_s(:db))
+                 .or(Task.all.where('due <= ?', Time.at(params['end'].to_datetime).to_formatted_s(:db))
+                      .where('start >= ?', Time.at(params['start'].to_datetime).to_formatted_s(:db)))
     events = []
     @tasks.each do |task|
-      h = Hash.new()
+      h = {}
       h[:id] = task.id
       h[:title] = task.title
 
-      unless task.description.nil?
-        h[:description] = task.description
-      end
+      h[:description] = task.description unless task.description.nil?
 
       if task.start.nil?
         h[:start] = DateTime.iso8601(task.due.iso8601).next.iso8601
+        h[:end] = task.due
       else
         h[:start] = DateTime.iso8601(task.start.iso8601).next.iso8601
+        h[:end] = DateTime.iso8601(task.due.iso8601).next.iso8601
       end
 
-      h[:end] = DateTime.iso8601(task.due.iso8601).next.iso8601
       events << h
     end
-    render :json => events.to_json
+
+    render json: events.to_json
   end
 
   def complete_task
@@ -87,10 +96,6 @@ class TasksController < ApplicationController
   end
 
   private
-    def record_not_found
-      flash[:alert] = 'Task not found!'
-      redirect_to root_path and return
-    end
 
     def date_formatter(to_format)
       split_date = to_format.split('/')
@@ -98,23 +103,31 @@ class TasksController < ApplicationController
       "#{split_date[1]} #{month} #{split_date[2]}"
     end
 
+    def record_not_found
+      flash[:alert] = 'Task not found!'
+      redirect_to root_path and return
+    end
+
     def task_params
-      p = params.require(:task).permit(:title, :description, :start, :due)
+      p = params.require(:task).permit(:title, :description, :start, :due, :calendar)
       h = p.to_hash
       if h.include?('start')
         begin
-          h[:start] = DateTime.parse(date_formatter(h['start']))
+          h['start'] = DateTime.parse(date_formatter(h['start']))
+          h['start'] = h['start'].yesterday if h.include?('calendar') && h['start'].to_date.tomorrow != h['due'].to_date
         rescue ArgumentError
-          h[:start] = nil
+          h['start'] = nil
         end
       end
       if h.include?('due')
         begin
-          h[:due] = DateTime.parse(date_formatter(h['due']))
+          h['due'] = DateTime.parse(date_formatter(h['due']))
+          h['due'] = h['due'].yesterday if h.include?('calendar')
         rescue ArgumentError
           return
         end
       end
-      params = ActionController::Parameters.new(h).permit(:title, :description, :start, :due)
+      h = h.except!('calendar')
+      ActionController::Parameters.new(h).permit(:title, :description, :start, :due)
     end
 end
