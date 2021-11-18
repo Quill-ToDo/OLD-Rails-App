@@ -7,7 +7,7 @@ RSpec.describe 'Task', type: :model do
     it 'should be able to create a Task object which has the correct methods on it' do
       dt = DateTime.new
       @user = User.create(email: 'admin@colgate.edu', password: 'testtest')
-      task = Task.create!(title: 'test', description: 'desc', start: dt.midnight, due: dt.noon, user_id: @user)
+      task = Task.create!(title: 'test', description: 'desc', start: dt.midnight, due: dt.noon, user_id: @user.id)
       expect(task).to respond_to :title
       expect(task).to respond_to :description
       expect(task).to respond_to :start
@@ -19,7 +19,7 @@ RSpec.describe 'Task', type: :model do
     dt = DateTime.new
     @user = User.create(email: 'admin@colgate.edu', password: 'testtest')
     expect do
-      Task.create!(title: 'test', description: 'desc', start: dt.noon, user_id: @user)
+      Task.create!(title: 'test', description: 'desc', start: dt.noon, user_id: @user.id)
     end.to raise_exception ActiveRecord::RecordInvalid
   end
 
@@ -28,7 +28,7 @@ RSpec.describe 'Task', type: :model do
     @user = User.create(email: 'admin@colgate.edu', password: 'testtest')
     expect do
       Task.create!(title: '1' * 1000, description: '1' * 10_000,
-                   due: dt.noon, user_id: @user)
+                   due: dt.noon, user_id: @user.id)
     end.to raise_exception ActiveRecord::RecordInvalid
   end
 end

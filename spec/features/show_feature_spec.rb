@@ -9,10 +9,10 @@ RSpec.describe 'show page', type: :feature, js: true do
     user = User.create!(email: 'testing@example.com', password: 'testtest')
 
     Task.create!(title: 'Do cosc415 reading', description: 'hi :)', start: DateTime.new(2021, 11, 8),
-                 due: DateTime.new(2021, 11, 11), complete: false, user_id: user)
-    Task.create!(title: 'Do NLP homework', due: DateTime.new(2021, 11, 10), complete: false, user_id: user)
+                 due: DateTime.new(2021, 11, 11), complete: false, user_id: user.id)
+    Task.create!(title: 'Do NLP homework', due: DateTime.new(2021, 11, 10), complete: false, user_id: user.id)
     Task.create!(title: 'SWE iteration 2', start: DateTime.new(2021, 11, 8), due: DateTime.new(2021, 11, 21),
-                 complete: false, user_id: user)
+                 complete: false, user_id: user.id)
     sign_in user
     visit root_path
   end
