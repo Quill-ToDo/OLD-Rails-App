@@ -14,6 +14,10 @@ class TasksController < ApplicationController
                     .where('due >= ?', DateTime.now.to_date.tomorrow.to_formatted_s(:db)))
   end
 
+  def update_partials
+    render :js => update_partials
+  end
+
   def new
     @task = Task.new
   end
