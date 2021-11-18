@@ -15,7 +15,9 @@ class TasksController < ApplicationController
   end
 
   def update_partials
-    render :js => update_partials
+    respond_to do |format|
+      format.js { render :action => "update_partials" }
+    end
   end
 
   def new
