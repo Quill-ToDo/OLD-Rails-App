@@ -7,32 +7,11 @@ RSpec.describe 'Tasks', type: :request do
   include Devise::Test::IntegrationHelpers
 
   before :each do
-<<<<<<< HEAD
     user = User.create!(:email => 'soren.lorenson@example.com', :password => 'testtest')
-=======
-    user = User.create(email: 'soren.lorenson@example.com', password: 'testtest')
->>>>>>> main
     sign_in user
     visit root_path
   end
 
-<<<<<<< HEAD
-  # describe "GET /index" do
-  #   it "returns http success" do
-  #     byebug
-  #     get "/tasks/index"
-  #     byebug
-  #     expect(response).to have_http_status(:success)
-  #   end
-  # end
-
-#   describe "GET /new" do
-#     it "returns http success" do
-#       get "/tasks/new"
-#       expect(response).to have_http_status(:redirect)
-#     end
-#   end
-=======
   #   describe "GET /index" do
   #     it "returns http success" do
   #       byebug
@@ -41,7 +20,6 @@ RSpec.describe 'Tasks', type: :request do
   #       expect(response).to have_http_status(:success)
   #     end
   #   end
->>>>>>> main
 
   #   describe "GET /new" do
   #     it "returns http success" do

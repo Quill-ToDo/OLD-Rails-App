@@ -5,9 +5,15 @@ class TasksController < ApplicationController
 
   def index
     @overdue = Task.order('due ASC').where('due < ?', DateTime.now.to_date.to_formatted_s(:db))
-    @today_due = Task.order('due DESC').where('due >= ?', DateTime.now.to_date.to_formatted_s(:db)).where('due < ?', DateTime.now.to_date.tomorrow.to_formatted_s(:db))
-    @today_work = Task.order('due DESC').where('start < ?', DateTime.now.to_date.tomorrow.to_formatted_s(:db)).where('due >= ?', DateTime.now.to_date.tomorrow.to_formatted_s(:db))
-    @upcoming = Task.order('due DESC').where('start >= ?', DateTime.now.to_date.tomorrow.to_formatted_s(:db)).or(Task.order('due DESC').where('start IS NULL').where('due >= ?', DateTime.now.to_date.tomorrow.to_formatted_s(:db)))
+    @today_due = Task.order('due DESC').where('due >= ?', DateTime.now.to_date.to_formatted_s(:db))
+                     .where('due < ?', DateTime.now.to_date.tomorrow.to_formatted_s(:db))
+    @today_work = Task.order('due DESC')
+                      .where('start < ?', DateTime.now.to_date.tomorrow.to_formatted_s(:db))
+                      .where('due >= ?', DateTime.now.to_date.tomorrow.to_formatted_s(:db))
+    @upcoming = Task.order('due DESC')
+                    .where('start >= ?', DateTime.now.to_date.tomorrow.to_formatted_s(:db))
+                    .or(Task.order('due DESC').where('start IS NULL')
+                            .where('due >= ?', DateTime.now.to_date.tomorrow.to_formatted_s(:db)))
   end
 
   def new
@@ -78,6 +84,7 @@ class TasksController < ApplicationController
 
       events << h
     end
+
     render json: events.to_json
   end
 
@@ -100,20 +107,16 @@ class TasksController < ApplicationController
     h = p.to_hash
     if h.include?('start')
       begin
-        h[:start] = DateTime.parse(h['start'])
-        if h.include?('calendar')
-          h[:start] = h[:start].yesterday
-        end
+        h['start'] = DateTime.parse(h['start'])
+        h['start'] = h['start'].yesterday if h.include?('calendar') && h['start'].to_date.tomorrow != h['due'].to_date
       rescue ArgumentError
-        h[:start] = nil
+        h['start'] = nil
       end
     end
     if h.include?('due')
       begin
-        h[:due] = DateTime.parse(h['due'])
-        if h.include?('calendar')
-          h[:due] = h[:due].yesterday
-        end
+        h['due'] = DateTime.parse(h['due'])
+        h['due'] = h['due'].yesterday if h.include?('calendar')
       rescue ArgumentError
         return
       end
