@@ -5,14 +5,19 @@ class TasksController < ApplicationController
 
   def index
     @overdue = Task.order('due ASC').where('due < ?', DateTime.now.to_date.to_formatted_s(:db))
-    @today_due = Task.order('due DESC').where('due >= ?', DateTime.now.to_date.to_formatted_s(:db))
+    @today_due = Task.order('due DESC')
+                     .where('due >= ?', DateTime.now.to_date.to_formatted_s(:db))
+                     .where('user_id = ?', current_user.id)
                      .where('due < ?', DateTime.now.to_date.tomorrow.to_formatted_s(:db))
     @today_work = Task.order('due DESC')
+                      .where('user_id = ?', current_user.id)
                       .where('start < ?', DateTime.now.to_date.tomorrow.to_formatted_s(:db))
                       .where('due >= ?', DateTime.now.to_date.tomorrow.to_formatted_s(:db))
     @upcoming = Task.order('due DESC')
+                    .where('user_id = ?', current_user.id)
                     .where('start >= ?', DateTime.now.to_date.tomorrow.to_formatted_s(:db))
                     .or(Task.order('due DESC').where('start IS NULL')
+                            .where('user_id = ?', current_user.id)
                             .where('due >= ?', DateTime.now.to_date.tomorrow.to_formatted_s(:db)))
   end
 
@@ -22,6 +27,7 @@ class TasksController < ApplicationController
 
   def create
     @task = Task.new(task_params)
+    @task.user_id = current_user.id if @task.user_id.nil?
     if @task.save
       flash[:notice] = "New task #{@task.title} created"
       redirect_to root_path and return
@@ -63,9 +69,11 @@ class TasksController < ApplicationController
   end
 
   def calendar_tasks
-    @tasks = Task.all.where('due <= ?', Time.at(params['end'].to_datetime).to_formatted_s(:db))
-                 .or(Task.all.where('due <= ?', Time.at(params['end'].to_datetime).to_formatted_s(:db))
-                      .where('start >= ?', Time.at(params['start'].to_datetime).to_formatted_s(:db)))
+    @tasks = Task.all.where('user_id = ?', current_user.id)
+                 .where('due <= ?', Time.at(params['end'].to_datetime).to_formatted_s(:db))
+                 .or(Task.all.where('user_id = ?', current_user.id)
+                             .where('due <= ?', Time.at(params['end'].to_datetime).to_formatted_s(:db))
+                             .where('start >= ?', Time.at(params['start'].to_datetime).to_formatted_s(:db)))
     events = []
     @tasks.each do |task|
       h = {}
