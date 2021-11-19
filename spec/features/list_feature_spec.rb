@@ -6,12 +6,13 @@ RSpec.describe 'task list', type: :feature, js: true do
   include Devise::Test::IntegrationHelpers
 
   before :each do
-    Task.create!(title: 'Complete task', start: DateTime.new(2021, 11, 8), due: DateTime.new(2021, 11, 11),
-                 complete: true)
-    Task.create!(title: 'Task 2', due: DateTime.new(2021, 11, 10), complete: false)
-    Task.create!(title: 'Task 3', start: DateTime.new(2021, 11, 8), due: DateTime.new(2021, 11, 21),
-                 complete: false)
     user = User.create!(email: 'testing@example.com', password: 'testtest')
+    Task.create!(title: 'Complete task', start: DateTime.new(2021, 11, 8), due: DateTime.new(2021, 11, 11),
+                 complete: true, user_id: user.id)
+    Task.create!(title: 'Task 2', due: DateTime.new(2021, 11, 10), complete: false, user_id: user.id)
+    Task.create!(title: 'Task 3', start: DateTime.new(2021, 11, 8), due: DateTime.new(2021, 11, 21),
+                 complete: false, user_id: user.id)
+    
     sign_in user
     visit root_path
   end

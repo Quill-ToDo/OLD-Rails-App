@@ -8,12 +8,13 @@ RSpec.describe 'the calendar view', type: :feature, js: true do
   before :each do
     user = User.create(email: 'soren.lorenson@example.com', password: 'testtest')
     sign_in user
-    Task.create!(title: 'Do cosc415 reading', due: DateTime.parse(DateTime.now.to_date.to_formatted_s(:db)))
-    Task.create!(title: 'SWE iteration 2', start: DateTime.parse(DateTime.now.to_date.to_formatted_s(:db)), due: DateTime.parse(DateTime.now.to_date.tomorrow.to_formatted_s(:db)))
-    Task.create!(title: 'SWE iteration 3', start: DateTime.parse(DateTime.now.to_date.yesterday.to_formatted_s(:db)), due: DateTime.parse(DateTime.now.to_date.yesterday.to_formatted_s(:db)))
-    Task.create!(title: 'Physics HW', description: 'boring', start: DateTime.parse(DateTime.now.to_date.yesterday.to_formatted_s(:db)),
-                 due: DateTime.parse(DateTime.now.to_date.tomorrow.to_formatted_s(:db)))
-    Task.create!(title: 'Put away christmas decorations', due: DateTime.parse(DateTime.now.to_date.tomorrow.to_formatted_s(:db)))
+    Task.create!(title: 'Do cosc415 reading', due: DateTime.new(2021, 11, 7), user_id: user.id)
+    Task.create!(title: 'SWE iteration 2', start: DateTime.new(2021, 11, 8), due: DateTime.new(2021, 11, 21), user_id: user.id)
+    Task.create!(title: 'SWE iteration 3', start: DateTime.new(2021, 11, 22), due: DateTime.new(2021, 12, 5), user_id: user.id)
+    Task.create!(title: 'Physics HW', description: 'boring', start: DateTime.new(2021, 11, 3),
+                 due: DateTime.new(2021, 11, 4), user_id: user.id)
+    # Task.create!(title: 'Write Capybara tests', description: "not boring", start: DateTime.new(2021, 11, 3),  due: DateTime.new(2021, 11, 3))
+    Task.create!(title: 'Put away christmas decorations', due: DateTime.new(2021, 11, 7), user_id: user.id)
     visit root_path
   end
 
