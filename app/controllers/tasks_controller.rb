@@ -18,7 +18,7 @@ class TasksController < ApplicationController
     respond_to do |format|
       format.js { 
         render action: "update_partials" and return
-      }
+      } 
     end
   end
 

@@ -79,6 +79,25 @@ RSpec.describe 'Tasks', type: :request do
   #     end
   #   end
 
+  describe 'GET update_partials' do
+    before :all do 
+      Task.create!(title: 'Task 4', due: DateTime.new(2021, 11, 10), complete: false)
+      get tasks_update_partials_path, xhr: true
+    end
+
+    it 'should return success' do
+      expect(response).to have_http_status(302).or(have_http_status(:ok))
+    end
+
+    it 'should render the partials' do
+      expect(response).to render_template('update_partials')
+    end
+    
+    it 'should update the partials' do
+      expect(find("#list-wrapper")).to have_content('Task 4')
+    end
+  end
+
   describe 'record_not_found behaves appropriately' do
     it 'should return to the main tasks view if a nonexistent task is searched for' do
       visit '/tasks/99999'

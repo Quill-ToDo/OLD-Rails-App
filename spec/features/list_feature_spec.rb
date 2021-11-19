@@ -41,12 +41,6 @@ RSpec.describe 'task list', type: :feature, js: true do
     expect(Task.find(id).complete).to eq(false)
   end
 
-  it 'should update partials update_partials is called' do
-    Task.create!(title: 'Task 4', due: DateTime.new(2021, 11, 10), complete: false)
-    tasks_update_partials_path
-    expect(page).to have_content('Task 4')
-  end
-
   it 'should update calendar when a task is added' do
     pending "add a task and find same task in calendar"
   end
