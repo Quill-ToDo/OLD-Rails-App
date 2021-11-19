@@ -8,11 +8,10 @@
 
 "use strict";
 
-var calendar;
-
 document.addEventListener('DOMContentLoaded', function () {
   var calendarEl = document.getElementById('calendar');
-  var calendar = new FullCalendar.Calendar(calendarEl, {
+  // TODO: Don't make this global :)
+  calendar = new FullCalendar.Calendar(calendarEl, {
     selectable: true,
     headerToolbar: {
       left: 'prev,next today',
@@ -28,34 +27,30 @@ document.addEventListener('DOMContentLoaded', function () {
     }],
     select: function (info) {
       var title = prompt('Enter Title');
-      var task = {
-        title: title,
-        start: info.start,
-        due: info.end,
-        calendar: true
-      };
       if (title) {
         jQuery.post(
           "/tasks", {
-            task: task
+            task: {
+              title: title,
+              start: info.start,
+              due: info.end,
+              calendar: true
+            }
           }
         );
-        calendar.addEvent(task);
+        calendar.refetchEvents();
         calendar.unselect();
+        reRenderList();
       }
     },
     initialView: 'dayGridMonth',
     expandRows: true,
     height: "100%",
-    dayCellClassNames: 'dark-section',
-    eventAdd: reRenderList,
-    eventRemove: reRenderList,
-    eventChange: reRenderList
+    dayCellClassNames: 'dark-section'
   });
   calendar.render();
 });
 
-
 function reRenderList() {
-  $.get("/tasks/update_partials");
+  $.get("/tasks/update_partials")
 }

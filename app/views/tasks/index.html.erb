@@ -10,8 +10,7 @@
         <%= render 'list', overdue: @overdue, today_due: @today_due, today_work: @today_work, upcoming: @upcoming%>
     </div>
     <div id="slider"></div>
-    <div id="calendar-wrapper"> 
-    <%= button_to "Update partial!", tasks_update_partials_path, method: :get, remote: true  %>
+    <div id="calendar-wrapper">
         <%= render 'calendar' %>
     </div>
     <div id="right-menu" class="menu">
