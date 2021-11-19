@@ -59,6 +59,7 @@ RSpec.describe 'the calendar view', type: :feature, js: true do
     dialog.send_keys("Task1")
     dialog.accept
     visit root_path
+    sleep(2)
     expect(Task.find_by(title:'Task1')).to_not eq(nil)
     expect(Task.find_by(title:'Task1').start.to_date.to_formatted_s(:db)).to eq(DateTime.now.to_date.to_formatted_s(:db))
   end
