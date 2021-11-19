@@ -45,4 +45,8 @@ RSpec.describe 'the calendar view', type: :feature, js: true do
     visit root_path
     expect(Task.find_by(title:'Task1')).to_not eq(nil)
   end 
+
+  it 'should update list partial when task is added', type: :view do
+    pending "add a task and find same task in list"
+  end
 end
