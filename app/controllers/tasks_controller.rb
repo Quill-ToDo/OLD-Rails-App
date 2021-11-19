@@ -76,15 +76,14 @@ class TasksController < ApplicationController
 
       if task.start.nil?
         h[:start] = DateTime.iso8601(task.due.iso8601).next.iso8601
-        h[:end] = task.due
+        h[:end] = task.due.iso8601
       else
-        h[:start] = DateTime.iso8601(task.start.iso8601).next.iso8601
+        h[:start] = task.start.iso8601
         h[:end] = DateTime.iso8601(task.due.iso8601).next.iso8601
       end
 
       events << h
     end
-
     render json: events.to_json
   end
 
@@ -108,7 +107,6 @@ class TasksController < ApplicationController
     if h.include?('start')
       begin
         h['start'] = DateTime.parse(h['start'])
-        h['start'] = h['start'].yesterday if h.include?('calendar') && h['start'].to_date.tomorrow != h['due'].to_date
       rescue ArgumentError
         h['start'] = nil
       end

@@ -119,4 +119,5 @@ Capybara.configure do |config|
   # config.enable_aria_label = true
   config.test_id = 'aria-labelledby'
   config.javascript_driver = :selenium_headless
+  config.default_max_wait_time = 10
 end
