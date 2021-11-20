@@ -41,9 +41,16 @@ document.addEventListener('DOMContentLoaded', function () {
                 calendar: true
               }
             }
-          );
-          calendar.refetchEvents();
-          calendar.unselect();
+          )
+          .done(function() {
+            calendar.refetchEvents();
+          })
+          .fail(function() {
+            alert( "ERROR: Task could not be created!" );
+          })
+          .always(function() {
+            calendar.unselect();
+          });;
         }
       },
       initialView: 'dayGridMonth',
