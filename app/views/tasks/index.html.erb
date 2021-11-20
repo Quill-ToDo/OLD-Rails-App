@@ -1,9 +1,10 @@
 <div class="index-wrapper"> 
     <div id="left-menu" class="menu">
-        <% if user_signed_in? %>
-            <%= link_to(new_task_path, id: "btn-add", alt: "Add") do %>
-                <%= image_tag "add.png"%>
-            <% end %>
+        <%= link_to(new_task_path, id:"btn-add", alt: "Add") do %>
+            <%= image_tag "add.png"%>
+        <% end %>
+        <%= link_to(destroy_user_session_path, method: :delete, alt: "Logout") do %>
+                <%= image_tag "logout.png"%>
         <% end %>
     </div>
     <div id="list-wrapper"> 
@@ -14,4 +15,5 @@
         <%= render 'calendar' %>
     </div>
     <div id="right-menu" class="menu">
-<div>
+    </div>
+</div>
