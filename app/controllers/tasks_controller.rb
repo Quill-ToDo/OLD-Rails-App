@@ -110,8 +110,8 @@ class TasksController < ApplicationController
 
   def overdue_tasks
     Task.order('due ASC')
-    .where('user_id = ?', current_user.id)
-    .where('due < ?', DateTime.now.to_date.to_formatted_s(:db))
+        .where('user_id = ?', current_user.id)
+        .where('due < ?', DateTime.now.to_date.to_formatted_s(:db))
   end
 
   def today_due_tasks
