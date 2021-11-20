@@ -8,42 +8,37 @@
 
 "use strict";
 
-var calendar;
-
 document.addEventListener('DOMContentLoaded', function () {
   var calendarEl = document.getElementById('calendar');
-    var calendar = new FullCalendar.Calendar(calendarEl, {
-      selectable: true,
-      headerToolbar: {
-        left: 'prev,next today',
-        center: 'title',
-        right: 'dayGridMonth,timeGridWeek,timeGridDay'
-      },
-      eventSources: [
-        {
-          url: '/tasks/calendar_tasks',
-          method: 'GET',
-          failure: function() {
-            alert('there was an error while fetching tasks!');
-          }
-        }
-      ],
-      select: function(info) {
-        var title = prompt('Enter Title');
-        if(title){
-          jQuery.post(
-            "/tasks", 
-            {
-              task: {
-                title: title,
-                start: info.start,
-                due: info.end,
-                calendar: true
-              }
+  // TODO: Don't make this global :)
+  calendar = new FullCalendar.Calendar(calendarEl, {
+    selectable: true,
+    headerToolbar: {
+      left: 'prev,next today',
+      center: 'title',
+      right: 'dayGridMonth,timeGridWeek,timeGridDay'
+    },
+    eventSources: [{
+      url: '/tasks/calendar_tasks',
+      method: 'GET',
+      failure: function () {
+        alert('there was an error while fetching tasks!');
+      }
+    }],
+    select: function (info) {
+      var title = prompt('Enter Title');
+      if (title) {
+        jQuery.post(
+          "/tasks", {
+            task: {
+              title: title,
+              start: info.start,
+              due: info.end,
+              calendar: true
             }
-          )
-          .done(function() {
+          }).done(function() {
             calendar.refetchEvents();
+            reRenderList();
           })
           .fail(function() {
             alert( "ERROR: Task could not be created!" );
@@ -86,3 +81,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
     calendar.render();
 });
+
+function reRenderList() {
+  $.get("/tasks/update_partials")
+}
