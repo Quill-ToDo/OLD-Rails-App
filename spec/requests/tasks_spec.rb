@@ -5,12 +5,11 @@ require 'spec_helper'
 
 RSpec.describe 'Tasks', type: :request do
   include Devise::Test::IntegrationHelpers
-
-  before :each do
-    user = User.create!(:email => 'soren.lorenson@example.com', :password => 'testtest')
-    sign_in user
-    visit root_path
-  end
+    before :each do
+      user = User.create!(:email => 'soren.lorenson@example.com', :password => 'testtest')
+      sign_in user
+      visit root_path
+    end
 
   #   describe "GET /index" do
   #     it "returns http success" do
@@ -78,25 +77,6 @@ RSpec.describe 'Tasks', type: :request do
   #       #TO DO
   #     end
   #   end
-
-  describe 'GET update_partials' do
-    before :all do 
-      Task.create!(title: 'Task 4', due: DateTime.new(2021, 11, 10), complete: false)
-      get tasks_update_partials_path, xhr: true
-    end
-
-    it 'should return success' do
-      expect(response).to have_http_status(302).or(have_http_status(:ok))
-    end
-
-    it 'should render the partials' do
-      expect(response).to render_template('update_partials')
-    end
-    
-    it 'should update the partials' do
-      expect(find("#list-wrapper")).to have_content('Task 4')
-    end
-  end
 
   describe 'record_not_found behaves appropriately' do
     it 'should return to the main tasks view if a nonexistent task is searched for' do

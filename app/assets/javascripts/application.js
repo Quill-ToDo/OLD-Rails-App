@@ -36,19 +36,24 @@ document.addEventListener('DOMContentLoaded', function () {
               due: info.end,
               calendar: true
             }
-          }
-        );
-        calendar.refetchEvents();
-        calendar.unselect();
-        reRenderList();
-      }
-    },
-    initialView: 'dayGridMonth',
-    expandRows: true,
-    height: "100%",
-    dayCellClassNames: 'dark-section'
-  });
-  calendar.render();
+          }).done(function() {
+            calendar.refetchEvents();
+            reRenderList();
+          })
+          .fail(function() {
+            alert( "ERROR: Task could not be created!" );
+          })
+          .always(function() {
+            calendar.unselect();
+          })
+        }
+      },
+      initialView: 'dayGridMonth',
+      expandRows: true,
+      height: "100%",
+      dayCellClassNames: 'dark-section'
+    });
+    calendar.render();
 });
 
 function reRenderList() {
