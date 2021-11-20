@@ -49,7 +49,7 @@ class TasksController < ApplicationController
     @task = Task.find(params[:id])
     if @task.update(task_params)
       flash[:notice] = "Task #{@task.title} successfully updated"
-      return if params["task"].include?('calendar')
+      return if params['task'].include?('calendar')
 
       redirect_to task_path(@task)
     else
@@ -80,11 +80,11 @@ class TasksController < ApplicationController
 
       h[:description] = task.description unless task.description.nil?
 
-      if task.start.nil?
-        h[:start] = task.due.to_datetime.iso8601
-      else
-        h[:start] = task.start.to_datetime.iso8601
-      end
+      h[:start] = if task.start.nil?
+                    task.due.to_datetime.iso8601
+                  else
+                    task.start.to_datetime.iso8601
+                  end
 
       h[:end] = task.due.to_datetime.iso8601
       events << h
@@ -118,15 +118,15 @@ class TasksController < ApplicationController
     end
     if h.include?('due')
       begin
-        if !h.include?('calendar') || h.include?('update')
-          if h['due'] == ""
-            h['due'] = h['start']
-          else
-            h['due'] = DateTime.parse(h['due'])
-          end
-        else
-          h['due'] = DateTime.parse(h['due']).yesterday
-        end
+        h['due'] = if !h.include?('calendar') || h.include?('update')
+                     if h['due'] == ''
+                       h['start']
+                     else
+                       DateTime.parse(h['due'])
+                     end
+                   else
+                     DateTime.parse(h['due']).yesterday
+                   end
       rescue ArgumentError
         return
       end
