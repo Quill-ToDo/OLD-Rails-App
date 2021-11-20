@@ -3,6 +3,7 @@
 require 'database_cleaner'
 require 'simplecov'
 require 'capybara/rspec'
+require 'support/wait_for_ajax'
 
 SimpleCov.start do
   add_filter 'spec'

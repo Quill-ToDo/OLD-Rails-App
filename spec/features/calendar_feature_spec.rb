@@ -34,7 +34,7 @@ RSpec.describe 'the calendar view', type: :feature, js: true do
     dialog.send_keys("Task1")
     dialog.accept
     visit root_path
-    sleep(4)
+    wait_for_ajax
     expect(page.find('#calendar')).to have_content("Task1")
   end
 
@@ -52,7 +52,7 @@ RSpec.describe 'the calendar view', type: :feature, js: true do
     dialog.send_keys("Task2")
     dialog.accept
     visit root_path
-    sleep(4)
+    wait_for_ajax
     expect(page.find('#calendar')).to have_content("Task2")
     expect(Task.find_by(title:'Task2').start.to_date.to_formatted_s(:db)).to eq(DateTime.now.to_date.to_formatted_s(:db))
     expect(Task.find_by(title:'Task2').due.to_date.to_formatted_s(:db)).to eq(DateTime.now.to_date.tomorrow.to_formatted_s(:db))
@@ -65,7 +65,7 @@ RSpec.describe 'the calendar view', type: :feature, js: true do
     dialog.send_keys("Task1")
     dialog.accept
     visit root_path
-    sleep(4)
+    wait_for_ajax
     expect(Task.find_by(title:'Task1')).to_not eq(nil)
     expect(Task.find_by(title:'Task1').start.to_date.to_formatted_s(:db)).to eq(DateTime.now.to_date.to_formatted_s(:db))
   end 
