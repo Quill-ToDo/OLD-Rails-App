@@ -4,23 +4,25 @@ class TasksController < ApplicationController
   # before_action :user_signed_in?, only: [:index, :new, :create]
 
   def index
-    @overdue = Task.order('due ASC')
-                   .where('user_id = ?', current_user.id)
-                   .where('due < ?', DateTime.now.to_date.to_formatted_s(:db))
-    @today_due = Task.order('due DESC')
-                     .where('user_id = ?', current_user.id)
-                     .where('due >= ?', DateTime.now.to_date.to_formatted_s(:db))
-                     .where('due < ?', DateTime.now.to_date.tomorrow.to_formatted_s(:db))
-    @today_work = Task.order('due DESC')
-                      .where('user_id = ?', current_user.id)
-                      .where('start < ?', DateTime.now.to_date.tomorrow.to_formatted_s(:db))
-                      .where('due >= ?', DateTime.now.to_date.tomorrow.to_formatted_s(:db))
-    @upcoming = Task.order('due DESC')
-                    .where('user_id = ?', current_user.id)
-                    .where('start >= ?', DateTime.now.to_date.tomorrow.to_formatted_s(:db))
-                    .or(Task.order('due DESC').where('start IS NULL')
-                            .where('user_id = ?', current_user.id)
-                            .where('due >= ?', DateTime.now.to_date.tomorrow.to_formatted_s(:db)))
+    @overdue = overdue_tasks
+    @today_due = today_due_tasks
+    @today_work = today_work_tasks
+    @upcoming = upcoming_tasks
+  end
+
+  def update_partials
+    @overdue = overdue_tasks
+    @today_due = today_due_tasks
+    @today_work = today_work_tasks
+    @upcoming = upcoming_tasks
+    respond_to do |format|
+      format.js do
+        render action: 'update_partials' and return
+      end
+      format.html do
+        redirect_to root_path
+      end
+    end
   end
 
   def new
@@ -86,15 +88,14 @@ class TasksController < ApplicationController
 
       if task.start.nil?
         h[:start] = DateTime.iso8601(task.due.iso8601).next.iso8601
-        h[:end] = task.due
+        h[:end] = task.due.iso8601
       else
-        h[:start] = DateTime.iso8601(task.start.iso8601).next.iso8601
+        h[:start] = task.start.iso8601
         h[:end] = DateTime.iso8601(task.due.iso8601).next.iso8601
       end
 
       events << h
     end
-
     render json: events.to_json
   end
 
@@ -107,6 +108,33 @@ class TasksController < ApplicationController
 
   private
 
+  def overdue_tasks
+    Task.order('due ASC').where('due < ?', DateTime.now.to_date.to_formatted_s(:db))
+  end
+
+  def today_due_tasks
+    Task.order('due DESC')
+        .where('due >= ?', DateTime.now.to_date.to_formatted_s(:db))
+        .where('user_id = ?', current_user.id)
+        .where('due < ?', DateTime.now.to_date.tomorrow.to_formatted_s(:db))
+  end
+
+  def today_work_tasks
+    Task.order('due DESC')
+        .where('user_id = ?', current_user.id)
+        .where('start < ?', DateTime.now.to_date.tomorrow.to_formatted_s(:db))
+        .where('due >= ?', DateTime.now.to_date.tomorrow.to_formatted_s(:db))
+  end
+
+  def upcoming_tasks
+    Task.order('due DESC')
+        .where('user_id = ?', current_user.id)
+        .where('start >= ?', DateTime.now.to_date.tomorrow.to_formatted_s(:db))
+        .or(Task.order('due DESC').where('start IS NULL')
+                            .where('user_id = ?', current_user.id)
+                            .where('due >= ?', DateTime.now.to_date.tomorrow.to_formatted_s(:db)))
+  end
+
   def record_not_found
     flash[:alert] = 'Task not found!'
     redirect_to root_path and return
@@ -118,7 +146,6 @@ class TasksController < ApplicationController
     if h.include?('start')
       begin
         h['start'] = DateTime.parse(h['start'])
-        h['start'] = h['start'].yesterday if h.include?('calendar') && h['start'].to_date.tomorrow != h['due'].to_date
       rescue ArgumentError
         h['start'] = nil
       end
