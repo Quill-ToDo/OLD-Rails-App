@@ -4,21 +4,25 @@ class TasksController < ApplicationController
   # before_action :user_signed_in?, only: [:index, :new, :create]
 
   def index
-    @overdue = Task.order('due ASC').where('due < ?', DateTime.now.to_date.to_formatted_s(:db))
-    @today_due = Task.order('due DESC')
-                     .where('due >= ?', DateTime.now.to_date.to_formatted_s(:db))
-                     .where('user_id = ?', current_user.id)
-                     .where('due < ?', DateTime.now.to_date.tomorrow.to_formatted_s(:db))
-    @today_work = Task.order('due DESC')
-                      .where('user_id = ?', current_user.id)
-                      .where('start < ?', DateTime.now.to_date.tomorrow.to_formatted_s(:db))
-                      .where('due >= ?', DateTime.now.to_date.tomorrow.to_formatted_s(:db))
-    @upcoming = Task.order('due DESC')
-                    .where('user_id = ?', current_user.id)
-                    .where('start >= ?', DateTime.now.to_date.tomorrow.to_formatted_s(:db))
-                    .or(Task.order('due DESC').where('start IS NULL')
-                            .where('user_id = ?', current_user.id)
-                            .where('due >= ?', DateTime.now.to_date.tomorrow.to_formatted_s(:db)))
+    @overdue = overdue_tasks
+    @today_due = today_due_tasks
+    @today_work = today_work_tasks
+    @upcoming = upcoming_tasks
+  end
+
+  def update_partials
+    @overdue = overdue_tasks
+    @today_due = today_due_tasks
+    @today_work = today_work_tasks
+    @upcoming = upcoming_tasks
+    respond_to do |format|
+      format.js do
+        render action: 'update_partials' and return
+      end
+      format.html do
+        redirect_to root_path
+      end
+    end
   end
 
   def new
@@ -103,6 +107,33 @@ class TasksController < ApplicationController
   end
 
   private
+
+  def overdue_tasks
+    Task.order('due ASC').where('due < ?', DateTime.now.to_date.to_formatted_s(:db))
+  end
+
+  def today_due_tasks
+    Task.order('due DESC')
+        .where('due >= ?', DateTime.now.to_date.to_formatted_s(:db))
+        .where('user_id = ?', current_user.id)
+        .where('due < ?', DateTime.now.to_date.tomorrow.to_formatted_s(:db))
+  end
+
+  def today_work_tasks
+    Task.order('due DESC')
+        .where('user_id = ?', current_user.id)
+        .where('start < ?', DateTime.now.to_date.tomorrow.to_formatted_s(:db))
+        .where('due >= ?', DateTime.now.to_date.tomorrow.to_formatted_s(:db))
+  end
+
+  def upcoming_tasks
+    Task.order('due DESC')
+        .where('user_id = ?', current_user.id)
+        .where('start >= ?', DateTime.now.to_date.tomorrow.to_formatted_s(:db))
+        .or(Task.order('due DESC').where('start IS NULL')
+                            .where('user_id = ?', current_user.id)
+                            .where('due >= ?', DateTime.now.to_date.tomorrow.to_formatted_s(:db)))
+  end
 
   def record_not_found
     flash[:alert] = 'Task not found!'
