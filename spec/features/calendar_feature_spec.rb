@@ -40,7 +40,7 @@ RSpec.describe 'the calendar view', type: :feature, js: true do
 
   it 'should add a task to the calendar after selecting a date range' do
     current_day = page.find('.fc-day-today').native
-    next_day = page.find('.fc-day-today + .fc-day').native
+    next_day = page.find(".fc-day-future", match: :first).native
     page.driver.browser.action.click_and_hold(current_day).move_to(next_day).perform
     page.driver.browser.action.release.perform
     dialog = page.driver.browser.switch_to.alert
