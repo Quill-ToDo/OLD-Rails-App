@@ -8,10 +8,10 @@
         <% end %>
     </div>
     <div id="list-wrapper"> 
-        <%= render 'list' %>
+        <%= render 'list', overdue: @overdue, today_due: @today_due, today_work: @today_work, upcoming: @upcoming %>
     </div>
     <div id="slider"></div>
-    <div id="calendar-wrapper"> 
+    <div id="calendar-wrapper">
         <%= render 'calendar' %>
     </div>
     <div id="right-menu" class="menu">
