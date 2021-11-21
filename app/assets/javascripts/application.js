@@ -67,6 +67,7 @@ document.addEventListener('DOMContentLoaded', function () {
             },
             success: function() {
               calendar.refetchEvents();
+              reRenderList();
             },
             error: function() {
               alert( "ERROR: Task information could not be updated!" );
