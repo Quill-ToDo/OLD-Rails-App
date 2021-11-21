@@ -8,10 +8,10 @@ RSpec.describe 'the calendar view', type: :feature, js: true do
   before :each do
     user = User.create(email: 'soren.lorenson@example.com', password: 'testtest')
     sign_in user
-    Task.create!(title: 'Do cosc415 reading', due: DateTime.now, user_id: user.id)
     Task.create!(title: 'SWE iteration 2', start: DateTime.now.next, due: DateTime.now.next, user_id: user.id)
     Task.create!(title: 'SWE iteration 3', start: DateTime.now.next.next, due: DateTime.now.next.next.next, user_id: user.id)
-    Task.create!(title: 'Physics HW', description: 'boring', start: DateTime.parse(DateTime.now.to_date.yesterday.iso8601), due: DateTime.now.next.next.next, user_id: user.id)
+    Task.create!(title: 'Physics HW', description: 'boring', start: DateTime.now.next, due: DateTime.now.next.next.next, user_id: user.id)
+    Task.create!(title: 'Do cosc415 reading', due: DateTime.now, user_id: user.id)
     # Task.create!(title: 'Write Capybara tests', description: "not boring", start: DateTime.new(2021, 11, 3),  due: DateTime.new(2021, 11, 3))
     Task.create!(title: 'Put away christmas decorations', due: DateTime.now.next, user_id: user.id)
     visit root_path
