@@ -48,7 +48,6 @@ RSpec.describe 'the calendar view', type: :feature, js: true do
     visit root_path
     sleep(10)
     expect(page.find('#calendar')).to have_content("Task2")
-    expect(Task.find_by(title:'Task2').start.to_date.to_formatted_s(:db)).to eq(DateTime.now.to_date.to_formatted_s(:db))
     expect(Task.find_by(title:'Task2').due.to_date.to_formatted_s(:db)).to eq(DateTime.now.to_date.tomorrow.to_formatted_s(:db))
   end
 
@@ -61,7 +60,7 @@ RSpec.describe 'the calendar view', type: :feature, js: true do
     visit root_path
     sleep(10)
     expect(Task.find_by(title:'Task1')).to_not eq(nil)
-    expect(Task.find_by(title:'Task1').start.to_date.to_formatted_s(:db)).to eq(DateTime.now.to_date.to_formatted_s(:db))
+    expect(Task.find_by(title:'Task1').due.to_date.to_formatted_s(:db)).to eq(DateTime.now.to_date.to_formatted_s(:db))
   end 
 
   it "should add a task and find same task in list" do
@@ -83,7 +82,8 @@ RSpec.describe 'the calendar view', type: :feature, js: true do
     next_day = page.find('.fc-day-future', match: :first).native
     page.driver.browser.action.click_and_hold(task_box.native).move_to(next_day).perform
     page.driver.browser.action.release.perform
-    sleep(10)
+    sleep(20)
+    byebug
     expect(page.find('.fc-day-future', match: :first)).to have_content(task)
     if !db_task_start.nil?
       expect(Task.find_by(title: task).start.to_date.to_formatted_s(:db)).to eq(db_task_start.to_date.tomorrow.to_formatted_s(:db))

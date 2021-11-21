@@ -71,6 +71,7 @@ class TasksController < ApplicationController
   end
 
   def calendar_tasks
+    
     @tasks = Task.all.where('user_id = ?', current_user.id)
                  .where('due <= ?', DateTime.parse(params['end']))
                  .or(Task.all.where('user_id = ?', current_user.id)
@@ -104,6 +105,12 @@ class TasksController < ApplicationController
   end
 
   private
+
+  def date_formatter(to_format)
+    split_date = to_format.split('/')
+    month = Date::MONTHNAMES[split_date[0].to_i]
+    "#{split_date[1]} #{month} #{split_date[2]}"
+  end
 
   def overdue_tasks
     Task.order('due ASC')
