@@ -71,18 +71,16 @@ class TasksController < ApplicationController
 
   def update
     @task = Task.find(params[:id])
-    if @task.update(create_update_params)
+    if @task.update(task_params)
       flash[:notice] = "Task #{@task.title} successfully updated"
+      return if params['task'].include?('calendar')
+
       redirect_to task_path(@task)
     else
       # save failed
       flash[:alert] = "Task couldn't be updated"
       render 'edit'
     end
-  end
-
-  def create_update_params
-    params.require(:task).permit(:title, :description, :start, :due)
   end
 
   def destroy
@@ -94,10 +92,10 @@ class TasksController < ApplicationController
 
   def calendar_tasks
     @tasks = Task.all.where('user_id = ?', current_user.id)
-                 .where('due <= ?', Time.at(params['end'].to_datetime).to_formatted_s(:db))
+                 .where('due <= ?', DateTime.parse(params['end']))
                  .or(Task.all.where('user_id = ?', current_user.id)
-                             .where('due <= ?', Time.at(params['end'].to_datetime).to_formatted_s(:db))
-                             .where('start >= ?', Time.at(params['start'].to_datetime).to_formatted_s(:db)))
+                             .where('due <= ?', DateTime.parse(params['end']))
+                             .where('start >= ?', DateTime.parse(params['start'])))
     events = []
     @tasks.each do |task|
       h = {}
@@ -106,14 +104,13 @@ class TasksController < ApplicationController
 
       h[:description] = task.description unless task.description.nil?
 
-      if task.start.nil?
-        h[:start] = DateTime.iso8601(task.due.iso8601).next.iso8601
-        h[:end] = task.due.iso8601
-      else
-        h[:start] = task.start.iso8601
-        h[:end] = DateTime.iso8601(task.due.iso8601).next.iso8601
-      end
+      h[:start] = if task.start.nil?
+                    task.due.to_datetime.iso8601
+                  else
+                    task.start.to_datetime.iso8601
+                  end
 
+      h[:end] = task.due.to_datetime.iso8601
       events << h
     end
     render json: events.to_json
@@ -163,7 +160,7 @@ class TasksController < ApplicationController
   end
 
   def task_params
-    p = params.require(:task).permit(:title, :description, :start, :due, :calendar)
+    p = params.require(:task).permit(:title, :description, :start, :due, :calendar, :update)
     h = p.to_hash
     if h.include?('start')
       begin
@@ -174,13 +171,20 @@ class TasksController < ApplicationController
     end
     if h.include?('due')
       begin
-        h['due'] = DateTime.parse(h['due'])
-        h['due'] = h['due'].yesterday if h.include?('calendar')
+        h['due'] = if !h.include?('calendar') || h.include?('update')
+                     if h['due'] == ''
+                       h['start']
+                     else
+                       DateTime.parse(h['due'])
+                     end
+                   else
+                     DateTime.parse(h['due']).yesterday
+                   end
       rescue ArgumentError
         return
       end
     end
-    h = h.except!('calendar')
+    h = h.except!('calendar', 'update')
     ActionController::Parameters.new(h).permit(:title, :description, :start, :due)
   end
 end

@@ -45,7 +45,33 @@ document.addEventListener('DOMContentLoaded', function () {
           })
           .always(function() {
             calendar.unselect();
-          })
+          });
+        }
+      },
+      editable: true,
+      droppable: true,
+      eventDrop: function(info) {
+        if(info.event.id != undefined){
+          $.ajax({
+            url: '/tasks/' + info.event.id,
+            type: 'PATCH',
+            data: {
+              task: {
+                title: info.event.title,
+                description: info.event._def.extendedProps.description,
+                start: info.event.start,
+                due: info.event.end,
+                calendar: true,
+                update: true
+              }
+            },
+            success: function() {
+              calendar.refetchEvents();
+            },
+            error: function() {
+              alert( "ERROR: Task information could not be updated!" );
+            }
+          });
         }
       },
       initialView: 'dayGridMonth',
