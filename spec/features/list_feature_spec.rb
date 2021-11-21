@@ -31,7 +31,6 @@ RSpec.describe 'task list', type: :feature, js: true do
     id = field.native.attribute('data-task-id')
     field.check
     # Clicking the actual check box under should change the state of the task
-    byebug
     expect(Task.find(id).complete).to eq(true)
   end
 
@@ -39,14 +38,13 @@ RSpec.describe 'task list', type: :feature, js: true do
     field = find_field('Complete task', type: 'checkbox', visible: false)
     id = field.native.attribute('data-task-id')
     field.uncheck
-    byebug
     expect(Task.find(id).complete).to eq(false)
   end
 
   it "should add a task and find same task in calendar" do
     find("#btn-add").click 
     fill_in 'Title', with: 'Be cool!'
-    fill_in 'Due', with: DateTime.now.to_date.to_formatted_s
+    fill_in 'Due', with: DateTime.now.iso8601
     click_on 'Create task'
     expect(find("#calendar")).to have_content('Be cool!')
   end
@@ -54,7 +52,7 @@ RSpec.describe 'task list', type: :feature, js: true do
   it 'should update list partials if you visit update_partials route' do
     find("#btn-add").click 
     fill_in 'Title', with: 'Be cool!'
-    fill_in 'Due', with: DateTime.now.to_date.to_formatted_s
+    fill_in 'Due', with: DateTime.now.iso8601
     click_on 'Create task'
     visit tasks_update_partials_path
     expect(page.current_path).to eq(root_path)  

@@ -107,9 +107,13 @@ class TasksController < ApplicationController
   private
 
   def date_formatter(to_format)
-    split_date = to_format.split('/')
-    month = Date::MONTHNAMES[split_date[0].to_i]
-    "#{split_date[1]} #{month} #{split_date[2]}"
+    begin
+      DateTime.parse(to_format)
+    rescue Date::Error
+      split_date = to_format.split('/')
+      month = Date::MONTHNAMES[split_date[0].to_i]
+      "#{split_date[1]} #{month} #{split_date[2]}"
+    end
   end
 
   def overdue_tasks
@@ -151,7 +155,7 @@ class TasksController < ApplicationController
     h = p.to_hash
     if h.include?('start')
       begin
-        h['start'] = DateTime.parse(date_formatter(h['start']))
+        h['start'] = date_formatter(h['start'])
       rescue ArgumentError
         h['start'] = nil
       end
@@ -162,7 +166,7 @@ class TasksController < ApplicationController
                      if h['due'] == ''
                        h['start']
                      else
-                       DateTime.parse(date_formatter(h['due']))
+                      date_formatter(h['due'])
                      end
                    else
                      DateTime.parse(h['due']).yesterday
@@ -170,8 +174,6 @@ class TasksController < ApplicationController
       rescue ArgumentError
         return
       end
-      h = h.except!('calendar')
-      ActionController::Parameters.new(h).permit(:title, :description, :start, :due)
     end
     h = h.except!('calendar', 'update')
     ActionController::Parameters.new(h).permit(:title, :description, :start, :due)

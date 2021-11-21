@@ -46,7 +46,7 @@ RSpec.describe 'the calendar view', type: :feature, js: true do
     dialog.send_keys("Task2")
     dialog.accept
     visit root_path
-    sleep(10)
+    sleep(40)
     expect(page.find('#calendar')).to have_content("Task2")
     expect(Task.find_by(title:'Task2').due.to_date.to_formatted_s(:db)).to eq(DateTime.now.to_date.tomorrow.to_formatted_s(:db))
   end
@@ -83,7 +83,6 @@ RSpec.describe 'the calendar view', type: :feature, js: true do
     page.driver.browser.action.click_and_hold(task_box.native).move_to(next_day).perform
     page.driver.browser.action.release.perform
     sleep(20)
-    byebug
     expect(page.find('.fc-day-future', match: :first)).to have_content(task)
     if !db_task_start.nil?
       expect(Task.find_by(title: task).start.to_date.to_formatted_s(:db)).to eq(db_task_start.to_date.tomorrow.to_formatted_s(:db))
