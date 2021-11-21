@@ -1,10 +1,11 @@
 <div class="index-wrapper"> 
+    <div id="modalDialog">
+        <h1> "hello"</h1>
+    </div>
     <div id="left-menu" class="menu">
-        <% if user_signed_in? %>
-            <%= link_to(new_task_path, id: "btn-add", alt: "Add") do %>
-                <%= image_tag "add.png"%>
-            <% end %>
-        <% end %>
+    <%= link_to(new_task_path, id: "btn-add", alt: "Add") do %>
+        <%= image_tag "add.png"%>
+    <% end %>
     </div>
     <div id="list-wrapper"> 
         <%= render 'list' %>

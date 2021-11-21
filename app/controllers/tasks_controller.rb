@@ -26,7 +26,7 @@ class TasksController < ApplicationController
     else
       flash[:alert] = 'Failed to create new task'
       redirect_to new_task_path and return
-    end
+    end  
   end
 
   def show
