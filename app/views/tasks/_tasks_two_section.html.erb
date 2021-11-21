@@ -1,0 +1,33 @@
+<div class="<%= local_assigns[:class] %> mid-section">
+    <h2><%= local_assigns[:title] %></h2>
+    <div class="section-collapsible">
+        <h3>due</h3>
+        <div class="dark-section">
+        <% unless local_assigns[:tasks_due].empty? %>
+        <ul>
+        <% local_assigns[:tasks_due].each do |t| %>
+            <li class="task">
+                <%= render "task", task: t, type: :due %>
+            </li>
+        <% end %>
+        </ul>
+        <% else %>
+        <p class="subtle centered">No tasks due!</p>
+        <% end %>
+        </div>
+        <h3>work</h3>
+        <div class="dark-section">
+        <% unless local_assigns[:tasks_work].empty? %>
+        <ul>
+            <% local_assigns[:tasks_work].each do |t| %>
+            <li class="task">
+                <%= render "task", task: t, type: :work %>
+            </li> 
+            <% end %>
+        </ul>
+        <% else %>
+        <p class="subtle centered">No tasks to work on!</p>
+        <% end %>
+        </div>
+    </div>
+</div>

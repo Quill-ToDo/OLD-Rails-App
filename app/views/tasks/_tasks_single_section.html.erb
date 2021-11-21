@@ -1,0 +1,14 @@
+<div class="<%= local_assigns[:class] %> mid-section">
+    <h2><%= local_assigns[:title] %></h2>
+    <div class="section-collapsible">
+        <div class="dark-section">
+        <ul>
+        <% local_assigns[:tasks].each do |t| %>
+            <li class="task">
+                <%= render "task", task: t, type: :due %>
+            </li>
+        <% end %>
+        </ul>
+        </div>
+    </div>
+</div>

@@ -6,9 +6,10 @@ RSpec.describe 'edit page', type: :feature, js: true do
   include Devise::Test::IntegrationHelpers
 
   before :each do
-    Task.create!(title: 'Do cosc415 reading', description: 'hi :)', start: DateTime.new(2021, 11, 8),
-                 due: DateTime.new(2021, 11, 11), complete: false)
     user = User.create!(email: 'testing@example.com', password: 'testtest')
+
+    Task.create!(title: 'Do cosc415 reading', description: 'hi :)', start: DateTime.new(2021, 11, 8),
+                 due: DateTime.new(2021, 11, 11), complete: false, user_id: user.id)
     sign_in user
     visit root_path
     click_on('Do cosc415 reading')
