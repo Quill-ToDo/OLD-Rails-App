@@ -69,7 +69,7 @@ body {
 #left-menu {
   grid-area: left-menu;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
 }
 
 #right-menu {
