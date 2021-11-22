@@ -72,7 +72,6 @@ class TasksController < ApplicationController
   end
 
   def calendar_tasks
-    
     @tasks = Task.all.where('user_id = ?', current_user.id)
                  .where('due <= ?', DateTime.parse(params['end']))
                  .or(Task.all.where('user_id = ?', current_user.id)
@@ -108,13 +107,11 @@ class TasksController < ApplicationController
   private
 
   def date_formatter(to_format)
-    begin
-      DateTime.parse(to_format)
-    rescue Date::Error
-      split_date = to_format.split('/')
-      month = Date::MONTHNAMES[split_date[0].to_i]
-      "#{split_date[1]} #{month} #{split_date[2]}"
-    end
+    DateTime.parse(to_format)
+  rescue Date::Error
+    split_date = to_format.split('/')
+    month = Date::MONTHNAMES[split_date[0].to_i]
+    "#{split_date[1]} #{month} #{split_date[2]}"
   end
 
   def overdue_tasks
@@ -167,7 +164,7 @@ class TasksController < ApplicationController
                      if h['due'] == ''
                        h['start']
                      else
-                      date_formatter(h['due'])
+                       date_formatter(h['due'])
                      end
                    else
                      DateTime.parse(h['due']).yesterday

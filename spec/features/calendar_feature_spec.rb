@@ -33,7 +33,7 @@ RSpec.describe 'the calendar view', type: :feature, js: true do
     dialog.send_keys("Task1")
     dialog.accept
     visit root_path
-    sleep(10)
+    sleep(20)
     expect(page.find('#calendar')).to have_content("Task1")
   end
 
