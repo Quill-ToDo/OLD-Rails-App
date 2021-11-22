@@ -25,7 +25,7 @@ RSpec.describe 'update page', type: :feature, js: true do
 
   it 'should not update if start date is changed to after the due date' do
     # fill_in 'Start', with: '11/15/21 12:00 AM'
-    page.execute_script("$('#datetimepicker1').datepicker('setDate', '11/15/21')")
+    page.execute_script("$('#datetimepicker1').datetimepicker({format: 'YYYY-MM-DD', date: '2021-11-15'})")
     byebug
     click_on('Update task')
     expect(page).to have_content("Task couldn't be updated")
