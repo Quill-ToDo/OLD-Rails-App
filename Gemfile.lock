@@ -130,7 +130,7 @@ GEM
       railties (>= 3.1)
     msgpack (1.4.2)
     nio4r (2.5.8)
-    nokogiri (1.12.5-x86_64-darwin)
+    nokogiri (1.12.5-x86_64-linux)
       racc (~> 1.4)
     orm_adapter (0.5.0)
     pg (1.2.3)
@@ -253,6 +253,7 @@ GEM
 
 PLATFORMS
   x86_64-darwin-20
+  x86_64-linux
 
 DEPENDENCIES
   bootsnap (>= 1.4.4)
@@ -283,4 +284,4 @@ DEPENDENCIES
   webdrivers
 
 BUNDLED WITH
-   2.2.26
+   2.2.30

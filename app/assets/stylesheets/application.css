@@ -34,6 +34,7 @@
   --inner-box-padding: 17px;
   --box-corner-rounding: 40px;
   --check-box-size: 17px;
+  --menu-width: 50px;
 
   --calendar-h1-size: 35px;
   --p-size: 20px;
@@ -128,7 +129,7 @@ p {
 .index-wrapper {
   display: grid;
   grid-template-areas: "left-menu list slider calendar right-menu";
-  grid-template-columns: 50px 2fr min-content 5fr 50px;
+  grid-template-columns: var(--menu-width) 2fr min-content 5fr var(--menu-width);
   grid-template-rows: 100vh auto 100vh 100vh 100vh;
 }
 /* } */
@@ -139,21 +140,45 @@ p {
 }
 
 button,
-.fc .fc-button.fc-button-primary {
+.fc .fc-button.fc-button-primary,
+.btn {
   background-color: var(--dark-font);
   border: none;
   opacity: 1;
   font-family: "Azeret Mono", monospace;
+  color: var(--lightest-font);
+  font-weight: 300;
   box-shadow: 4px 4px var(--darkest-dark);
   transition-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
   transition: box-shadow 0.2s, background-color 0.2s, transform 0.2s;
-
-  /* border-radius: 20%; */
+  border-radius: 4px;
+  padding: 8px;
 }
 
 button:hover,
-.fc .fc-button.fc-button-primary:hover {
+.fc .fc-button.fc-button-primary:hover,
+.btn:hover {
   background-color: var(--darkest-dark);
   box-shadow: none;
   transform: translate(1px, 1px);
+}
+
+.overlay {
+  position: absolute;
+  z-index: 2;
+  background-color: #0000002c;
+  width: 100%;
+  height: 100%;
+}
+
+input,
+textarea {
+  padding: 8px;
+  background-color: var(--darkest-dark);
+  border: none;
+  border-radius: 10px;
+  font-family: "Quicksand", sans-serif;
+  font-weight: 600;
+  font-size: vr(--p-size);
+  color: var(--lightest-font);
 }
