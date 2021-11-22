@@ -20,7 +20,6 @@ class TasksController < ApplicationController
 
   def create
     @task = Task.new(task_params)
-    @task.user_id = current_user.id if @task.user_id.nil?
     if @task.save
       flash[:notice] = "New task #{@task.title} created"
       redirect_to root_path and return
@@ -100,7 +99,7 @@ class TasksController < ApplicationController
   end
 
   def task_params
-    p = params.require(:task).permit(:title, :description, :start, :due)
+    p = params.permit(:title, :description, :start, :due)
     h = p.to_hash
     if h.include?('start')
       begin

@@ -8,6 +8,7 @@ $(document).ready(function(){
         modal.toggle();
     });
     span.on('click', function(){
+        
         modal.hide();
     });
 });
