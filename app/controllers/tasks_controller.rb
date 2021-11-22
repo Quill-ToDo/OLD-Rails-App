@@ -37,7 +37,7 @@ class TasksController < ApplicationController
       redirect_to root_path and return
     else
       flash[:alert] = 'Failed to create new task'
-      redirect_to new_task_path and return
+      redirect_to root_path and return
     end  
   end
 
