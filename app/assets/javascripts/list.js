@@ -4,7 +4,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Update task as completed on click
     $(".check-box-wrapper:first-child input").on("click", function () {
-        var taskId = $($(this).attr("data-task-id")).selector;
+        var taskId = $(this).attr("data-task-id");
+        console.log(taskId)
         // Add or remove strike-through
         if ($(this).prop("checked")) {
             $(`.title a[data-task-id='${taskId}']`).addClass("completed");
