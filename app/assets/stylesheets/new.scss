@@ -1,0 +1,41 @@
+/*
+*= require_show 
+*/
+
+.new-wrapper {
+  width: 10%;
+  position: absolute;
+  top: 10%;
+}
+
+.new-wrapper .section {
+  width: 50%;
+}
+
+input[type=text]:focus {
+    border: 3px solid #555;
+}
+
+#modalDialog {
+  width: 10%;
+  position: absolute;
+  top: 10%;
+}
+
+input, label {
+  display: block;
+  font-family: inherit;
+  font-size: 100%;
+  box-sizing: border-box;
+  padding: 5px;
+}
+
+.new-wrapper .btn {
+  margin: 20px;
+  border: 0;
+  padding: 10px;
+  border-radius: 15px;
+  font-family: "Dongle", sans-serif;
+  color: var(--lightest-font);
+  font-size: 30px;
+}
