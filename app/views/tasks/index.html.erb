@@ -3,9 +3,9 @@
         <h1> "hello"</h1>
     </div>
     <div id="left-menu" class="menu">
-    <%= link_to(new_task_path, id: "btn-add", alt: "Add") do %>
-        <%= image_tag "add.png"%>
-    <% end %>
+        <%= link_to(new_task_path, id: "btn-add", alt: "Add") do %>
+            <%= image_tag "add.png"%>
+        <% end %>
     </div>
     <div id="list-wrapper"> 
         <%= render 'list' %>
