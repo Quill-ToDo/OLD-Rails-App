@@ -4,25 +4,6 @@ class TasksController < ApplicationController
   # before_action :user_signed_in?, only: [:index, :new, :create]
 
   def index
-<<<<<<< HEAD
-    @overdue = Task.order('due ASC')
-                  .where('user_id = ?', current_user.id)
-                  .where('due < ?', DateTime.now.to_date.to_formatted_s(:db))
-    @today_due = Task.order('due DESC')
-                     .where('user_id = ?', current_user.id)
-                     .where('due >= ?', DateTime.now.to_date.to_formatted_s(:db))
-                     .where('due < ?', DateTime.now.to_date.tomorrow.to_formatted_s(:db))
-    @today_work = Task.order('due DESC')
-                      .where('user_id = ?', current_user.id)
-                      .where('start < ?', DateTime.now.to_date.tomorrow.to_formatted_s(:db))
-                      .where('due >= ?', DateTime.now.to_date.tomorrow.to_formatted_s(:db))
-    @upcoming = Task.order('due DESC')
-                    .where('user_id = ?', current_user.id)
-                    .where('start >= ?', DateTime.now.to_date.tomorrow.to_formatted_s(:db))
-                    .or(Task.order('due DESC').where('start IS NULL')
-                            .where('user_id = ?', current_user.id)
-                            .where('due >= ?', DateTime.now.to_date.tomorrow.to_formatted_s(:db)))
-=======
     @overdue = overdue_tasks
     @today_due = today_due_tasks
     @today_work = today_work_tasks
@@ -42,7 +23,6 @@ class TasksController < ApplicationController
         redirect_to root_path
       end
     end
->>>>>>> 044975628ced24396a3c389d14d1fe5676eb40ae
   end
 
   def new
