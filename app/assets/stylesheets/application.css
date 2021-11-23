@@ -108,8 +108,8 @@ section h2,
   font-size: var(--h2-size);
   padding: 0;
   margin: 0;
-  margin: var(--h2-padding) 0 var(--h2-padding) 0;
-  line-height: 0.2;
+  /* margin: var(--h2-padding) 0 var(--h2-padding) 0; */
+  line-height: 1;
 }
 
 p {
@@ -147,8 +147,6 @@ button,
   box-shadow: 4px 4px var(--darkest-dark);
   transition-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
   transition: box-shadow 0.2s, background-color 0.2s, transform 0.2s;
-
-  /* border-radius: 20%; */
 }
 
 button:hover,
