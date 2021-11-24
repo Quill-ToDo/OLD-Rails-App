@@ -1,3 +1,9 @@
+<% flash.notice = "Hello!" %>
+<% flash.alert = "OH NO!" %>
+<div id="alert-wrapper">
+<%= render("alert_box", type: "notice", body: notice) if !notice.nil? %>
+<%= render("alert_box", type: "alert", body: alert) if !alert.nil? %>
+</div>
 <div class="index-wrapper"> 
     <div id="left-menu" class="menu">
         <%= link_to(new_task_path, id:"btn-add", alt: "Add") do %>
@@ -13,7 +19,5 @@
     <div id="slider"></div>
     <div id="calendar-wrapper">
         <%= render 'calendar' %>
-    </div>
-    <div id="right-menu" class="menu">
     </div>
 </div>
