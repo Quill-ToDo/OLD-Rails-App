@@ -1,5 +1,3 @@
-<% flash.notice = "Hello!" %>
-<% flash.alert = "OH NO!" %>
 <div id="alert-wrapper">
 <%= render("alert_box", type: "notice", body: notice) if !notice.nil? %>
 <%= render("alert_box", type: "alert", body: alert) if !alert.nil? %>

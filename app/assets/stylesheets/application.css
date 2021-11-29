@@ -192,7 +192,7 @@ button:hover,
 .alert-pop-up.notice {
   background-color: var(--notice-bg);
   right: -50vw;
-  opacity: 70%;
+  opacity: 100%;
   animation: alert-slide-out 10s ease-in-out;
 }
 
@@ -231,5 +231,5 @@ button:hover,
 
 .alert-pop-up.alert {
   background-color: var(--alert-bg);
-  opacity: 100%;
+  opacity: 90%;
 }
