@@ -13,8 +13,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Azeret+Mono:wght@300;600&family=Dongle:wght@300;400&family=Jost:wght@300;400;600;700&family=Kanit:wght@200;300&family=M+PLUS+Rounded+1c:wght@400;500;700;800&family=Merriweather+Sans:wght@500;700;800&family=Quicksand:wght@400;500;600&family=Secular+One&display=swap" rel="stylesheet"> 
   </head>
   <body>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
+  <div id="alert-wrapper">
+    <%= render("layouts/alert_box", type: "notice", body: notice) if !notice.nil? %>
+    <%= render("layouts/alert_box", type: "alert", body: alert) if !alert.nil? %>
+  </div>
     <%= yield %>
   </body>
 </html>
