@@ -184,9 +184,10 @@ button:hover,
 }
 
 .alert-pop-up p {
-  font-family: "Azeret Mono", monospace;
+  font-family: "Quicksand", sans-serif;
   font-size: 20px;
   color: var(--dark-font);
+  font-weight: 600;
 }
 
 .alert-pop-up.notice {
