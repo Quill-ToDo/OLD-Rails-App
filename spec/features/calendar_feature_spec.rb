@@ -83,7 +83,7 @@ RSpec.describe 'the calendar view', type: :feature, js: true do
     next_day = page.find('.fc-day-future', match: :first).native
     page.driver.browser.action.click_and_hold(task_box.native).move_to(next_day).perform
     page.driver.browser.action.release.perform
-    sleep(10)
+    sleep(30)
     expect(page.find('.fc-day-future', match: :first)).to have_content(task)
     if !db_task_start.nil?
       expect(Task.find_by(title: task).start.to_date.to_formatted_s(:db)).to eq(db_task_start.to_date.tomorrow.to_formatted_s(:db))
