@@ -2,8 +2,14 @@
 *= require_show 
 */
 
-.new-wrapper .section {
-  width: 50%;
+.new-wrapper .form label {
+  margin-top: 10px;
+  margin-bottom: 5px;
+  font-size: large;
+}
+
+.new-wrapper #close .btn.btn-complete {
+  margin-top: 15px;
 }
 
 input[type="text"]:focus {
@@ -17,7 +23,7 @@ input[type="text"]:focus {
   z-index: 3;
   position: absolute;
   // box-shadow: 5px 10px 18px #ff0000;
-  box-shadow: 15px 15px 20px var(--darkest-dark);
+  box-shadow: 20px 20px 50px var(--darkest-dark);
   width: 30%;
 }
 
@@ -38,4 +44,3 @@ input[type="text"]:focus {
   display: flex;
   gap: 10px;
 }
-

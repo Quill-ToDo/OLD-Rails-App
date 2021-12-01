@@ -4,10 +4,14 @@
 <%# <div class="overlay"></div> %>
 <div class="index-wrapper"> 
     <div id="left-menu" class="menu">
-        <%= image_tag("add.png", id: "btn-add", class: "btn", alt: "Add")%>
-        <%= link_to(destroy_user_session_path, method: :delete, alt: "Logout") do %>
-                <%= image_tag "logout.png"%>
-        <% end %>
+        <div class="btn"> 
+            <%= image_tag("add.png", id: "btn-add", alt: "Add")%>
+        </div>
+        <div class="btn"> 
+            <%= link_to(destroy_user_session_path, method: :delete, alt: "Logout") do %>
+                    <%= image_tag "logout.png" %>
+            <% end %>
+        </div>
     </div>
     <div id="list-wrapper"> 
         <%= render 'list', overdue: @overdue, today_due: @today_due, today_work: @today_work, upcoming: @upcoming %>
