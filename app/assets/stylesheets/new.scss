@@ -7,7 +7,7 @@ body{
     color: var(--lightest-font);
     justify-content: center;
     font-family: "Dongle", sans-serif;
-    padding-bottom: 5px;
+    padding-bottom: 7px;
 
 }
 
@@ -15,6 +15,7 @@ body{
     width: 20%;
     height: 30px; //couldn't figure out how to make this a percentage, very annoying 
     border-radius: 6px;
+    background: rgb(252, 252, 252);
 }
 
 .text-center-head{
