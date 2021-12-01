@@ -17,7 +17,9 @@ class TasksController < ApplicationController
     @upcoming = upcoming_tasks
     respond_to do |format|
       format.js do
-        render action: 'update_partials' and return
+        render json: { 
+          html: render_to_string(partial: "list", locals: {overdue: @overdue, today_due: @today_due, today_work: @today_work, upcoming: @upcoming})
+        } and return
       end
       format.html do
         redirect_to root_path

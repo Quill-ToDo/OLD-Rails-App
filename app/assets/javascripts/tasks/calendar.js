@@ -78,5 +78,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 function reRenderList() {
-    $.get("/tasks/update_partials")
+    $.get({
+        url: "/tasks/update_partials",
+        dataType: "json",
+        success: function (data) {
+            $("#list-wrapper").html(data.html);
+        }
+    });
 }
