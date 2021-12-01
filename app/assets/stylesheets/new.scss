@@ -1,0 +1,43 @@
+body{
+    background-color: var(--bg);
+}
+
+.form-group{
+    text-align: center;
+    color: var(--lightest-font);
+    justify-content: center;
+    font-family: "Dongle", sans-serif;
+    padding-bottom: 5px;
+
+}
+
+.form-control{
+    width: 20%;
+    height: 30px; //couldn't figure out how to make this a percentage, very annoying 
+    border-radius: 6px;
+}
+
+.text-center-head{
+    color: var(--lightest-font);
+    text-align: center;
+    font-family: "Secular One", sans-serif;
+}
+
+.text-center{
+    text-align: center;
+    font-family: "Dongle", sans-serif;
+    font-size: 150%;
+}
+
+.remember{
+    font-size: 120%;
+}
+
+.links{
+    font-size: 150%
+}
+
+.row{
+    transform: translateY(50%);
+}
+
