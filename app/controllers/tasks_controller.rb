@@ -140,7 +140,7 @@ class TasksController < ApplicationController
   end
 
   def task_params
-    p = params.permit(:title, :description, :start, :due, :calendar, :update)
+    p = params.require(:task).permit(:title, :description, :start, :due, :calendar, :update)
     h = p.to_hash
     if h.include?('start')
       begin
