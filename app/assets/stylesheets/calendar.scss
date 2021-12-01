@@ -97,3 +97,11 @@
 .fc .fc-daygrid-day.fc-day-today {
   background-color: var(--fc-today-bg-color, rgba(255, 255, 255, 0.11));
 }
+
+.fc .fc-button-group button.fc-button.fc-button-primary {
+  box-shadow: 0px 4px var(--darkest-dark);
+}
+
+.fc .fc-button-group button.fc-button.fc-button-primary:last-of-type {
+  box-shadow: 4px 4px var(--darkest-dark);
+}
