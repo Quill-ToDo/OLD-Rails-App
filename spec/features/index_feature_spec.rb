@@ -44,8 +44,8 @@ RSpec.describe 'index page', type: :feature, js: true do
       fill_in 'Title', with: 'Beep beep!'
       fill_in 'Due', with: 'Is that my bessie in a tessie?'
       click_on 'Create task'
-      expect(current_path).to eq(root_path)
-      expect(find('p.alert', visible: false).visible?)
+      expect(current_path).to eq(new_task_path)
+      expect(find('.alert', visible: false).visible?)
     end
   end
 end
