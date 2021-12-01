@@ -37,7 +37,7 @@
 }
 
 .section-collapsible {
-  margin-top: calc(var(--h2-padding) * 3);
+  margin-top: var(--h2-padding);
 }
 
 .subtle {
@@ -178,4 +178,18 @@ li:not(:last-child) {
   left: 6px;
 }
 
+.expandable-section-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
 
+.expand-symbol {
+  height: 11px;
+  width: 11px;
+  border: 3px solid var(--mid-font);
+  border-top: none;
+  border-left: none;
+  rotate: 45deg;
+  transition: rotate 0.1s ease-in-out;
+}
