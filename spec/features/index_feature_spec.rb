@@ -8,11 +8,6 @@ RSpec.describe 'index page', type: :feature, js: true do
   describe 'for a logged out user' do
     it 'should redirect users to index after sign in' do
       visit root_path 
-      # TODO this will need to be removed after we fix the issue with tasks not being loaded in
-      sleep(2)
-      dialog = page.driver.browser.switch_to.alert
-      dialog.accept
-      # ---
       expect(current_path).to eq(new_user_session_path)  
       email = 'beepbeep@beep.com'
       pass = 'beepbeep'
