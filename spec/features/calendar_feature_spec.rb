@@ -32,8 +32,8 @@ RSpec.describe 'the calendar view', type: :feature, js: true do
     dialog = page.driver.browser.switch_to.alert
     dialog.send_keys("Task1")
     dialog.accept
-    visit root_path
-    sleep(10)
+    # visit root_path
+    wait_for_ajax
     expect(page.find('#calendar')).to have_content("Task1")
   end
 
@@ -45,8 +45,8 @@ RSpec.describe 'the calendar view', type: :feature, js: true do
     dialog = page.driver.browser.switch_to.alert
     dialog.send_keys("Task2")
     dialog.accept
-    visit root_path
-    sleep(10)
+    # visit root_path
+    wait_for_ajax
     expect(page.find('#calendar')).to have_content("Task2")
     expect(Task.find_by(title:'Task2').start.to_date.to_formatted_s(:db)).to eq(DateTime.now.to_date.to_formatted_s(:db))
     expect(Task.find_by(title:'Task2').due.to_date.to_formatted_s(:db)).to eq(DateTime.now.to_date.tomorrow.to_formatted_s(:db))
@@ -58,8 +58,8 @@ RSpec.describe 'the calendar view', type: :feature, js: true do
     dialog = page.driver.browser.switch_to.alert
     dialog.send_keys("Task1")
     dialog.accept
-    visit root_path
-    sleep(10)
+    # visit root_path
+    wait_for_ajax
     expect(Task.find_by(title:'Task1')).to_not eq(nil)
     expect(Task.find_by(title:'Task1').start.to_date.to_formatted_s(:db)).to eq(DateTime.now.to_date.to_formatted_s(:db))
   end 
@@ -70,7 +70,7 @@ RSpec.describe 'the calendar view', type: :feature, js: true do
     dialog = page.driver.browser.switch_to.alert
     dialog.send_keys("Do the dishes")
     dialog.accept
-    sleep(10)
+    wait_for_ajax
     expect(find("#list-wrapper")).to have_content('Do the dishes')  
   end
 
@@ -83,7 +83,7 @@ RSpec.describe 'the calendar view', type: :feature, js: true do
     next_day = page.find('.fc-day-future', match: :first).native
     page.driver.browser.action.click_and_hold(task_box.native).move_to(next_day).perform
     page.driver.browser.action.release.perform
-    sleep(30)
+    wait_for_ajax
     expect(page.find('.fc-day-future', match: :first)).to have_content(task)
     if !db_task_start.nil?
       expect(Task.find_by(title: task).start.to_date.to_formatted_s(:db)).to eq(db_task_start.to_date.tomorrow.to_formatted_s(:db))
