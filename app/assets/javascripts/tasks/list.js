@@ -10,7 +10,7 @@ function initHandlers() {
             console.log(target);
             collapseSectionHandler(target);
             completeTaskHandler(target);
-            showPopupHandler(target);
+            showPopupHandler(target, e);
         }
     });
 }
@@ -37,55 +37,47 @@ function completeTaskHandler(target) {
     var input_box = $(target).parents(".check-box-wrapper");
     if (input_box.length) {
         input_box = input_box.children("input");
-        // $(".check-box-wrapper:first-child input").on("click", function () {
         var taskId = input_box.attr("data-task-id");
         console.log("completeTask")
 
         $.post("/tasks/complete_task", {
             id: taskId,
-            success: function () {
-
-                reRenderList();
-            }
+            success: reRenderAllTasks
         });
     }
 }
 
-function showPopupHandler(target) {
+function showPopupHandler(target, event) {
     // Render popup for this task on click
-    var task_title = $(target).parents(".task-wrapper .title a");
+    var task_title = $(target).parents(".task-wrapper .title");
     if (task_title.length) {
+        event.preventDefault();
         console.log("click on task name");
-        var id = task_title.attr("data-task-id");
+        var link = $(task_title.children("a"));
+        var id = link.attr("data-task-id");
         $.get({
             url: `/tasks/${id}`,
             dataType: "json",
             success: function (data) {
                 $("#show-wrapper").html(data.html);
-                $("#show-wrapper").toggle();
-                completeTaskHandler();
+                $("#show-wrapper").css("display", "flex")
             }
         });
-
+    } else if (target.matches(".filter")) {
         // Hide and remove this handler on clicking something other than the show popup
-        // $("#show-wrapper").on('click', function (e) {
-        //     if ($(e.target).closest("#show-wrapper .mid-section").length === 0) {
-        //         console.log("click off show");
-        //         $("#show-wrapper").toggle();
-        //         // $("#show-wrapper").off('click');
-        //     }
-        // });
-    };
+        console.log("click off show");
+        $("#show-wrapper").toggle();
+    }
 }
 
 
 function reRenderAllTasks() {
+    reRenderList();
     if ($("#show-wrapper").is(":visible")) {
         reRenderShow();
     }
-    reRenderList();
-    calendar.render();
-    // initHandlers();
+    // Calendar is breaking this for some reason. 
+    // calendar.render();
 }
 
 function reRenderShow() {
