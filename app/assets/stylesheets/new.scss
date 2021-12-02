@@ -15,7 +15,10 @@ body{
     width: 20%;
     height: 30px; //couldn't figure out how to make this a percentage, very annoying 
     border-radius: 6px;
-    background: rgb(252, 252, 252);
+    background: var(--darkest-dark);
+    color: var(--lightest-font);
+    border: solid var(--darkest-dark);
+
 }
 
 .text-center-head{
