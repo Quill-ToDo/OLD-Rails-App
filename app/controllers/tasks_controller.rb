@@ -107,10 +107,19 @@ class TasksController < ApplicationController
   end
 
   def complete_task
+    if !params[:id]
+      flash[:alert] = "Task not marked completed - Invalid ID"
+      redirect_to root_path and return
+    end
     t = Task.find(params[:id])
     t.complete_task
     t.save
-    redirect_to root_path
+    respond_to do |format|
+      format.html do 
+        redirect_to root_path
+      end
+      format.js
+    end
   end
 
   private

@@ -9,21 +9,19 @@ function initHandlers() {
             let target = e.target;
             console.log(target);
             collapseSectionHandler(target);
-            // completeTaskHandler(target);
-            // showPopupHandler();
+            completeTaskHandler(target);
+            showPopupHandler(target);
         }
-        // showPopupHandler()
-    })
-    // completeTaskHandler();
+    });
 }
 
 function collapseSectionHandler(target) {
     // Collapse sections on click 
-    if ($(target).parents(".expandable-section-header").length) {
-        // $(".expandable-section-header").on("click", function () {
-        var section = $($(this).siblings(".section-collapsible"));
+    var toggle_section = $(target).parents(".expandable-section-header");
+    if (toggle_section.length) {
+        var section = $(toggle_section.siblings(".section-collapsible"));
         section.toggle(150, "swing");
-        var symbol = $(this).children(".expand-symbol");
+        var symbol = toggle_section.children(".expand-symbol");
         var rotation = symbol.css("rotate");
         if (rotation == "45deg") {
             symbol.css("rotate", "-135deg");
@@ -33,11 +31,32 @@ function collapseSectionHandler(target) {
     };
 }
 
-function showPopupHandler(e) {
+function completeTaskHandler(target) {
+    // On checkbox click, update tasks as completed and rerender all partials that 
+    // contain tasks
+    var input_box = $(target).parents(".check-box-wrapper");
+    if (input_box.length) {
+        input_box = input_box.children("input");
+        // $(".check-box-wrapper:first-child input").on("click", function () {
+        var taskId = input_box.attr("data-task-id");
+        console.log("completeTask")
+
+        $.post("/tasks/complete_task", {
+            id: taskId,
+            success: function () {
+
+                reRenderList();
+            }
+        });
+    }
+}
+
+function showPopupHandler(target) {
     // Render popup for this task on click
-    $(".task-wrapper .title a").on("click", function () {
+    var task_title = $(target).parents(".task-wrapper .title a");
+    if (task_title.length) {
         console.log("click on task name");
-        var id = $(this).attr("data-task-id");
+        var id = task_title.attr("data-task-id");
         $.get({
             url: `/tasks/${id}`,
             dataType: "json",
@@ -49,30 +68,16 @@ function showPopupHandler(e) {
         });
 
         // Hide and remove this handler on clicking something other than the show popup
-        $("#show-wrapper").on('click', function (e) {
-            if ($(e.target).closest("#show-wrapper .mid-section").length === 0) {
-                console.log("click off show");
-                $("#show-wrapper").toggle();
-                // $("#show-wrapper").off('click');
-            }
-        });
-    });
+        // $("#show-wrapper").on('click', function (e) {
+        //     if ($(e.target).closest("#show-wrapper .mid-section").length === 0) {
+        //         console.log("click off show");
+        //         $("#show-wrapper").toggle();
+        //         // $("#show-wrapper").off('click');
+        //     }
+        // });
+    };
 }
 
-function completeTaskHandler(target) {
-    // On checkbox click, update tasks as completed and rerender all partials that 
-    // contain tasks
-    if (target.matches(".check-box-wrapper:first-child input")) {
-        // $(".check-box-wrapper:first-child input").on("click", function () {
-        var taskId = $(this).attr("data-task-id");
-        console.log("completeTask")
-
-        $.post("/tasks/complete_task", {
-            id: taskId,
-            success: reRenderAllTasks
-        });
-    }
-}
 
 function reRenderAllTasks() {
     if ($("#show-wrapper").is(":visible")) {
