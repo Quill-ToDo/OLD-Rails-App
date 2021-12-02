@@ -35,9 +35,11 @@ class TasksController < ApplicationController
     @task.user_id = current_user.id if @task.user_id.nil?
     if @task.save
       flash[:notice] = "New task #{@task.title} created"
+      byebug
       redirect_to root_path and return
     else
       flash[:alert] = 'Failed to create new task'
+      byebug
       redirect_to new_task_path and return
     end
   end
@@ -107,11 +109,13 @@ class TasksController < ApplicationController
   private
 
   def date_formatter(to_format)
-    DateTime.parse(to_format)
-  rescue Date::Error
-    split_date = to_format.split('/')
-    month = Date::MONTHNAMES[split_date[0].to_i]
-    "#{split_date[1]} #{month} #{split_date[2]}"
+    DateTime.strptime(to_format, "%m/%d/%Y %I:%M %p")
+  #   split_date = to_format.split('/')
+  #   to_format = "#{split_date[1]}/#{split_date[0]}/#{split_date[2]}" if split_date.length > 1 && split_date[1].to_i <= 12
+  #   return DateTime.parse(to_format)
+  # rescue
+  #   month = Date::MONTHNAMES[split_date[0].to_i]
+  #   return "#{split_date[1]} #{month} #{split_date[2]}"
   end
 
   def overdue_tasks
@@ -151,14 +155,14 @@ class TasksController < ApplicationController
   def task_params
     p = params.require(:task).permit(:title, :description, :start, :due, :calendar, :update)
     h = p.to_hash
-    if h.include?('start')
+    if h.include?('start') && h['start'] != ''
       begin
         h['start'] = date_formatter(h['start'])
       rescue ArgumentError
         h['start'] = nil
       end
     end
-    if h.include?('due')
+    if h.include?('due') && h['due'] != ''
       begin
         h['due'] = if !h.include?('calendar') || h.include?('update')
                      if h['due'] == ''
@@ -169,6 +173,15 @@ class TasksController < ApplicationController
                    else
                      DateTime.parse(h['due']).yesterday
                    end
+        # if !h.include?('calendar') || h.include?('update')
+        #   if h['due'] == ''
+        #     h['due'] = h['start']
+        #   else
+        #     h['due'] = date_formatter(h['due'])
+        #   end
+        # else
+        #   h['due'] = DateTime.parse(h['due']).yesterday
+        # end
       rescue ArgumentError
         return
       end
