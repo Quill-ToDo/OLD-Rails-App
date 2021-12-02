@@ -91,13 +91,13 @@ li:not(:last-child) {
 //   font-size: 28px;
 // }
 
-.title-date-wrapper p.date {
+.task-wrapper p.date {
   color: var(--subdued);
   font-family: "Azeret Mono", monospace;
   font-size: var(--smaller-p-size);
 }
 
-.title-date-wrapper .completed {
+.title-date-wrapper a[complete] {
   color: var(--subdued);
   text-decoration: line-through;
 }
@@ -155,7 +155,7 @@ li:not(:last-child) {
 }
 
 /* Show the checkmark when checked */
-.check-box-wrapper input:checked ~ .checkmark:after {
+.check-box-wrapper input[checked] ~ .checkmark:after {
   display: block;
   border-color: var(--subdued);
 }

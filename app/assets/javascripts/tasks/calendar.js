@@ -75,14 +75,3 @@ document.addEventListener('DOMContentLoaded', function () {
         calendar.render();
     }
 });
-
-
-function reRenderList() {
-    $.get({
-        url: "/tasks/update_partials",
-        dataType: "json",
-        success: function (data) {
-            $("#list-wrapper").html(data.html);
-        }
-    });
-}
