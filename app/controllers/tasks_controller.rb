@@ -45,6 +45,14 @@ class TasksController < ApplicationController
 
   def show
     @task = Task.find(params[:id])
+    respond_to do |format|
+      format.js do
+        render json: { 
+          html: render_to_string(partial: "show_popup")
+        } and return
+      end
+      format.html
+    end
   end
 
   def edit

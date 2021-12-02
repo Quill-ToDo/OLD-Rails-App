@@ -90,10 +90,16 @@ body {
   width: 70%;
 }
 
-.mid-section {
+section .mid-section,
+section.mid-section {
   background-color: var(--mid-dark);
   border-radius: var(--box-corner-rounding);
   padding: var(--inner-box-padding);
+}
+
+section .more-padding,
+section.more-padding {
+  padding: calc(var(--inner-box-padding) * 2.5);
 }
 
 /* Titles */

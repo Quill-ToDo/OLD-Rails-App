@@ -1,22 +1,58 @@
+<% 
+# Set defaults
+remote_req = true
+if local_assigns[:title_classes] == nil 
+    local_assigns[:title_classes] = ""
+end
+if local_assigns[:date_format] == nil
+    local_assigns[:date_format] == :due_only
+end
+%>
+
 <div class="task-wrapper">
-    <div class="check-box-wrapper"> 
-        <% if local_assigns[:task].complete%>
-            <input type="checkbox" data-task-id="<%=local_assigns[:task].id%>" aria-labelledby="<%=local_assigns[:task].title%>" checked>
-        <% else %>
-            <input type="checkbox" data-task-id="<%=local_assigns[:task].id%>" aria-labelledby="<%=local_assigns[:task].title%>">
-        <% end %>
-        <% if local_assigns[:type] == :due %>
-            <span class="checkmark"></span>
-        <% else %>
-            <span class="checkmark round"></span>
-        <% end %>
-    </div>
-    <div class="title-date-wrapper">
-        <% if local_assigns[:task].complete %>
-            <p class="title"><%= link_to local_assigns[:task].title, task_path(local_assigns[:task]), class:"completed", "data-task-id" => local_assigns[:task].id %></p>
+    <div>
+        <div class="check-box-wrapper"> 
+            <% if local_assigns[:task].complete%>
+                <input type="checkbox" data-task-id="<%=local_assigns[:task].id%>" aria-labelledby="<%=local_assigns[:task].title%>" checked>
             <% else %>
-            <p class="title"><%= link_to local_assigns[:task].title, task_path(local_assigns[:task]), "data-task-id" => local_assigns[:task].id  %></p>
+                <input type="checkbox" data-task-id="<%=local_assigns[:task].id%>" aria-labelledby="<%=local_assigns[:task].title%>">
             <% end %>
-        <p class="date"><%= local_assigns[:task].due.strftime(format='%-m/%-d/%y') %></p>
+            <% if local_assigns[:type] == :due %>
+                <span class="checkmark"></span>
+            <% else %>
+                <span class="checkmark round"></span>
+            <% end %>
+        </div>
+        <div class="title-date-wrapper">
+            <% if local_assigns[:task].complete %>
+                <p class="title <%= local_assigns[:title_classes] %>"><%= link_to local_assigns[:task].title, task_path(local_assigns[:task]), remote: remote_req, class:"completed", "data-task-id" => local_assigns[:task].id %></p>
+            <% else %>
+                <p class="title <%= local_assigns[:title_classes] %>"><%= link_to local_assigns[:task].title, task_path(local_assigns[:task]),  remote: remote_req, "data-task-id" => local_assigns[:task].id  %></p>
+            <% end %>
+            
+            <% if local_assigns[:date_format] == :due_only %>
+                <p class="date"><%= local_assigns[:task].due.strftime(format='%-m/%-d/%y') %></p>
+            <% end%>
+        </div>
     </div>
+    <% if local_assigns[:date_format] == :full %>
+    <div class="date-wrapper"> 
+        <div>
+            <p>Start</p>
+            <% if local_assigns[:task].start == nil %>
+                <p> Not set </p>
+            <% else %> 
+                <p class="date"><%= local_assigns[:task].start.strftime(format='%-m/%-d/%y') %></p> 
+            <% end %> 
+        </div>
+        <div> 
+            <p>Due</p>
+            <% if local_assigns[:task].start == nil %>
+                <p> Not set </p>
+            <% else %> 
+                <p class="date"><%= local_assigns[:task].due.strftime(format='%-m/%-d/%y') %></p>
+            <% end %> 
+        </div>
+    </div>
+    <% end %>
 </div>
