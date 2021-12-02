@@ -27,14 +27,29 @@ class TasksController < ApplicationController
 
   def new
     @task = Task.new
+    respond_to do |format|
+      format.js do
+        render json: {
+          html: render_to_string(partial: "new_popup")
+        } and return
+      end
+      format.html {render}
+    end
   end
 
   def create
     @task = Task.new(task_params)
     @task.user_id = current_user.id if @task.user_id.nil?
     if @task.save
-      flash[:notice] = "New task #{@task.title} created"
-      redirect_to root_path and return
+      respond_to do |format|
+        format.xml {
+          
+        }
+        format.html {
+          flash[:notice] = "New task #{@task.title} created"
+          redirect_to root_path and return
+        }
+      end
     else
       flash[:alert] = 'Failed to create new task'
       redirect_to root_path and return
