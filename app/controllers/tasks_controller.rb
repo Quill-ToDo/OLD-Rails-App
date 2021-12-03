@@ -51,14 +51,12 @@ class TasksController < ApplicationController
 
   def update
     @task = Task.find(params[:id])
-    # byebug
     if @task.update(task_params)
-      # byebug
       flash[:notice] = "Task #{@task.title} successfully updated"
       return if params['task'].include?('calendar')
+
       redirect_to task_path(@task)
     else
-      # byebug
       # save failed
       flash[:alert] = "Task couldn't be updated"
       render 'edit'
@@ -108,8 +106,8 @@ class TasksController < ApplicationController
   private
 
   def date_formatter(to_format)
-    DateTime.strptime(to_format, "%m/%d/%Y %I:%M %p")
-  rescue
+    DateTime.strptime(to_format, '%m/%d/%Y %I:%M %p')
+  rescue StandardError
     DateTime.parse(to_format)
   end
 
@@ -150,42 +148,24 @@ class TasksController < ApplicationController
   def task_params
     p = params.require(:task).permit(:title, :description, :start, :due, :calendar, :update)
     h = p.to_hash
-    # byebug
     if h.include?('start') && h['start'] != ''
-      # byebug
       begin
         h['start'] = date_formatter(h['start'])
       rescue ArgumentError
         h['start'] = nil
       end
     end
-    if h.include?('due') && h['due'] != ''
-      # byebug
+    if h.include?('due')
       begin
         h['due'] = if !h.include?('calendar') || h.include?('update')
                      if h['due'] == ''
                        h['start']
-                       
                      else
                        date_formatter(h['due'])
-                       
                      end
                    else
                      DateTime.parse(h['due']).yesterday
-                     
                    end
-        # if !h.include?('calendar') || h.include?('update')
-        #   if h['due'] == ''
-        #     h['due'] = h['start']
-        #     byebug
-        #   else
-        #     h['due'] = date_formatter(h['due'])
-        #     byebug
-        #   end
-        # else
-        #   h['due'] = DateTime.parse(h['due']).yesterday
-        #   byebug
-        # end
       rescue ArgumentError
         return
       end
