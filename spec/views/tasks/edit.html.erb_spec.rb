@@ -24,10 +24,11 @@ RSpec.describe 'edit page', type: :feature, js: true do
     expect(page).to have_button 'Update task'
   end
 
-  it 'should make changes the task object attributes' do
+  it 'should make changes to the task object attributes' do
     fill_in 'Description', with: 'new description!'
     click_on('Update task')
     # expect(page.current_path).to eq(task_path)
+    byebug
     expect(page).to have_content('new description!')
   end
 end

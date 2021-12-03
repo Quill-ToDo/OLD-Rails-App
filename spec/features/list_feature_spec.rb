@@ -48,7 +48,6 @@ RSpec.describe 'task list', type: :feature, js: true do
     fill_in 'Title', with: 'Be cool!'
     fill_in 'Due', with: DateTime.now.strftime("%m/%d/%Y %I:%M %p")
     click_on 'Create task'
-    byebug
     expect(find("#calendar")).to have_content('Be cool!')
   end
 

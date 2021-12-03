@@ -35,11 +35,9 @@ class TasksController < ApplicationController
     @task.user_id = current_user.id if @task.user_id.nil?
     if @task.save
       flash[:notice] = "New task #{@task.title} created"
-      byebug
       redirect_to root_path and return
     else
       flash[:alert] = 'Failed to create new task'
-      byebug
       redirect_to new_task_path and return
     end
   end
@@ -54,12 +52,14 @@ class TasksController < ApplicationController
 
   def update
     @task = Task.find(params[:id])
+    # byebug
     if @task.update(task_params)
+      # byebug
       flash[:notice] = "Task #{@task.title} successfully updated"
       return if params['task'].include?('calendar')
-
       redirect_to task_path(@task)
     else
+      # byebug
       # save failed
       flash[:alert] = "Task couldn't be updated"
       render 'edit'
@@ -110,12 +110,8 @@ class TasksController < ApplicationController
 
   def date_formatter(to_format)
     DateTime.strptime(to_format, "%m/%d/%Y %I:%M %p")
-  #   split_date = to_format.split('/')
-  #   to_format = "#{split_date[1]}/#{split_date[0]}/#{split_date[2]}" if split_date.length > 1 && split_date[1].to_i <= 12
-  #   return DateTime.parse(to_format)
-  # rescue
-  #   month = Date::MONTHNAMES[split_date[0].to_i]
-  #   return "#{split_date[1]} #{month} #{split_date[2]}"
+  rescue
+    DateTime.parse(to_format)
   end
 
   def overdue_tasks
@@ -155,7 +151,9 @@ class TasksController < ApplicationController
   def task_params
     p = params.require(:task).permit(:title, :description, :start, :due, :calendar, :update)
     h = p.to_hash
+    # byebug
     if h.include?('start') && h['start'] != ''
+      # byebug
       begin
         h['start'] = date_formatter(h['start'])
       rescue ArgumentError
@@ -163,24 +161,31 @@ class TasksController < ApplicationController
       end
     end
     if h.include?('due') && h['due'] != ''
+      # byebug
       begin
         h['due'] = if !h.include?('calendar') || h.include?('update')
                      if h['due'] == ''
                        h['start']
+                       
                      else
                        date_formatter(h['due'])
+                       
                      end
                    else
                      DateTime.parse(h['due']).yesterday
+                     
                    end
         # if !h.include?('calendar') || h.include?('update')
         #   if h['due'] == ''
         #     h['due'] = h['start']
+        #     byebug
         #   else
         #     h['due'] = date_formatter(h['due'])
+        #     byebug
         #   end
         # else
         #   h['due'] = DateTime.parse(h['due']).yesterday
+        #   byebug
         # end
       rescue ArgumentError
         return
