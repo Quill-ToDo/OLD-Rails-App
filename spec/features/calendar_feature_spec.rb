@@ -19,7 +19,6 @@ RSpec.describe 'the calendar view', type: :feature, js: true do
 
   it 'should show all tasks for the current month' do
     calendar = page.find('#calendar')
-    sleep(30)
     expect(calendar).to have_content('Do cosc415 reading')
     expect(calendar).to have_content('SWE iteration 2')
     expect(calendar).to have_content('SWE iteration 3')
@@ -61,7 +60,7 @@ RSpec.describe 'the calendar view', type: :feature, js: true do
     # visit root_path
     wait_for_ajax
     expect(Task.find_by(title:'Task1')).to_not eq(nil)
-    expect(Task.find_by(title:'Task1').due.to_date.to_formatted_s(:db)).to eq(DateTime.now.to_date.to_formatted_s(:db))
+    expect(Task.find_by(title:'Task1').start.to_date.to_formatted_s(:db)).to eq(DateTime.now.to_date.to_formatted_s(:db))
   end 
 
   it "should add a task and find same task in list" do

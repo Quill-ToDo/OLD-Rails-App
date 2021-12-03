@@ -31,7 +31,6 @@ RSpec.describe 'task list', type: :feature, js: true do
     id = field.native.attribute('data-task-id')
     field.check
     # Clicking the actual check box under should change the state of the task
-    sleep(20)
     expect(Task.find(id).complete).to eq(true)
   end
 
@@ -39,7 +38,6 @@ RSpec.describe 'task list', type: :feature, js: true do
     field = find_field('Complete task', type: 'checkbox', visible: false)
     id = field.native.attribute('data-task-id')
     field.uncheck
-    sleep(20)
     expect(Task.find(id).complete).to eq(false)
   end
 
