@@ -9,6 +9,7 @@ function initHandlers() {
             let target = e.target;
             console.log(target);
             collapseSectionHandler(target);
+            // !!!
             completeTaskHandler(target);
             showPopupHandler(target, e);
         }
@@ -41,9 +42,10 @@ function completeTaskHandler(target) {
         console.log("completeTask")
 
         $.post("/tasks/complete_task", {
-            id: taskId,
-            success: reRenderAllTasks
-        });
+            id: taskId
+        }).then(() => reRenderAllTasks());
+
+
     }
 }
 
@@ -55,16 +57,9 @@ function showPopupHandler(target, event) {
         console.log("click on task name");
         var link = $(task_title.children("a"));
         var id = link.attr("data-task-id");
-        $.get({
-            url: `/tasks/${id}`,
-            dataType: "json",
-            success: function (data) {
-                $("#show-wrapper").html(data.html);
-                $("#show-wrapper").css("display", "flex")
-            }
-        });
+        renderShow(id).catch(err => console.log(err));
     } else if (target.matches(".filter")) {
-        // Hide and remove this handler on clicking something other than the show popup
+        // Hide popup
         console.log("click off show");
         $("#show-wrapper").toggle();
     }
@@ -72,33 +67,59 @@ function showPopupHandler(target, event) {
 
 
 function reRenderAllTasks() {
-    reRenderList();
     if ($("#show-wrapper").is(":visible")) {
-        reRenderShow();
+        var id = $("#show-wrapper .title a").attr("data-task-id");
+        renderShow(id).then(function () {
+            // Works when there's a breakpoint here???
+            renderList();
+        }).catch(err => {
+            console.log(err)
+        });
+    } else {
+        renderList();
     }
     // Calendar is breaking this for some reason. 
     // calendar.render();
 }
 
-function reRenderShow() {
-    console.log("rerender show")
-    var id = $(".show-wrapper .title a").attr("data-task-id");
-    $.get({
-        url: `/tasks/${id}`,
-        dataType: "json",
-        success: function (data) {
-            $("#show-wrapper").html(data.html);
-        }
+function renderShow(id) {
+    console.log("render show");
+    return new Promise(function (resolve, reject) {
+        if ($("#show-wrapper").is(":visible")) {
+            $.get({
+                data: {
+                    'inner': true
+                },
+                url: `/tasks/${id}`,
+                dataType: "json"
+            }).done((data) => {
+                $("#show-wrapper .mid-section").html(data.html);
+                $("#show-wrapper").css("display", "flex")
+                resolve("Rendered");
+            }).fail(() => {
+                reject("Show could not render.");
+            });
+        } else {
+            $.get({
+                data: {
+                    'full': true
+                },
+                url: `/tasks/${id}`,
+                dataType: "json"
+            }).done((data) => {
+                $("#show-wrapper").html(data.html);
+                $("#show-wrapper").css("display", "flex")
+                resolve("Rendered");
+            }).fail(() => {
+                reject("Show could not render.");
+            });
+        };
     });
 }
 
-function reRenderList() {
-    console.log("rerender list");
-    $.get({
-        url: "/tasks/update_partials",
-        dataType: "json",
-        success: function (data) {
-            $("#list-wrapper").html(data.html);
-        }
+function renderList() {
+    console.log("render list");
+    $("#list-wrapper").load("/tasks/update_partials #list-wrapper", function (response, status, xhr) {
+        return response
     });
 }

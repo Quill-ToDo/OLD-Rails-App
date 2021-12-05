@@ -1,12 +1,6 @@
 <% 
 # Set defaults
 local = false
-if local_assigns[:title_classes] == nil 
-    local_assigns[:title_classes] = ""
-end
-if local_assigns[:date_format] == nil
-    local_assigns[:date_format] = :due_only
-end
 %>
 
 <div class="task-wrapper">
@@ -29,28 +23,6 @@ end
             <p class="title <%= local_assigns[:title_classes] %>"><%= link_to local_assigns[:task].title, task_path(local_assigns[:task]), local: local, "data-task-id" => local_assigns[:task].id %></p>
         <% end %>
         
-        <% if local_assigns[:date_format] == :due_only %>
-            <p class="date"><%= local_assigns[:task].due.strftime(format='%-m/%-d/%y') %></p>
-        <% end%>
+        <p class="date"><%= local_assigns[:task].due.strftime(format='%-m/%-d/%y') %></p>
     </div>
-    <% if local_assigns[:date_format] == :full %>
-    <div class="date-wrapper"> 
-        <div>
-            <p>Start</p>
-            <% if local_assigns[:task].start == nil %>
-                <p class="subtle"> Not set </p>
-            <% else %> 
-                <p class="date"><%= local_assigns[:task].start.strftime(format='%-m/%-d/%y') %></p> 
-            <% end %> 
-        </div>
-        <div> 
-            <p>Due</p>
-            <% if local_assigns[:task].start == nil %>
-                <p class="subtle"> Not set </p>
-            <% else %> 
-                <p class="date"><%= local_assigns[:task].due.strftime(format='%-m/%-d/%y') %></p>
-            <% end %> 
-        </div>
-    </div>
-    <% end %>
 </div>

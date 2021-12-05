@@ -54,6 +54,7 @@ body {
 }
 
 #list-wrapper {
+  width: 100%;
   grid-area: list;
   margin: 0;
   display: grid;

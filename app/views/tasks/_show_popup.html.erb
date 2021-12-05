@@ -1,19 +1,5 @@
-<section class="mid-section more-padding">
-    <div class="aligned-buttons">
-        <%= link_to task_path(@task), id: "btn-delete", method: :delete, class: "btn btn-danger" do %>
-        <%= image_tag "bin.png" %>
-        <% end %>
-        <%= link_to edit_task_path(@task), id: "btn-edit", class: 'btn btn-secondary' do %>
-        <%= image_tag "editing.png" %>
-        <% end %>
-    </div>
-
-    <%= render "task", task: @task, type: :due, date_format: :full %>
-
-    <% if !@task.description.nil? %>
-        <br>
-        <p><%= @task.description %></p>
-    <% end %>
+<section class="mid-section">
+    <%= render 'show_popup_data' %>
 </section>
 <div class="filter">
 </div>
