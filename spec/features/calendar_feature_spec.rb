@@ -48,6 +48,7 @@ RSpec.describe 'the calendar view', type: :feature, js: true do
     # visit root_path
     wait_for_ajax
     expect(page.find('#calendar')).to have_content("Task2")
+    expect(Task.find_by(title:'Task2').start.to_date.to_formatted_s(:db)).to eq(DateTime.now.to_date.to_formatted_s(:db))
     expect(Task.find_by(title:'Task2').due.to_date.to_formatted_s(:db)).to eq(DateTime.now.to_date.tomorrow.to_formatted_s(:db))
   end
 
