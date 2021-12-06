@@ -73,8 +73,8 @@ class TasksController < ApplicationController
   def calendar_tasks
     params_start = DateTime.parse(params['start'])
     params_due = DateTime.parse(params['end'])
-    @tasks = Task.all.get_user.params('due', :<=, params_due)
-                 .or(Task.all.get_user.params('due', :<=, params_due).params('start', :>=, params_start))
+    @tasks = Task.all.get_user.from_params('due', :<=, params_due)
+                 .or(Task.all.get_user.from_params('due', :<=, params_due).from_params('start', :>=, params_start))
     events = []
     @tasks.each do |task|
       h = {}
@@ -117,7 +117,7 @@ class TasksController < ApplicationController
   def today_due_tasks
     Task.order_by('DESC').get_user.today('due', :>=).tomorrow('due', :<)
   end
-  ''
+  
   def today_work_tasks
     Task.order_by('DESC').get_user.tomorrow('start', :<).tomorrow('due', :>=)
   end

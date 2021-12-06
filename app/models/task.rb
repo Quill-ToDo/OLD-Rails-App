@@ -13,7 +13,7 @@ class Task < ApplicationRecord
   scope :tomorrow, lambda { |position, equality|
                      where("#{position} #{equality} ?", DateTime.now.to_date.tomorrow.to_formatted_s(:db))
                    }
-  scope :params, ->(position, equality, to_datetime) { where("#{position} #{equality} ?", to_datetime) }
+  scope :from_params, ->(position, equality, to_datetime) { where("#{position} #{equality} ?", to_datetime) }
   scope :order_by, ->(direction) { order("due #{direction}") }
 
   def complete_task
