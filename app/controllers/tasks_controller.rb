@@ -1,5 +1,15 @@
 # Tasks Controller
 class TasksController < ApplicationController
+  default_scope { all.where('user_id = ?', current_user.id) }
+
+  scope :current_user -> { where('user_id = ?', current_user.id) }
+  scope :find_task -> { find(params[:id]) }
+  scope :today -> (equality) { where('due ? ?', "#{equality}", DateTime.now.to_date.to_formatted_s(:db)) }
+  scope :tomorrow -> (equality) { where('due ? ?', "#{equality}", DateTime.now.to_date.tomorrow.to_formatted_s(:db)) }
+  scope :params_due -> (equality) { where('due ? ?', DateTime.parse(params['end']) }
+  scope :params_start -> (equality) { where('start ? ?', DateTime.parse(params['start'])) }
+  scope :order_by -> (direction) { order("due #{direction}") }
+
   rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
   # before_action :user_signed_in?, only: [:index, :new, :create]
 
@@ -72,9 +82,9 @@ class TasksController < ApplicationController
 
   def calendar_tasks
     @tasks = Task.all.where('user_id = ?', current_user.id)
-                 .where('due <= ?', DateTime.parse(params['end']))
+                 .where('due <= ?', DateTime.parse(params['due']))
                  .or(Task.all.where('user_id = ?', current_user.id)
-                             .where('due <= ?', DateTime.parse(params['end']))
+                             .where('due <= ?', DateTime.parse(params['due']))
                              .where('start >= ?', DateTime.parse(params['start'])))
     events = []
     @tasks.each do |task|
@@ -104,6 +114,12 @@ class TasksController < ApplicationController
   end
 
   private
+  # scope :find_task -> { find(params[:id]) }
+  # scope :today -> (equality) { where('due ? ?', "#{equality}", DateTime.now.to_date.to_formatted_s(:db)) }
+  # scope :tomorrow -> (equality) { where('due ? ?', "#{equality}", DateTime.now.to_date.tomorrow.to_formatted_s(:db)) }
+  # scope :params_due -> (equality) { where('due ? ?', DateTime.parse(params['end']) }
+  # scope :params_start -> (equality) { where('start ? ?', DateTime.parse(params['start'])) }
+  # scope :order_by -> (direction) { order("due #{direction}") }
 
   def date_formatter(to_format)
     DateTime.strptime(to_format, '%m/%d/%Y %I:%M %p')
@@ -112,9 +128,10 @@ class TasksController < ApplicationController
   end
 
   def overdue_tasks
-    Task.order('due ASC')
-        .where('user_id = ?', current_user.id)
-        .where('due < ?', DateTime.now.to_date.to_formatted_s(:db))
+    Task.order_by('ASC').current_user.
+      Task.order('due ASC').where('user_id = ?', current_user.id)
+          .where('user_id = ?', current_user.id)
+          .where('due < ?', DateTime.now.to_date.to_formatted_s(:db))
   end
 
   def today_due_tasks
