@@ -117,7 +117,7 @@ class TasksController < ApplicationController
   def today_due_tasks
     Task.order_by('DESC').get_user.today('due', :>=).tomorrow('due', :<)
   end
-  
+
   def today_work_tasks
     Task.order_by('DESC').get_user.tomorrow('start', :<).tomorrow('due', :>=)
   end
