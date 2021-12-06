@@ -7,6 +7,13 @@ class Task < ApplicationRecord
   validates :due, presence: true
   validate :start_not_after_due?
 
+  scope :get_user, -> { where('user_id = ?', Current.user.id) }
+  scope :find_task, -> { find(params[:id]) }
+  scope :today, -> (position, equality) { where("#{position} #{equality} ?", DateTime.now.to_date.to_formatted_s(:db)) }
+  scope :tomorrow, -> (position, equality) { where("#{position} #{equality} ?", DateTime.now.to_date.tomorrow.to_formatted_s(:db)) }
+  scope :params, -> (position, equality, to_datetime) { where("#{position} #{equality} ?", to_datetime) }
+  scope :order_by, -> (direction) { order("due #{direction}") }
+
   def complete_task
     self.complete = !complete
   end
