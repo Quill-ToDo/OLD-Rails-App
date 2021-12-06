@@ -3,13 +3,10 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 function initHandlers() {
-    console.log("handlers");
     $(document).on("click", function (e) {
         if (e.target) {
             let target = e.target;
-            console.log(target);
             collapseSectionHandler(target);
-            // !!!
             completeTaskHandler(target);
             showPopupHandler(target, e);
         }
@@ -39,7 +36,6 @@ function completeTaskHandler(target) {
     if (input_box.length) {
         input_box = input_box.children("input");
         var taskId = input_box.attr("data-task-id");
-        console.log("completeTask")
 
         $.post("/tasks/complete_task", {
             id: taskId
@@ -54,13 +50,11 @@ function showPopupHandler(target, event) {
     var task_title = $(target).parents(".task-wrapper .title");
     if (task_title.length) {
         event.preventDefault();
-        console.log("click on task name");
         var link = $(task_title.children("a"));
         var id = link.attr("data-task-id");
         renderShow(id).catch(err => console.log(err));
     } else if (target.matches(".filter")) {
         // Hide popup
-        console.log("click off show");
         $("#show-wrapper").toggle();
     }
 }
@@ -71,19 +65,16 @@ function reRenderAllTasks() {
         var id = $("#show-wrapper .title a").attr("data-task-id");
         renderShow(id).then(function () {
             // Works when there's a breakpoint here???
-            renderList();
-        }).catch(err => {
-            console.log(err)
+            renderList().catch(err => console.log(err));
         });
     } else {
-        renderList();
+        renderList().catch(err => console.log(err));
     }
     // Calendar is breaking this for some reason. 
     // calendar.render();
 }
 
 function renderShow(id) {
-    console.log("render show");
     return new Promise(function (resolve, reject) {
         if ($("#show-wrapper").is(":visible")) {
             $.get({
@@ -118,8 +109,18 @@ function renderShow(id) {
 }
 
 function renderList() {
-    console.log("render list");
-    $("#list-wrapper").load("/tasks/update_partials #list-wrapper", function (response, status, xhr) {
-        return response
+    return new Promise(function (resolve, reject) {
+        $.get({
+            data: {
+                'inner': true
+            },
+            url: '/tasks/list',
+            dataType: "json"
+        }).done(data => {
+            $("#list-wrapper").html(data.html);
+            resolve();
+        }).fail(err => {
+            reject("Could not render list - " + err);
+        });
     });
 }

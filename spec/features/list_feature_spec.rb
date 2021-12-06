@@ -32,13 +32,15 @@ RSpec.describe 'task list', type: :feature, js: true do
     field.check
     # Clicking the actual check box under should change the state of the task
     expect(Task.find(id).complete).to eq(true)
+    expect(find(id: "list-wrapper").find_link('Task 2')['complete'] == "")
   end
-
+  
   it 'should allow users to uncomplete tasks by clicking on them' do
     field = find_field('Complete task', type: 'checkbox', visible: false)
     id = field.native.attribute('data-task-id')
     field.uncheck
     expect(Task.find(id).complete).to eq(false)
+    expect(find(id: "list-wrapper").find_link('Complete task')['complete'].nil?)
   end
 
   it "should add a task and find same task in calendar" do
@@ -49,12 +51,12 @@ RSpec.describe 'task list', type: :feature, js: true do
     expect(find("#calendar")).to have_content('Be cool!')
   end
 
-  it 'should update list partials if you visit update_partials route' do
+  it 'should update list partials if you visit list route' do
     find("#btn-add").click 
     fill_in 'Title', with: 'Be cool!'
     fill_in 'Due', with: DateTime.now.to_date.to_formatted_s
     click_on 'Create task'
-    visit tasks_update_partials_path
+    visit tasks_list_path
     expect(page.current_path).to eq(root_path)  
   end
   

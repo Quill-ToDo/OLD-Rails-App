@@ -19,17 +19,14 @@ RSpec.describe 'show page', type: :feature, js: true do
 
   it 'should be able to mark a task as complete' do
     click_on('Do cosc415 reading')
-    click_on('Mark complete')
-    click_on('Do cosc415 reading')
-    expect(page).to have_button 'Mark incomplete'
+    find(id: "show-wrapper").find_field('Do cosc415 reading', type: 'checkbox', visible: false).click
+    expect(find(id: "show-wrapper").find_link('Do cosc415 reading')['complete'] == "")
   end
 
   it 'should be able to revert a completed task to incomplete' do
     click_on('Do cosc415 reading')
-    click_on('Mark complete')
-    click_on('Do cosc415 reading')
-    click_on('Mark incomplete')
-    click_on('Do cosc415 reading')
-    expect(page).to have_button 'Mark complete'
+    find(id: "show-wrapper").find_field('Do cosc415 reading', type: 'checkbox', visible: false).click
+    find(id: "show-wrapper").find_field('Do cosc415 reading', type: 'checkbox', visible: false).click
+    expect(find(id: "show-wrapper").find_link('Do cosc415 reading')['complete'].nil?)
   end
 end

@@ -10,7 +10,7 @@ class TasksController < ApplicationController
     @upcoming = upcoming_tasks
   end
 
-  def update_partials
+  def list
     @overdue = overdue_tasks
     @today_due = today_due_tasks
     @today_work = today_work_tasks
@@ -19,10 +19,11 @@ class TasksController < ApplicationController
       format.js do
         render json: { 
           html: render_to_string(partial: "list", locals: {overdue: @overdue, today_due: @today_due, today_work: @today_work, upcoming: @upcoming})
-        } and return
+          }
+        return
       end
       format.html do
-        redirect_to root_path
+        redirect_to root_path and return
       end
     end
   end
@@ -117,10 +118,6 @@ class TasksController < ApplicationController
   end
 
   def complete_task
-    if !params[:id]
-      flash[:alert] = "Task not marked completed - Invalid ID"
-      redirect_to root_path and return
-    end
     t = Task.find(params[:id])
     t.complete_task
     t.save
