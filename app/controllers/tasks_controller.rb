@@ -1,6 +1,5 @@
 # Tasks Controller
 class TasksController < ApplicationController
-
   rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
   # before_action :user_signed_in?, only: [:index, :new, :create]
 
@@ -118,7 +117,7 @@ class TasksController < ApplicationController
   def today_due_tasks
     Task.order_by('DESC').get_user.today('due', :>=).tomorrow('due', :<)
   end
-''
+  ''
   def today_work_tasks
     Task.order_by('DESC').get_user.tomorrow('start', :<).tomorrow('due', :>=)
   end
