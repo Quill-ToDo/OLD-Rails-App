@@ -131,6 +131,12 @@ class TasksController < ApplicationController
 
   private
 
+  def date_formatter(to_format)
+    DateTime.strptime(to_format, '%m/%d/%Y %I:%M %p')
+  rescue StandardError
+    DateTime.parse(to_format)
+  end
+
   def overdue_tasks
     Task.order('due ASC')
         .where('user_id = ?', current_user.id)
@@ -168,9 +174,9 @@ class TasksController < ApplicationController
   def task_params
     p = params.require(:task).permit(:title, :description, :start, :due, :calendar, :update)
     h = p.to_hash
-    if h.include?('start')
+    if h.include?('start') && h['start'] != ''
       begin
-        h['start'] = DateTime.parse(h['start'])
+        h['start'] = date_formatter(h['start'])
       rescue ArgumentError
         h['start'] = nil
       end
@@ -181,7 +187,7 @@ class TasksController < ApplicationController
                      if h['due'] == ''
                        h['start']
                      else
-                       DateTime.parse(h['due'])
+                       date_formatter(h['due'])
                      end
                    else
                      DateTime.parse(h['due']).yesterday

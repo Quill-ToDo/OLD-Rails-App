@@ -4,8 +4,12 @@
 //= require_tree ./sitewide
 //= require main
 //= require locales-all
-//= require moment 
 //= require ./tasks/calendar
 //= require ./tasks/list
+//= require jquery3
+//= require popper
+//= require bootstrap-sprockets
+//= require moment
+//= require tempusdominus-bootstrap-4.js
 
 "use strict";
