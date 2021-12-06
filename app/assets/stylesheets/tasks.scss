@@ -18,7 +18,7 @@
 }
 
 #list-wrapper h3,
-#show-wrapper {
+#show-wrapper h3 {
   color: var(--mid-font);
   font-family: "Quicksand", sans-serif;
   font-weight: 700;
@@ -28,6 +28,11 @@
   justify-self: center;
   align-self: center;
   text-align: center;
+}
+
+#show-wrapper h3 {
+  font-size: var(--h4-size);
+
 }
 
 .dark-section {
@@ -93,6 +98,10 @@ li:not(:last-child) {
   color: var(--subdued);
   font-family: "Azeret Mono", monospace;
   font-size: var(--smaller-p-size);
+}
+
+#show-wrapper .date-wrapper p.date {
+  font-size: var(--p-size);
 }
 
 .title-date-wrapper a[complete],

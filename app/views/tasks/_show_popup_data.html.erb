@@ -23,7 +23,7 @@
 <div class="dark-section">
     <div class="date-wrapper">
         <div>
-            <p class="bold">Start</p>
+            <h3>Start</h3>
             <% if @task.start == nil %>
                 <p class="subtle"> Not set </p>
             <% else %> 
@@ -31,7 +31,7 @@
             <% end %> 
         </div>
         <div> 
-            <p class="bold">Due</p>
+            <h3>Due</h3>
             <% if @task.due == nil %>
                 <p class="subtle"> Not set </p>
             <% else %> 
@@ -40,7 +40,7 @@
         </div>
     </div>
     <% if !@task.description.nil? %>
-        <br>
-        <p><%= @task.description %></p>
+        <hr>
+        <p class="centered"><%= @task.description %></p>
     <% end %>
 </div>
