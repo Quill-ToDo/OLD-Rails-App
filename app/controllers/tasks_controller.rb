@@ -25,6 +25,15 @@ class TasksController < ApplicationController
     end
   end
 
+  def popup_edit
+    respond_to do |format|               
+      format.js
+      format.html do
+        redirect_to edit_task() #this needs the task
+      end
+    end   
+  end
+
   def new
     @task = Task.new
   end
