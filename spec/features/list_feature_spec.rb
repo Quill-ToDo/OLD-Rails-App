@@ -44,7 +44,7 @@ RSpec.describe 'task list', type: :feature, js: true do
   it "should add a task and find same task in calendar" do
     find("#btn-add").click 
     fill_in 'Title', with: 'Be cool!'
-    fill_in 'Due', with: DateTime.now.to_date.to_formatted_s
+    fill_in 'Due', with: DateTime.now.strftime("%m/%d/%Y %I:%M %p")
     click_on 'Create task'
     expect(find("#calendar")).to have_content('Be cool!')
   end
@@ -52,10 +52,10 @@ RSpec.describe 'task list', type: :feature, js: true do
   it 'should update list partials if you visit update_partials route' do
     find("#btn-add").click 
     fill_in 'Title', with: 'Be cool!'
-    fill_in 'Due', with: DateTime.now.to_date.to_formatted_s
+    fill_in 'Due', with: '11/19/2021 4:22 PM'
     click_on 'Create task'
     visit tasks_update_partials_path
-    expect(page.current_path).to eq(root_path)  
+    expect(page.current_path).to eq(root_path)
   end
   
 end
