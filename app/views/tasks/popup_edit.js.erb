@@ -1,1 +1,1 @@
-$('#div_id').html("<%= render :partial => 'form_fields' %>");
+$('#div_id').html("<%= escape_javascript(render :partial => 'form_fields') %>");
