@@ -17,9 +17,11 @@ class TasksController < ApplicationController
     @upcoming = upcoming_tasks
     respond_to do |format|
       format.js do
-        render json: { 
-          html: render_to_string(partial: "list", locals: {overdue: @overdue, today_due: @today_due, today_work: @today_work, upcoming: @upcoming})
-          }
+        render json: {
+          html: render_to_string(partial: 'list',
+                                 locals: { overdue: @overdue, today_due: @today_due,
+                                           today_work: @today_work, upcoming: @upcoming })
+        }
         return
       end
       format.html do
@@ -49,12 +51,13 @@ class TasksController < ApplicationController
     respond_to do |format|
       format.js do
         # When refreshed
-        if params[:full] 
-          render json: { 
+        if params[:full]
+          render json: {
             html: render_to_string(partial: 'show_popup')
           } and return
-        elsif params[:inner]
-          render json: { 
+        end
+        if params[:inner]
+          render json: {
             html: render_to_string(partial: 'show_popup_data')
           } and return
         end
@@ -62,9 +65,6 @@ class TasksController < ApplicationController
       format.html
     end
   end
-
-
-    # end
 
   def edit
     @task = Task.find(params[:id])
@@ -121,7 +121,7 @@ class TasksController < ApplicationController
     t.complete_task
     t.save
     respond_to do |format|
-      format.html do 
+      format.html do
         redirect_to root_path
       end
       format.js
