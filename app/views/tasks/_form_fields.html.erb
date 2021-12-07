@@ -15,19 +15,31 @@
   </div>
 </div>
 <div class="row">
-  <div class="col-md-3">
-    <%= f.label :start %>
+  <div class='col-md-6'>
+    <div class='form-group'>
+      <%= f.label :start, 'Start', class: 'control-label' %><br>
+      <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
+        <%= f.text_field(:start, 
+          value: f.object.start ? f.object.start.strftime('%B %d, %Y %I:%M %p') : nil, 
+          class: "f-control datetimepicker-input", data: {target:"#datetimepicker1"}) %>
+        <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
+          <div class="input-group-text"><i class="fas fa-calendar-plus"></i></div>
+        </div>
+      </div>
+    </div>
   </div>
-  <div class="col-md-6">
-    <%= f.text_field :start %>
-  </div>
-</div>
-<div class="row">
-  <div class="col-md-3">
-    <%= f.label :due %>
-  </div>
-  <div class="col-md-6">
-    <%= f.text_field :due %>
+  <div class='col-md-6'>
+    <div class='form-group'>
+      <%= f.label :due, 'Due', class: 'control-label' %><br>
+      <div class="input-group date" id="datetimepicker2" data-target-input="nearest">
+        <%= f.text_field(:due, 
+          value: f.object.due ? f.object.due.strftime('%B %d, %Y %I:%M %p') : nil, 
+          class: "f-control datetimepicker-input", data: {target:"#datetimepicker2"}) %>
+        <div class="input-group-append" data-target="#datetimepicker2" data-toggle="datetimepicker">
+          <div class="input-group-text"><i class="fas fa-calendar-plus"></i></div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 <%= f.submit submit_text %>

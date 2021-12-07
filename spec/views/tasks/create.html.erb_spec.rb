@@ -21,8 +21,8 @@ RSpec.describe 'create page', type: :view do
     find('#btn-add').click
     fill_in 'Title', with: 'foo'
     fill_in 'Description', with: 'description'
-    fill_in 'Start', with: '2021-11-12T00:00:00-05:00'
-    fill_in 'Due', with: '2021-12-12T00:00:00-05:00'
+    fill_in 'Start', with: '11/18/2021 4:22 PM'
+    fill_in 'Due', with: '11/19/2021 4:22 PM'
     click_on 'Create task'
     expect(page.current_path).to eq(root_path)
     expect(page).to have_content('New task foo created')
@@ -31,7 +31,7 @@ RSpec.describe 'create page', type: :view do
   it 'should allow a user to create a task without a start date or description' do
     find('#btn-add').click
     fill_in 'Title', with: 'bar'
-    fill_in 'Due', with: '2021-12-12T00:00:00-05:00'
+    fill_in 'Due', with: '11/19/2021 4:22 PM'
     click_on 'Create task'
     expect(page.current_path).to eq(root_path)
     expect(page).to have_content('New task bar created')
@@ -41,8 +41,30 @@ RSpec.describe 'create page', type: :view do
     find('#btn-add').click
     fill_in 'Title', with: 'poo'
     fill_in 'Description', with: 'description'
-    fill_in 'Start', with: '2021-12-12T00:00:10-05:00'
-    fill_in 'Due', with: '2021-12-12T00:00:00-05:00'
+    fill_in 'Start', with: '11/19/2021 4:22 PM'
+    fill_in 'Due', with: '11/18/2021 4:22 PM'
+    click_on 'Create task'
+    expect(page.current_path).to eq(new_task_path)
+    expect(page).to have_content('Failed to create new task')
+  end
+
+  it 'should set start to nil if a user enters an ill-formed start date' do
+    find('#btn-add').click
+    fill_in 'Title', with: 'poo'
+    fill_in 'Description', with: 'description'
+    fill_in 'Start', with: 'asdf'
+    fill_in 'Due', with: '11/18/2021 4:22 PM'
+    click_on 'Create task'
+    expect(page.current_path).to eq(root_path)
+    expect(Task.where("title = 'poo'")[0].start).to eq(nil)
+    expect(page).to have_content('New task poo created')
+  end
+
+  it 'should not allow a user to create a task with an ill-formed due date' do
+    find('#btn-add').click
+    fill_in 'Title', with: 'poo'
+    fill_in 'Description', with: 'description'
+    fill_in 'Due', with: 'asdf'
     click_on 'Create task'
     expect(page.current_path).to eq(new_task_path)
     expect(page).to have_content('Failed to create new task')

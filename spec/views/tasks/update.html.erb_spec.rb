@@ -18,13 +18,14 @@ RSpec.describe 'update page', type: :feature, js: true do
   it 'should have correctly populated form fields' do
     expect(page).to have_field('Title', with: 'Do cosc415 reading')
     expect(page).to have_field('Description', with: 'hi :)')
-    expect(page).to have_field('Start', with: '2021-11-08 00:00:00 UTC')
-    expect(page).to have_field('Due', with: '2021-11-11 00:00:00 UTC')
+    expect(page).to have_field('Start', with: 'November 08, 2021 12:00 AM')
+    expect(page).to have_field('Due', with: 'November 11, 2021 12:00 AM')
     expect(page).to have_button 'Update task'
   end
 
   it 'should not update if start date is changed to after the due date' do
-    fill_in 'Start', with: '2021-11-15 00:00:00 UTC'
+    # fill_in 'Start', with: '11/15/21 12:00 AM'
+    page.execute_script("$('#datetimepicker1').datetimepicker({format: 'YYYY-MM-DD', date: '2021-11-15'})")
     click_on('Update task')
     expect(page).to have_content("Task couldn't be updated")
   end

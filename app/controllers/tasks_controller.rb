@@ -71,11 +71,10 @@ class TasksController < ApplicationController
   end
 
   def calendar_tasks
-    @tasks = Task.all.where('user_id = ?', current_user.id)
-                 .where('due <= ?', DateTime.parse(params['end']))
-                 .or(Task.all.where('user_id = ?', current_user.id)
-                             .where('due <= ?', DateTime.parse(params['end']))
-                             .where('start >= ?', DateTime.parse(params['start'])))
+    params_start = DateTime.parse(params['start'])
+    params_due = DateTime.parse(params['end'])
+    @tasks = Task.all.get_user.from_params('due', :<=, params_due)
+                 .or(Task.all.get_user.from_params('due', :<=, params_due).from_params('start', :>=, params_start))
     events = []
     @tasks.each do |task|
       h = {}
@@ -105,33 +104,27 @@ class TasksController < ApplicationController
 
   private
 
+  def date_formatter(to_format)
+    DateTime.strptime(to_format, '%m/%d/%Y %I:%M %p')
+  rescue StandardError
+    DateTime.parse(to_format)
+  end
+
   def overdue_tasks
-    Task.order('due ASC')
-        .where('user_id = ?', current_user.id)
-        .where('due < ?', DateTime.now.to_date.to_formatted_s(:db))
+    Task.order_by_due('ASC').get_user.today('due', :<)
   end
 
   def today_due_tasks
-    Task.order('due DESC')
-        .where('user_id = ?', current_user.id)
-        .where('due >= ?', DateTime.now.to_date.to_formatted_s(:db))
-        .where('due < ?', DateTime.now.to_date.tomorrow.to_formatted_s(:db))
+    Task.order_by_due('DESC').get_user.today('due', :>=).tomorrow('due', :<)
   end
 
   def today_work_tasks
-    Task.order('due DESC')
-        .where('user_id = ?', current_user.id)
-        .where('start < ?', DateTime.now.to_date.tomorrow.to_formatted_s(:db))
-        .where('due >= ?', DateTime.now.to_date.tomorrow.to_formatted_s(:db))
+    Task.order_by_due('DESC').get_user.tomorrow('start', :<).tomorrow('due', :>=)
   end
 
   def upcoming_tasks
-    Task.order('due DESC')
-        .where('user_id = ?', current_user.id)
-        .where('start >= ?', DateTime.now.to_date.tomorrow.to_formatted_s(:db))
-        .or(Task.order('due DESC').where('start IS NULL')
-                            .where('user_id = ?', current_user.id)
-                            .where('due >= ?', DateTime.now.to_date.tomorrow.to_formatted_s(:db)))
+    Task.order_by_due('DESC').get_user.tomorrow('start', :>=)
+        .or(Task.order_by_due('DESC').where('start IS NULL').get_user.tomorrow('due', :>=))
   end
 
   def record_not_found
@@ -142,9 +135,9 @@ class TasksController < ApplicationController
   def task_params
     p = params.require(:task).permit(:title, :description, :start, :due, :calendar, :update)
     h = p.to_hash
-    if h.include?('start')
+    if h.include?('start') && h['start'] != ''
       begin
-        h['start'] = DateTime.parse(h['start'])
+        h['start'] = date_formatter(h['start'])
       rescue ArgumentError
         h['start'] = nil
       end
@@ -155,7 +148,7 @@ class TasksController < ApplicationController
                      if h['due'] == ''
                        h['start']
                      else
-                       DateTime.parse(h['due'])
+                       date_formatter(h['due'])
                      end
                    else
                      DateTime.parse(h['due']).yesterday
