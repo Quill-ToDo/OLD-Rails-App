@@ -111,20 +111,20 @@ class TasksController < ApplicationController
   end
 
   def overdue_tasks
-    Task.order_by('ASC').get_user.today('due', :<)
+    Task.order_by_due('ASC').get_user.today('due', :<)
   end
 
   def today_due_tasks
-    Task.order_by('DESC').get_user.today('due', :>=).tomorrow('due', :<)
+    Task.order_by_due('DESC').get_user.today('due', :>=).tomorrow('due', :<)
   end
 
   def today_work_tasks
-    Task.order_by('DESC').get_user.tomorrow('start', :<).tomorrow('due', :>=)
+    Task.order_by_due('DESC').get_user.tomorrow('start', :<).tomorrow('due', :>=)
   end
 
   def upcoming_tasks
-    Task.order_by('DESC').get_user.tomorrow('start', :>=)
-        .or(Task.order_by('DESC').where('start IS NULL').get_user.tomorrow('due', :>=))
+    Task.order_by_due('DESC').get_user.tomorrow('start', :>=)
+        .or(Task.order_by_due('DESC').where('start IS NULL').get_user.tomorrow('due', :>=))
   end
 
   def record_not_found

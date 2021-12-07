@@ -14,7 +14,7 @@ class Task < ApplicationRecord
                      where("#{position} #{equality} ?", DateTime.now.to_date.tomorrow.to_formatted_s(:db))
                    }
   scope :from_params, ->(position, equality, to_datetime) { where("#{position} #{equality} ?", to_datetime) }
-  scope :order_by, ->(direction) { order("due #{direction}") }
+  scope :order_by_due, ->(direction) { order("due #{direction}") }
 
   def complete_task
     self.complete = !complete
