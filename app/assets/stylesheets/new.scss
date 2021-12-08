@@ -24,8 +24,11 @@ input[type="text"]:focus {
   z-index: 3;
   position: absolute;
   // box-shadow: 5px 10px 18px #ff0000;
-  box-shadow: 20px 20px 50px var(--darkest-dark);
   width: 30%;
+}
+
+#modalDialog .mid-section {
+  box-shadow: 20px 20px 50px var(--darkest-dark);
 }
 
 #modalDialog form input,

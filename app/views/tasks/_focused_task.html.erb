@@ -1,0 +1,40 @@
+<% 
+# Set defaults
+local = false
+%>
+
+<div class="task-wrapper">
+    <div class="title-date-wrapper">
+        <div class="title-wrapper">
+            <div>
+                <%= render 'checkbox', task: local_assigns[:task], type: local_assigns[:type] %>
+            </div>
+            <% if local_assigns[:task].complete %>
+                <p class="title <%= local_assigns[:title_classes] %>"><%= link_to local_assigns[:task].title, task_path(local_assigns[:task]), local: local, "data-task-id" => local_assigns[:task].id, complete: "" %></p>
+            <% else %>
+                <p class="title <%= local_assigns[:title_classes] %>"><%= link_to local_assigns[:task].title, task_path(local_assigns[:task]), local: local, "data-task-id" => local_assigns[:task].id %></p>
+            <% end %>
+        </div>
+        <div class="date-wrapper">
+            <div>
+                <p class="bold">Start</p>
+                <div>
+                <% if local_assigns[:task].start == nil %>
+                    <p class="subtle"> Not set </p>
+                <% else %> 
+                    <p class="date"><%= local_assigns[:task].start.strftime(format='%-m/%-d/%y') %></p> 
+                <% end %> 
+                </div>
+            </div>
+            <div> 
+                <p class="bold">Due</p>
+                <div class="BEEP">
+                <% if local_assigns[:task].due == nil %>
+                    <p class="subtle"> Not set </p>
+                <% else %> 
+                    <p class="date"><%= local_assigns[:task].due.strftime(format='%-m/%-d/%y') %></p>
+                <% end %>
+            </div>
+        </div>
+    </div>
+</div>

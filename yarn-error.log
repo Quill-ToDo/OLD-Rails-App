@@ -1,0 +1,36 @@
+Arguments: 
+  /usr/bin/node /home/torinn818/.yarn/bin/yarn.js add @fontawesome/fontawesome-free
+
+PATH: 
+  /home/torinn818/.rvm/gems/ruby-3.0.2/bin:/home/torinn818/.rvm/gems/ruby-3.0.2@global/bin:/home/torinn818/.rvm/rubies/ruby-3.0.2/bin:/home/torinn818/.rvm/bin:/home/torinn818/.yarn/bin:/home/torinn818/.config/yarn/global/node_modules/.bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/lib/wsl/lib:/mnt/c/Program Files (x86)/Common Files/Oracle/Java/javapath:/mnt/c/ProgramData/Oracle/Java/javapath:/mnt/c/Program Files (x86)/Intel/iCLS Client:/mnt/c/Program Files/Intel/iCLS Client:/mnt/c/WINDOWS/system32:/mnt/c/WINDOWS:/mnt/c/WINDOWS/System32/Wbem:/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0:/mnt/c/Program Files (x86)/Intel/Intel(R) Management Engine Components/DAL:/mnt/c/Program Files/Intel/Intel(R) Management Engine Components/DAL:/mnt/c/Program Files (x86)/Intel/Intel(R) Management Engine Components/IPT:/mnt/c/Program Files/Intel/Intel(R) Management Engine Components/IPT:/mnt/c/Program Files (x86)/Skype/Phone:/mnt/c/WINDOWS/System32/OpenSSH:/mnt/c/Users/Colin/Files/java/jEdit:/mnt/c/Users/Colin/Files/CS/Git/cmd:/mnt/c/ProgramData/chocolatey/bin:/mnt/c/Users/Colin/AppData/Local/Programs/Python/Python39:/mnt/c/Program Files/nodejs:/mnt/c/ProgramData/Anaconda3/Scripts/conda.exe:/mnt/c/Users/Colin/AppData/Local/Microsoft/WindowsApps:/mnt/c/Users/Colin/Files/java/jdk-13/bin:/mnt/c/Users/Colin/Files/Microsoft VS Code/bin:/mnt/c/Users/Colin/AppData/Local/Programs/Python/Python39:/mnt/c/Program Files/heroku/bin:/mnt/c/Users/Colin/AppData/Roaming/npm:/mnt/c/ProgramData/Anaconda3:/snap/bin
+
+Yarn version: 
+  1.22.15
+
+Node version: 
+  10.19.0
+
+Platform: 
+  linux x64
+
+Trace: 
+  Error: https://registry.yarnpkg.com/@fontawesome%2ffontawesome-free: Not found
+      at Request.params.callback [as _callback] (/home/torinn818/.yarn/lib/cli.js:67031:18)
+      at Request.self.callback (/home/torinn818/.yarn/lib/cli.js:140885:22)
+      at Request.emit (events.js:198:13)
+      at Request.<anonymous> (/home/torinn818/.yarn/lib/cli.js:141857:10)
+      at Request.emit (events.js:198:13)
+      at IncomingMessage.<anonymous> (/home/torinn818/.yarn/lib/cli.js:141779:12)
+      at Object.onceWrapper (events.js:286:20)
+      at IncomingMessage.emit (events.js:203:15)
+      at endReadableNT (_stream_readable.js:1145:12)
+      at process._tickCallback (internal/process/next_tick.js:63:19)
+
+npm manifest: 
+  No manifest
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile

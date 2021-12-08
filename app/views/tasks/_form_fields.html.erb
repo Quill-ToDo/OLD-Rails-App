@@ -6,11 +6,19 @@
     <div class="horizontal-align"> 
       <div>
         <p class="label"> <%= f.label :start %> </p>
-        <p class="input"> <%= f.text_field :start %> </p>
+        <div class="datetime-picker" id="datetime-picker-start" data-td-target-input="nearest" data-td-target-toggle='nearest'>
+          <p class="input"> 
+            <%= f.text_field :start, value: f.object.start ? f.object.start.strftime('%B %d, %Y %I:%M %p') : nil, class: "f-control datetimepicker-input", data: {"td-target": "#datetime-picker-start", "td-toggle": "datetimepicker"} %> 
+          </p>
+        </div>
       </div>
       <div>
         <p class="label"> <%= f.label :due %> </p>
-        <p class="input"> <%= f.text_field :due %> </p>
+        <div class="datetime-picker" id="datetime-picker-due" data-target-input="nearest">
+          <p class="input"> 
+            <%= f.text_field(:due, value: f.object.due ? f.object.due.strftime('%B %d, %Y %I:%M %p') : nil, class: "f-control datetimepicker-input", data: {"td-target": "#datetime-picker-due", "td-toggle": "datetimepicker"}) %>
+          </p>
+        </div>
       </div>
     </div>
 </div>

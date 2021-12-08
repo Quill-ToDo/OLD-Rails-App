@@ -12,8 +12,7 @@
  *
  * make sure main is before calendar
  *= require main
- *= require calendar
- *= require tasks 
+ *= require tempus-dominus
  *= require_tree .
  *= require_self
  */
@@ -45,6 +44,7 @@
   --h2-size: 40px;
   --h2-padding: 15px;
   --h3-size: 30px;
+  --h4-size: 25px;
   --event-p-size: 13px;
 }
 
@@ -61,6 +61,7 @@ body {
 }
 
 #list-wrapper {
+  width: 100%;
   grid-area: list;
   margin: 0;
   display: grid;
@@ -79,6 +80,7 @@ body {
   display: flex;
   flex-direction: column;
   padding: 0 6px 0 6px;
+  z-index: 3;
 }
 
 #left-menu > .btn {
@@ -107,10 +109,16 @@ body {
   grid-area: slider;
 }
 
-.mid-section {
+section .mid-section,
+section.mid-section {
   background-color: var(--mid-dark);
   border-radius: var(--box-corner-rounding);
   padding: var(--inner-box-padding);
+}
+
+section .more-padding,
+section.more-padding {
+  padding: calc(var(--inner-box-padding) * 2.5);
 }
 
 /* Titles */
@@ -158,6 +166,7 @@ p {
 button,
 .fc .fc-button.fc-button-primary,
 .btn {
+  border-radius: 0.25em;
   background-color: var(--dark-font);
   border: none;
   opacity: 1;
@@ -269,4 +278,39 @@ textarea {
 .alert-pop-up.alert {
   background-color: var(--alert-bg);
   opacity: 90%;
+}
+
+hr {
+  width: 60%;
+  /* border: none; */
+  color: var(--mid-font);
+  background-color: linear-gradient(
+    90deg,
+    rgba(94, 94, 94, 0.6979925759366247) 0%,
+    rgba(94, 94, 94, 1) 25%,
+    rgba(94, 94, 94, 1) 75%,
+    rgba(94, 94, 94, 0.6951914554884453) 100%
+  );
+  margin: auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  border: 0;
+  opacity: 0.4;
+}
+
+// Overriding bootstrap
+ol,
+ul,
+dl {
+  margin: 0;
+}
+
+ol,
+ul {
+  padding-left: 0;
+}
+
+.btn-secondary {
+  background-color: none;
+  border-color: none;
 }
