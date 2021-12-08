@@ -71,6 +71,7 @@ RSpec.describe 'the calendar view', type: :feature, js: true do
     dialog.send_keys("Do the dishes")
     dialog.accept
     wait_for_ajax
+    wait_for_ajax
     expect(find("#list-wrapper")).to have_content('Do the dishes')  
   end
 

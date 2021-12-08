@@ -70,8 +70,8 @@ function reRenderAllTasks() {
     } else {
         renderList().catch(err => console.log(err));
     }
-    // Calendar is breaking this for some reason. 
-    // calendar.render();
+    calendar.refetchEvents();
+    calendar.render();
 }
 
 function renderShow(id) {

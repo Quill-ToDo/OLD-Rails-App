@@ -112,6 +112,7 @@ class TasksController < ApplicationController
                   end
 
       h[:end] = task.due.to_datetime.iso8601
+      h[:color] = '#414141' if task.complete?
       events << h
     end
     render json: events.to_json
