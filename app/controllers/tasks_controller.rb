@@ -46,15 +46,18 @@ class TasksController < ApplicationController
     @task = Task.new(task_params)
     @task.user_id = current_user.id if @task.user_id.nil?
     if @task.save
-      respond_to do |format|
-        format.xml {
-          
-        }
-        format.html {
-          flash[:notice] = "New task #{@task.title} created"
-          redirect_to root_path and return
-        }
-      end
+      flash[:notice] = "New task #{@task.title} created"
+      redirect_to root_path and return
+      # respond_to do |format|
+      #   format.xml {
+      #     flash[:notice] = "New task #{@task.title} created"
+      #     redirect_to root_path and return
+      #   }
+      #   format.html {
+      #     flash[:notice] = "New task #{@task.title} created"
+      #     redirect_to root_path and return
+      #   }
+      # end
     else
       flash[:alert] = 'Failed to create new task'
       redirect_to root_path and return
@@ -146,7 +149,7 @@ class TasksController < ApplicationController
   private
 
   def date_formatter(to_format)
-    DateTime.strptime(to_format, '%m/%d/%Y %I:%M %p')
+    DateTime.strptime(to_format, '%m/%d/%Y, %I:%M %p')
   rescue StandardError
     DateTime.parse(to_format)
   end
