@@ -12,8 +12,6 @@
  *
  * make sure main is before calendar
  *= require main
- *= require calendar
- *= require tasks
  *= require_tree .
  *= require_self
  */

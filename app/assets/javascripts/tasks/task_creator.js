@@ -1,6 +1,3 @@
-//= require_tree .
-//= require main
-//= require locales-all
 //= require jquery3
 //= require popper
 //= require bootstrap-sprockets
@@ -8,7 +5,7 @@
 //= require tempusdominus-bootstrap-4.js
 //= require jquery_ujs
 
-$('#datetimepicker1').datetimepicker({
+$('#datetime-picker-start').datetimepicker({
   format: moment().format(),
   icons: {
     time: 'far fa-clock',
@@ -21,10 +18,12 @@ $('#datetimepicker1').datetimepicker({
     clear: 'fas fa-trash',
     close: "fas fa-times"
   },
-  buttons: {showClose: true }
+  buttons: {
+    showClose: true
+  }
 });
 
-$('#datetimepicker2').datetimepicker({
+$('#datetime-picker-due').datetimepicker({
   // format: 'YYYY-MM-DDTHH:mm:ssZ',
   format: moment().format(),
   icons: {
@@ -38,14 +37,16 @@ $('#datetimepicker2').datetimepicker({
     clear: 'fas fa-trash',
     close: "fas fa-times"
   },
-  buttons: {showClose: true }
+  buttons: {
+    showClose: true
+  }
 });
 
-$("#datetimepicker1").on("change.datetimepicker", function (e) {
-  $('#datetimepicker2').datetimepicker('minDate', e.date);
+$("#datetime-picker-start").on("change.datetimepicker", function (e) {
+  $('#datetime-picker-due').datetimepicker('minDate', e.date);
   console.log(e.date);
 });
 
-$("#datetimepicker2").on("change.datetimepicker", function (e) {
-  $('#datetimepicker1').datetimepicker('maxDate', e.date);
+$("#datetime-picker-due").on("change.datetimepicker", function (e) {
+  $('#datetime-picker-start').datetimepicker('maxDate', e.date);
 });
