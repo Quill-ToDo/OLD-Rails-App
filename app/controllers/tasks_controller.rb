@@ -1,6 +1,7 @@
 # Tasks Controller
 class TasksController < ApplicationController
   rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
+  skip_before_action :verify_authenticity_token
   # before_action :user_signed_in?, only: [:index, :new, :create]
 
   def index
