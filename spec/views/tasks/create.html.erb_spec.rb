@@ -18,6 +18,7 @@ RSpec.describe 'create page', type: :view do
   end
 
   it 'should allow a user to create a task if signed in' do
+    byebug
     find('#btn-add').click
     fill_in 'Title', with: 'foo'
     fill_in 'Description', with: 'description'
