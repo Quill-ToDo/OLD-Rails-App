@@ -20,22 +20,24 @@ document.addEventListener('DOMContentLoaded', function () {
             select: function (info) {
                 var title = prompt('Enter Title');
                 if (title) {
-                    jQuery.post(
+                    $.post(
                             "/tasks", {
                                 task: {
                                     title: title,
                                     start: info.start,
                                     due: info.end,
-                                    calendar: true
+                                    data: JSON,
+                                    calendar: true,
+                                    dataType: 'json'
                                 }
-                            }).done(function () {
+                            }).fail((status) => {
+                            console.log(status)
+                            alert("ERROR: Task could not be created!");
+                        }).done(function () {
                             calendar.refetchEvents();
                             renderList().catch(err => {
                                 console.log(err)
                             });
-                        })
-                        .fail(function () {
-                            alert("ERROR: Task could not be created!");
                         })
                         .always(function () {
                             calendar.unselect();

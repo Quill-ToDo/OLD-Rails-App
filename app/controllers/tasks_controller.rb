@@ -47,12 +47,12 @@ class TasksController < ApplicationController
     @task.user_id = current_user.id if @task.user_id.nil?
     if @task.save
       respond_to do |format|
-        format.xml {
-          
+        format.js {
+          render json: {"message": "Successfully created task"}
         }
         format.html {
           flash[:notice] = "New task #{@task.title} created"
-          redirect_to root_path and return
+          redirect_to root_path and render json: {"message": "Successfully created task"}
         }
       end
     else
@@ -145,9 +145,7 @@ class TasksController < ApplicationController
 
   private
 
-  def date_formatter(to_format)
-    DateTime.strptime(to_format, '%m/%d/%Y %I:%M %p')
-  rescue StandardError
+  def formatter_for_datepicker(to_format)
     DateTime.parse(to_format)
   end
 
@@ -178,7 +176,7 @@ class TasksController < ApplicationController
     h = p.to_hash
     if h.include?('start') && h['start'] != ''
       begin
-        h['start'] = date_formatter(h['start'])
+        h['start'] = DateTime.parse(h['start'])
       rescue ArgumentError
         h['start'] = nil
       end
@@ -189,7 +187,7 @@ class TasksController < ApplicationController
                      if h['due'] == ''
                        h['start']
                      else
-                       date_formatter(h['due'])
+                      DateTime.parse(h['due'])
                      end
                    else
                      DateTime.parse(h['due']).yesterday

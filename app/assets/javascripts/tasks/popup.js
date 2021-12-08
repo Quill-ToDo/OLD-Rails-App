@@ -18,7 +18,8 @@ $(document).ready(function () {
                 var options = {
                     display: {
                         buttons: {
-                            close: true
+                            close: true,
+                            // clear: true
                         },
                         // toolbarPlacement: "top"
                     }
