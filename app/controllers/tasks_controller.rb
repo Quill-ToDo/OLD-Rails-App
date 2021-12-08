@@ -52,7 +52,6 @@ class TasksController < ApplicationController
 
   def update
     @task = Task.find(params[:id])
-    byebug
     if @task.update(task_params)
       flash[:notice] = "Task #{@task.title} successfully updated"
       return if params['task'].include?('calendar')
@@ -137,7 +136,6 @@ class TasksController < ApplicationController
   def task_params
     p = params.require(:task).permit(:title, :description, :start, :due, :calendar, :update)
     h = p.to_hash
-    byebug
     if h.include?('start') && h['start'] != ''
       begin
         h['start'] = date_formatter(h['start'])
