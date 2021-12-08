@@ -12,13 +12,10 @@
  *
  * make sure main is before calendar
  *= require main
+ *= require tempus-dominus
  *= require_tree .
  *= require_self
  */
-
-@import "bootstrap";
-@import "tempusdominus-bootstrap-4.css";
-@import "font-awesome";
 
 :root {
   --bg: #232323;

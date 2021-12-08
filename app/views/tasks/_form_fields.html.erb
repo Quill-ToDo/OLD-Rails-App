@@ -17,13 +17,9 @@
 <div class="row">
   <div class='col-md-6'>
     <div class='form-group'>
-      <%= f.label :start, 'Start', class: 'control-label' %><br>
-      <div class="input-group date" id="datetime-picker-start" data-target-input="nearest">
-        <%= f.text_field(:start, 
-          value: f.object.start ? f.object.start.strftime('%B %d, %Y %I:%M %p') : nil, 
-          class: "f-control datetimepicker-input", data: {target:"#datetime-picker-start"}) %>
-        <div class="input-group-append" data-target="#datetime-picker-start" data-toggle="datetimepicker">
-          <div class="input-group-text"><i class="fas fa-calendar-plus"></i></div>
+      <%= f.label :start, 'Start', class: 'control-label' %>
+      <div class="datetime-picker" id="datetime-picker-start" data-td-target-input="nearest" data-td-target-toggle='nearest'>
+        <%= f.text_field :start, value: f.object.start ? f.object.start.strftime('%B %d, %Y %I:%M %p') : nil, class: "f-control datetimepicker-input", data: {"td-target": "#datetime-picker-start", "td-toggle": "datetimepicker"} %>
         </div>
       </div>
     </div>
@@ -31,13 +27,8 @@
   <div class='col-md-6'>
     <div class='form-group'>
       <%= f.label :due, 'Due', class: 'control-label' %><br>
-      <div class="input-group date" id="datetime-picker-due" data-target-input="nearest">
-        <%= f.text_field(:due, 
-          value: f.object.due ? f.object.due.strftime('%B %d, %Y %I:%M %p') : nil, 
-          class: "f-control datetimepicker-input", data: {target:"#datetime-picker-due"}) %>
-        <div class="input-group-append" data-target="#datetime-picker-due" data-toggle="datetimepicker">
-          <div class="input-group-text"><i class="fas fa-calendar-plus"></i></div>
-        </div>
+      <div class="datetime-picker" id="datetime-picker-due" data-target-input="nearest">
+        <%= f.text_field(:due, value: f.object.due ? f.object.due.strftime('%B %d, %Y %I:%M %p') : nil, class: "f-control datetimepicker-input", data: {"td-target": "#datetime-picker-due", "td-toggle": "datetimepicker"}) %>
       </div>
     </div>
   </div>
