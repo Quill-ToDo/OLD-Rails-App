@@ -11,17 +11,22 @@ class TasksController < ApplicationController
     @upcoming = upcoming_tasks
   end
 
-  def update_partials
+  def list
     @overdue = overdue_tasks
     @today_due = today_due_tasks
     @today_work = today_work_tasks
     @upcoming = upcoming_tasks
     respond_to do |format|
       format.js do
-        render action: 'update_partials' and return
+        render json: {
+          html: render_to_string(partial: 'list',
+                                 locals: { overdue: @overdue, today_due: @today_due,
+                                           today_work: @today_work, upcoming: @upcoming })
+        }
+        return
       end
       format.html do
-        redirect_to root_path
+        redirect_to root_path and return
       end
     end
   end
@@ -44,6 +49,22 @@ class TasksController < ApplicationController
 
   def show
     @task = Task.find(params[:id])
+    respond_to do |format|
+      format.js do
+        # When refreshed
+        if params[:full]
+          render json: {
+            html: render_to_string(partial: 'show_popup')
+          } and return
+        end
+        if params[:inner]
+          render json: {
+            html: render_to_string(partial: 'show_popup_data')
+          } and return
+        end
+      end
+      format.html
+    end
   end
 
   def edit
@@ -100,7 +121,12 @@ class TasksController < ApplicationController
     t = Task.find(params[:id])
     t.complete_task
     t.save
-    redirect_to root_path
+    respond_to do |format|
+      format.html do
+        redirect_to root_path
+      end
+      format.js
+    end
   end
 
   private

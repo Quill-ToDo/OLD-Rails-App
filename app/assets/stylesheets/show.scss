@@ -1,14 +1,28 @@
-.show-wrapper {
+#show-wrapper {
+  display: none;
   width: 100%;
+  height: 100vh;
+  position: absolute;
+  z-index: 2;
+  align-items: center;
+  justify-content: center;
 }
 
-.show-wrapper .section {
-  width: 50%;
+#show-wrapper .filter {
+  background-color: rgba(0, 0, 0, 0.356);
+  position: absolute;
+  width: 100%;
+  height: 100%;
 }
 
-.aligned-buttons {
+#show-wrapper .mid-section {
+  width: 35%;
+  z-index: 5;
+}
+
+#show-wrapper .aligned-buttons {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
 }
 
 .aligned-buttons a {
@@ -21,14 +35,67 @@
   width: 50%;
 }
 
-.show-wrapper .btn {
-  margin: 20px;
-  border: 0;
-  padding: 10px;
+#show-wrapper .btn {
   border-radius: 15px;
   font-family: "Dongle", sans-serif;
   color: var(--lightest-font);
   font-size: 30px;
+}
+
+// Tasks
+
+#show-wrapper .mid-section > div:first-of-type {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+#show-wrapper .task-wrapper .title {
+  font-family: "Secular One", sans-serif;
+  font-size: 30px;
+  text-align: left;
+}
+
+#show-wrapper .task-wrapper {
+  display: flex;
+  align-items: baseline;
+  // display:
+  margin-left: 10px;
+}
+
+#show-wrapper .check-box-wrapper {
+  transform: scale(1.3);
+}
+
+#show-wrapper .title-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#show-wrapper .date-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 10%;
+}
+
+#show-wrapper .date-wrapper > div {
+  display: flex;
+  gap: 5px;
+  text-align: center;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#show-wrapper .date-wrapper p.bold {
+  font-size: 22px;
+  font-weight: bold;
+}
+
+#show-wrapper .task-wrapper .date-wrapper p {
+  font-size: 18px;
 }
 
 .btn-incomplete {

@@ -1,0 +1,46 @@
+<div>
+    <div class="task-wrapper">
+        <div class="title-wrapper">
+            <div>
+                <%= render 'checkbox', task: @task, type: :due %>
+            </div>
+            <% if @task.complete %>
+                <p class="title"><%= link_to @task.title, task_path(@task), local: false, "data-task-id" => @task.id, complete: "" %></p>
+            <% else %>
+                <p class="title"><%= link_to @task.title, task_path(@task), local: false, "data-task-id" => @task.id %></p>
+            <% end %>
+        </div>
+    </div>
+    <div class="aligned-buttons">
+        <%= link_to task_path(@task), id: "btn-delete", method: :delete, class: "btn btn-danger" do %>
+        <%= image_tag "bin.png" %>
+        <% end %>
+        <%= link_to edit_task_path(@task), id: "btn-edit", class: 'btn btn-secondary' do %>
+        <%= image_tag "editing.png" %>
+        <% end %>
+    </div>
+</div>
+<div class="dark-section">
+    <div class="date-wrapper">
+        <div>
+            <h3>Start</h3>
+            <% if @task.start == nil %>
+                <p class="subtle"> Not set </p>
+            <% else %> 
+                <p class="date"><%= @task.start.strftime(format='%-m/%-d/%y') %></p> 
+            <% end %> 
+        </div>
+        <div> 
+            <h3>Due</h3>
+            <% if @task.due == nil %>
+                <p class="subtle"> Not set </p>
+            <% else %> 
+                <p class="date"><%= @task.due.strftime(format='%-m/%-d/%y') %></p>
+            <% end %> 
+        </div>
+    </div>
+    <% if !@task.description.nil? %>
+        <hr>
+        <p class="centered"><%= @task.description %></p>
+    <% end %>
+</div>

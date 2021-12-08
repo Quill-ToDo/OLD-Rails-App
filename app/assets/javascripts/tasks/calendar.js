@@ -30,7 +30,9 @@ document.addEventListener('DOMContentLoaded', function () {
                                 }
                             }).done(function () {
                             calendar.refetchEvents();
-                            reRenderList();
+                            renderList().catch(err => {
+                                console.log(err)
+                            });
                         })
                         .fail(function () {
                             alert("ERROR: Task could not be created!");
@@ -59,7 +61,9 @@ document.addEventListener('DOMContentLoaded', function () {
                         },
                         success: function () {
                             calendar.refetchEvents();
-                            reRenderList();
+                            renderList().catch(err => {
+                                console.log(err)
+                            });
                         },
                         error: function () {
                             alert("ERROR: Task information could not be updated!");
@@ -75,8 +79,3 @@ document.addEventListener('DOMContentLoaded', function () {
         calendar.render();
     }
 });
-
-
-function reRenderList() {
-    $.get("/tasks/update_partials")
-}

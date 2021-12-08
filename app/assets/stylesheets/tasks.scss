@@ -17,7 +17,8 @@
   margin: var(--section-gap) 0 var(--section-gap) var(--section-gap);
 }
 
-#list-wrapper h3 {
+#list-wrapper h3,
+#show-wrapper h3 {
   color: var(--mid-font);
   font-family: "Quicksand", sans-serif;
   font-weight: 700;
@@ -27,6 +28,11 @@
   justify-self: center;
   align-self: center;
   text-align: center;
+}
+
+#show-wrapper h3 {
+  font-size: var(--h4-size);
+
 }
 
 .dark-section {
@@ -74,30 +80,32 @@ li:not(:last-child) {
   justify-content: space-between;
   flex-wrap: wrap;
   align-items: baseline;
+  gap: 10px;
   margin: 0;
   width: 100%;
   padding-bottom: 3px;
 }
 
-.title-date-wrapper p a {
+.title-date-wrapper p a,
+#show-wrapper .title-wrapper p a {
   line-height: 0.8;
   color: var(--light-font);
   text-decoration: none;
 }
 
-// .title-date-wrapper p.desc {
-//   margin-left: 30px;
-//   color: var(--mid-font);
-//   font-size: 28px;
-// }
-
-.title-date-wrapper p.date {
+.task-wrapper p.date,
+#show-wrapper .date-wrapper p.date {
   color: var(--subdued);
   font-family: "Azeret Mono", monospace;
   font-size: var(--smaller-p-size);
 }
 
-.title-date-wrapper .completed {
+#show-wrapper .date-wrapper p.date {
+  font-size: var(--p-size);
+}
+
+.title-date-wrapper a[complete],
+#show-wrapper .title-wrapper a[complete] {
   color: var(--subdued);
   text-decoration: line-through;
 }
@@ -155,7 +163,7 @@ li:not(:last-child) {
 }
 
 /* Show the checkmark when checked */
-.check-box-wrapper input:checked ~ .checkmark:after {
+.check-box-wrapper input[checked] ~ .checkmark:after {
   display: block;
   border-color: var(--subdued);
 }

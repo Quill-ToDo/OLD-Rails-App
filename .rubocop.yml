@@ -1,24 +1,25 @@
 AllCops:
   NewCops: disable
   Exclude:
-    - '**/Gemfile'
-    - '**/Gemfile.lock'
-    - '**/Rakefile'
-    - '**/config.ru'
-    - '**/spec/**/*'
-    - '**/db/**/*'
-    - '**/config/**/*'
-    - '**/script/**/*'
-    - '**/public/**/*'
-    - '**/vendor/**/*'
-    - '**/bin/**/*'
-    - '**/lib/**/*'
-    - '**/app/models/application_record.rb'
-    - '**/app/helpers/application_helper.rb'
+    - "**/Gemfile"
+    - "**/Gemfile.lock"
+    - "**/Rakefile"
+    - "**/config.ru"
+    - "**/spec/**/*"
+    - "**/db/**/*"
+    - "**/config/**/*"
+    - "**/script/**/*"
+    - "**/public/**/*"
+    - "**/vendor/**/*"
+    - "**/bin/**/*"
+    - "**/lib/**/*"
+    - "**/app/models/application_record.rb"
+    - "**/app/helpers/application_helper.rb"
   DisabledByDefault: true
+  TargetRubyVersion: 3.0.1
 Style:
   Enabled: true
-Style/FrozenStringLiteralComment: 
+Style/FrozenStringLiteralComment:
   Enabled: false
 Style/ClassVars:
   Enabled: false
