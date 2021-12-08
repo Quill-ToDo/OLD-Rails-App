@@ -12,10 +12,10 @@
         </div>
     </div>
     <div class="aligned-buttons">
-        <%= link_to task_path(@task), id: "btn-delete", method: :delete, class: "btn btn-danger" do %>
+        <%= button_to task_path(@task), id: "btn-delete", method: :delete do %>
         <%= image_tag "bin.png" %>
         <% end %>
-        <%= link_to edit_task_path(@task), id: "btn-edit", class: 'btn btn-secondary' do %>
+        <%= button_to edit_task_path(@task), id: "btn-edit" do %>
         <%= image_tag "editing.png" %>
         <% end %>
     </div>

@@ -23,23 +23,22 @@
 #show-wrapper .aligned-buttons {
   display: flex;
   justify-content: flex-end;
+  gap: 7px;
 }
 
-.aligned-buttons a {
-  height: fit-content;
-  width: fit-content;
+.aligned-buttons button {
+  height: 40px;
+  aspect-ratio: 1/1;
+  padding: 5px;
   display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.aligned-buttons a img {
-  width: 50%;
-}
-
-#show-wrapper .btn {
-  border-radius: 15px;
-  font-family: "Dongle", sans-serif;
-  color: var(--lightest-font);
-  font-size: 30px;
+.aligned-buttons button img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1/1;
 }
 
 // Tasks
@@ -47,7 +46,7 @@
 #show-wrapper .mid-section > div:first-of-type {
   display: flex;
   justify-content: space-between;
-  align-items: baseline;
+  align-items: center;
 }
 
 #show-wrapper .task-wrapper .title {

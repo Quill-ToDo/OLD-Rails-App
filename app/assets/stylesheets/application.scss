@@ -18,9 +18,9 @@
  *= require_self
  */
 
- @import "bootstrap";
- @import "tempusdominus-bootstrap-4.css";
- @import "font-awesome";
+@import "bootstrap";
+@import "tempusdominus-bootstrap-4.css";
+@import "font-awesome";
 
 :root {
   --bg: #232323;
@@ -153,6 +153,7 @@ p {
 
 button,
 .fc .fc-button.fc-button-primary {
+  border-radius: 0.25em;
   background-color: var(--dark-font);
   border: none;
   opacity: 1;
@@ -259,6 +260,26 @@ hr {
     rgba(94, 94, 94, 1) 75%,
     rgba(94, 94, 94, 0.6951914554884453) 100%
   );
+  margin: auto;
   margin-top: 20px;
   margin-bottom: 20px;
+  border: 0;
+  opacity: 0.4;
+}
+
+// Overriding bootstrap
+ol,
+ul,
+dl {
+  margin: 0;
+}
+
+ol,
+ul {
+  padding-left: 0;
+}
+
+.btn-secondary {
+  background-color: none;
+  border-color: none;
 }
