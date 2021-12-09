@@ -72,6 +72,7 @@ RSpec.describe 'the calendar view', type: :feature, js: true do
     fill_in 'Title', with: 'Do the dishes'
     click_on 'Create task'
     wait_for_ajax
+    wait_for_ajax
     expect(find("#list-wrapper")).to have_content('Do the dishes')  
   end
 
@@ -84,6 +85,7 @@ RSpec.describe 'the calendar view', type: :feature, js: true do
     next_day = page.find('.fc-day-future', match: :first).native
     page.driver.browser.action.click_and_hold(task_box.native).move_to(next_day).perform
     page.driver.browser.action.release.perform
+    wait_for_ajax
     wait_for_ajax
     expect(page.find('.fc-day-future', match: :first)).to have_content(task)
     if !db_task_start.nil?

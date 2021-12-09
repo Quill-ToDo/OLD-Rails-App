@@ -52,6 +52,9 @@ document.addEventListener('DOMContentLoaded', function () {
                     });
                 }
             },
+            eventClick: function(info) {
+                renderShow(info.event.id)
+            },
             initialView: 'dayGridMonth',
             expandRows: true,
             height: "100%",
