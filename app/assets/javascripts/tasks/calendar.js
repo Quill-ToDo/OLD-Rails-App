@@ -13,34 +13,16 @@ document.addEventListener('DOMContentLoaded', function () {
             eventSources: [{
                 url: '/tasks/calendar_tasks',
                 method: 'GET',
-                failure: function () {
+                failure: function (errorObj) {
+                    console.log(errorObj)
                     alert('there was an error while fetching tasks!');
                 }
             }],
             select: function (info) {
-                var title = prompt('Enter Title');
-                if (title) {
-                    jQuery.post(
-                            "/tasks", {
-                                task: {
-                                    title: title,
-                                    start: info.start,
-                                    due: info.end,
-                                    calendar: true
-                                }
-                            }).done(function () {
-                            calendar.refetchEvents();
-                            renderList().catch(err => {
-                                console.log(err)
-                            });
-                        })
-                        .fail(function () {
-                            alert("ERROR: Task could not be created!");
-                        })
-                        .always(function () {
-                            calendar.unselect();
-                        });
-                }
+                newPopupRender({
+                    start: info.start,
+                    due: info.end
+                });
             },
             editable: true,
             droppable: true,
@@ -70,6 +52,9 @@ document.addEventListener('DOMContentLoaded', function () {
                         }
                     });
                 }
+            },
+            eventClick: function(info) {
+                renderShow(info.event.id)
             },
             initialView: 'dayGridMonth',
             expandRows: true,

@@ -1,13 +1,16 @@
+<div id="new-wrapper"></div>
 <div id="show-wrapper"></div>
 
 <div class="index-wrapper"> 
     <div id="left-menu" class="menu">
-        <%= link_to(new_task_path, id:"btn-add", alt: "Add") do %>
-            <%= image_tag "add.png"%>
-        <% end %>
-        <%= link_to(destroy_user_session_path, method: :delete, alt: "Logout") do %>
-                <%= image_tag "logout.png"%>
-        <% end %>
+        <div class="btn" id="btn-add"> 
+            <%= image_tag("add.png", alt: "Add")%>
+        </div>
+        <div class="btn"> 
+            <%= link_to(destroy_user_session_path, method: :delete, alt: "Logout") do %>
+                    <%= image_tag "logout.png" %>
+            <% end %>
+        </div>
     </div>
     <div id="list-wrapper"> 
         <%= render 'list', overdue: @overdue, today_due: @today_due, today_work: @today_work, upcoming: @upcoming %>

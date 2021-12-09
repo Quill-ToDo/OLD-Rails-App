@@ -1,4 +1,4 @@
 <h1>Edit a Task</h1>
 <%= form_with model: @task, url: task_path(@task), method: :patch, local: true do |form| %>
   <%= render 'form_fields', f: form, submit_text: 'Update task' %>
-<% end %>  
+<% end %> 
