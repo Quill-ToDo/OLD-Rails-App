@@ -11,6 +11,7 @@ $(document).ready(function () {
 
 function newPopupHandler(target) {
     var btn = $(target).parents("#btn-add");
+    console.log();
     if (btn.length) {
         if (!$("#new-wrapper").is(":visible")) {
             newPopupRender()

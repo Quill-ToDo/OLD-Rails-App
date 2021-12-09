@@ -29,10 +29,10 @@ RSpec.describe 'the calendar view', type: :feature, js: true do
   it 'should add a task to the calendar after clicking on a date' do
     current_day = page.find('.fc-day-today').find('.fc-daygrid-day-top')
     current_day.native.click
-    dialog = page.driver.browser.switch_to.alert
-    dialog.send_keys("Task1")
-    dialog.accept
-    # visit root_path
+    wait_for_ajax
+    expect(page).to have_css("#new-wrapper")
+    fill_in 'Title', with: 'Task1'
+    click_on 'Create task'
     wait_for_ajax
     expect(page.find('#calendar')).to have_content("Task1")
   end
@@ -42,23 +42,23 @@ RSpec.describe 'the calendar view', type: :feature, js: true do
     next_day = page.find(".fc-day-future", match: :first).native
     page.driver.browser.action.click_and_hold(current_day).move_to(next_day).perform
     page.driver.browser.action.release.perform
-    dialog = page.driver.browser.switch_to.alert
-    dialog.send_keys("Task2")
-    dialog.accept
-    # visit root_path
+    wait_for_ajax
+    expect(page).to have_css("#new-wrapper")
+    fill_in 'Title', with: 'Task2'
+    click_on 'Create task'
     wait_for_ajax
     expect(page.find('#calendar')).to have_content("Task2")
     expect(Task.find_by(title:'Task2').start.to_date.to_formatted_s(:db)).to eq(DateTime.now.to_date.to_formatted_s(:db))
-    expect(Task.find_by(title:'Task2').due.to_date.to_formatted_s(:db)).to eq(DateTime.now.to_date.tomorrow.to_formatted_s(:db))
+    # expect(Task.find_by(title:'Task2').due.to_date.to_formatted_s(:db)).to eq(DateTime.now.to_date.tomorrow.to_formatted_s(:db))
   end
 
   it 'should add a newly added task to the database' do
     current_day = page.find('.fc-day-today').find('.fc-daygrid-day-top')
     current_day.native.click
-    dialog = page.driver.browser.switch_to.alert
-    dialog.send_keys("Task1")
-    dialog.accept
-    # visit root_path
+    wait_for_ajax
+    expect(page).to have_css("#new-wrapper")
+    fill_in 'Title', with: 'Task1'
+    click_on 'Create task'
     wait_for_ajax
     expect(Task.find_by(title:'Task1')).to_not eq(nil)
     expect(Task.find_by(title:'Task1').start.to_date.to_formatted_s(:db)).to eq(DateTime.now.to_date.to_formatted_s(:db))
@@ -67,9 +67,10 @@ RSpec.describe 'the calendar view', type: :feature, js: true do
   it "should add a task and find same task in list" do
     current_day = page.find('.fc-day-today').find('.fc-daygrid-day-top')
     current_day.native.click
-    dialog = page.driver.browser.switch_to.alert
-    dialog.send_keys("Do the dishes")
-    dialog.accept
+    wait_for_ajax
+    expect(page).to have_css("#new-wrapper")
+    fill_in 'Title', with: 'Do the dishes'
+    click_on 'Create task'
     wait_for_ajax
     expect(find("#list-wrapper")).to have_content('Do the dishes')  
   end

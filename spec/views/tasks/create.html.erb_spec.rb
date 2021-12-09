@@ -2,11 +2,11 @@
 
 require 'rails_helper'
 
-RSpec.describe 'create page', type: :view do
+RSpec.describe 'create page', type: :view, js: true do
   include Devise::Test::IntegrationHelpers
 
   before :each do
-    @user = User.create(email: 'admin@colgate.edu', password: 'testtest')
+    @user = User.create(email: 'admin2@colgate.edu', password: 'testtest')
     sign_in @user
     visit root_path
   end
@@ -18,7 +18,12 @@ RSpec.describe 'create page', type: :view do
   end
 
   it 'should allow a user to create a task if signed in' do
+    # Take out after bug fix
+    dialog = page.driver.browser.switch_to.alert
+    dialog.accept
+    #
     find('#btn-add').click
+    wait_for_ajax
     fill_in 'Title', with: 'foo'
     fill_in 'Description', with: 'description'
     fill_in 'Start', with: '11/18/2021 4:22 PM'

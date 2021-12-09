@@ -180,22 +180,28 @@ class TasksController < ApplicationController
     h = p.to_hash
     if h.include?('start') && h['start'] != ''
       begin
-        h['start'] = formatter_for_datepicker(h['start'])
+        if h.include?('update')
+          h['start'] = DateTime.parse(h['start'])
+        else
+          h['start'] = formatter_for_datepicker(h['start'])
+        end
       rescue ArgumentError
         h['start'] = nil
       end
     end
     if h.include?('due')
       begin
-        h['due'] = if !h.include?('calendar') || h.include?('update')
-                     if h['due'] == ''
-                       h['start']
-                     else
-                      formatter_for_datepicker(h['due'])
-                     end
-                   else
-                     formatter_for_datepicker(h['due']).yesterday
-                   end
+        if h.include?('update')
+          if h['due'] == ''
+            h['due'] = h['start']
+          else
+            h['due'] = DateTime.parse(h['due'])
+          end
+        elsif h.include?('calendar')
+            h['due'] = formatter_for_datepicker(h['due'])
+        else
+            h['due'] = formatter_for_datepicker(h['due']).yesterday
+        end
       rescue ArgumentError
         return
       end
