@@ -13,7 +13,8 @@ document.addEventListener('DOMContentLoaded', function () {
             eventSources: [{
                 url: '/tasks/calendar_tasks',
                 method: 'GET',
-                failure: function () {
+                failure: function (errorObj) {
+                    console.log(errorObj)
                     alert('there was an error while fetching tasks!');
                 }
             }],

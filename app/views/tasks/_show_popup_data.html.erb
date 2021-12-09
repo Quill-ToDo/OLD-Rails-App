@@ -15,7 +15,7 @@
         <%= button_to task_path(@task), id: "btn-delete", method: :delete do %>
         <%= image_tag "bin.png" %>
         <% end %>
-        <%= button_to edit_task_path(@task), id: "btn-edit" do %>
+        <%= button_to edit_task_path(@task), id: "btn-edit", method: :get do %>
         <%= image_tag "editing.png" %>
         <% end %>
     </div>

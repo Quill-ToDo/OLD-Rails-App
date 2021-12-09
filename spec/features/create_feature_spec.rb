@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'create page', type: :view, js: true do
+RSpec.describe 'the calendar view', type: :feature, js: true do
   include Devise::Test::IntegrationHelpers
 
   before :each do
@@ -18,10 +18,6 @@ RSpec.describe 'create page', type: :view, js: true do
   end
 
   it 'should allow a user to create a task if signed in' do
-    # Take out after bug fix
-    dialog = page.driver.browser.switch_to.alert
-    dialog.accept
-    #
     find('#btn-add').click
     wait_for_ajax
     fill_in 'Title', with: 'foo'
@@ -49,7 +45,6 @@ RSpec.describe 'create page', type: :view, js: true do
     fill_in 'Start', with: '11/19/2021 4:22 PM'
     fill_in 'Due', with: '11/18/2021 4:22 PM'
     click_on 'Create task'
-    expect(page.current_path).to eq(new_task_path)
     expect(page).to have_content('Failed to create new task')
   end
 

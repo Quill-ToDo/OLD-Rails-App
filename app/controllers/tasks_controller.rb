@@ -34,15 +34,15 @@ class TasksController < ApplicationController
     @task = Task.new
     if params[:start] && params[:due]
       @task.start = DateTime.parse(params[:start])
-      @task.due =  DateTime.parse(params[:due])
+      @task.due = DateTime.parse(params[:due])
     end
     respond_to do |format|
       format.js do
         render json: {
-          html: render_to_string(partial: "new_popup")
+          html: render_to_string(partial: 'new_popup')
         } and return
       end
-      format.html {render}
+      format.html { render }
     end
   end
 
@@ -51,18 +51,18 @@ class TasksController < ApplicationController
     @task.user_id = current_user.id if @task.user_id.nil?
     if @task.save
       respond_to do |format|
-        format.js {
-          render json: {"message": "Successfully created task"}
-        }
-        format.html {
+        format.js do
+          render json: { "message": 'Successfully created task' }
+        end
+        format.html do
           flash[:notice] = "New task #{@task.title} created"
           redirect_to root_path
-        }
+        end
       end
     else
       flash[:alert] = 'Failed to create new task'
       redirect_to root_path and return
-    end  
+    end
   end
 
   def show
@@ -95,7 +95,7 @@ class TasksController < ApplicationController
       flash[:notice] = "Task #{@task.title} successfully updated"
       return if params['task'].include?('calendar')
 
-      redirect_to task_path(@task)
+      redirect_to root_path
     else
       # save failed
       flash[:alert] = "Task couldn't be updated"
@@ -151,7 +151,9 @@ class TasksController < ApplicationController
   private
 
   def formatter_for_datepicker(to_format)
-    DateTime.strptime(to_format, "%m/%d/%Y, %l:%M %p")
+    DateTime.strptime(to_format, '%m/%d/%Y, %l:%M %p')
+  rescue StandardError
+    DateTime.parse(to_format)
   end
 
   def overdue_tasks
@@ -181,28 +183,28 @@ class TasksController < ApplicationController
     h = p.to_hash
     if h.include?('start') && h['start'] != ''
       begin
-        if h.include?('update')
-          h['start'] = DateTime.parse(h['start'])
-        else
-          h['start'] = formatter_for_datepicker(h['start'])
-        end
+        h['start'] = if h.include?('update')
+                       DateTime.parse(h['start'])
+                     else
+                       formatter_for_datepicker(h['start'])
+                     end
       rescue ArgumentError
         h['start'] = nil
       end
     end
     if h.include?('due')
       begin
-        if h.include?('update')
-          if h['due'] == ''
-            h['due'] = h['start']
-          else
-            h['due'] = DateTime.parse(h['due'])
-          end
-        elsif h.include?('calendar')
-            h['due'] = formatter_for_datepicker(h['due'])
-        else
-            h['due'] = formatter_for_datepicker(h['due']).yesterday
-        end
+        h['due'] = if h.include?('update')
+                     if h['due'] == ''
+                       h['start']
+                     else
+                       DateTime.parse(h['due'])
+                     end
+                   elsif h.include?('calendar')
+                     formatter_for_datepicker(h['due'])
+                   else
+                     formatter_for_datepicker(h['due']).yesterday
+                   end
       rescue ArgumentError
         return
       end
