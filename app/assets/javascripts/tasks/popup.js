@@ -18,12 +18,14 @@ function newPopupHandler(target) {
         } else {
             $("#new-wrapper").toggle();
             $("#new-wrapper").remove("#new-filter");
+            $("#new-wrapper").removeClass("from-calendar");
         }
     }
 
     if (target.matches("#new-filter") && $("#new-wrapper").is(":visible")) {
-        console.log("hi");
         $("#new-wrapper").toggle();
+        $("#new-wrapper").remove("#new-filter");
+        $("#new-wrapper").removeClass("from-calendar");
     }
 }
 
@@ -45,10 +47,11 @@ function newPopupRender(fieldData = null) {
         }
         var start = new tempusDominus.TempusDominus(document.getElementById('datetime-picker-start'), options);
         var end = new tempusDominus.TempusDominus(document.getElementById('datetime-picker-due'), options);
-        $("#new-wrapper").css("display", "flex");
-        if (data.length) {
-            $("#new-wrapper .mid-section").append('<div id="new-filter"> </div>');
-            $("#new-wrapper").addClass(".from-calendar");
+        if (fieldData) {
+            console.log("hi")
+            $("#new-wrapper").append('<div id="new-filter"> </div>');
+            $("#new-wrapper").addClass("from-calendar");
         }
+        $("#new-wrapper").css("display", "flex");
     });
 }
