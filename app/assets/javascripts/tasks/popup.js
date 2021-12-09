@@ -9,9 +9,8 @@ $(document).ready(function () {
     });
 });
 
-function newPopupHandler(target) {
+function newPopupHandler(target, fieldData = null) {
     var btn = $(target).parents("#btn-add");
-    console.log(target);
     if (btn.length) {
         if (!$("#new-wrapper").is(":visible")) {
             $.get({
@@ -31,9 +30,14 @@ function newPopupHandler(target) {
                 var start = new tempusDominus.TempusDominus(document.getElementById('datetime-picker-start'), options);
                 var end = new tempusDominus.TempusDominus(document.getElementById('datetime-picker-due'), options);
                 $("#new-wrapper").css("display", "flex");
+                if (data.length) {
+                    $("#new-wrapper .mid-section").append('<div id="new-filter"> </div>');
+                    $("#new-wrapper").addClass(".from-calendar");
+                }
             });
         } else {
             $("#new-wrapper").toggle();
+            $("#new-wrapper").remove("#new-filter");
         }
     }
 

@@ -52,7 +52,7 @@ class TasksController < ApplicationController
         }
         format.html {
           flash[:notice] = "New task #{@task.title} created"
-          redirect_to root_path and render json: {"message": "Successfully created task"}
+          redirect_to root_path
         }
       end
     else
@@ -146,7 +146,7 @@ class TasksController < ApplicationController
   private
 
   def formatter_for_datepicker(to_format)
-    DateTime.parse(to_format)
+    DateTime.strptime(to_format, "%m/%d/%Y, %l:%M %p")
   end
 
   def overdue_tasks
@@ -176,7 +176,7 @@ class TasksController < ApplicationController
     h = p.to_hash
     if h.include?('start') && h['start'] != ''
       begin
-        h['start'] = DateTime.parse(h['start'])
+        h['start'] = formatter_for_datepicker(h['start'])
       rescue ArgumentError
         h['start'] = nil
       end
@@ -187,10 +187,10 @@ class TasksController < ApplicationController
                      if h['due'] == ''
                        h['start']
                      else
-                      DateTime.parse(h['due'])
+                      formatter_for_datepicker(h['due'])
                      end
                    else
-                     DateTime.parse(h['due']).yesterday
+                     formatter_for_datepicker(h['due']).yesterday
                    end
       rescue ArgumentError
         return
