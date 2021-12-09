@@ -1,10 +1,10 @@
-<div id="modalDialog" class="mid-section"></div>
+<div id="new-wrapper"></div>
 <div id="show-wrapper"></div>
 
 <div class="index-wrapper"> 
     <div id="left-menu" class="menu">
-        <div class="btn"> 
-            <%= image_tag("add.png", id: "btn-add", alt: "Add")%>
+        <div class="btn" id="btn-add"> 
+            <%= image_tag("add.png", alt: "Add")%>
         </div>
         <div class="btn"> 
             <%= link_to(destroy_user_session_path, method: :delete, alt: "Logout") do %>

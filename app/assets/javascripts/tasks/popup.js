@@ -2,19 +2,23 @@
 //= require tempus-dominus
 
 $(document).ready(function () {
-    var modal = $("#modalDialog");
-    var btn = $("#btn-add");
-    var span = $("#close");
+    $(document).on("click", function (e) {
+        if (e.target) {
+            newPopupHandler(e.target);
+        }
+    });
+});
 
-    btn.on('click', function () {
-        console.log("here0")
-        if (modal.css('display') == "none") {
+function newPopupHandler(target) {
+    var btn = $(target).parents("#btn-add");
+    console.log(target);
+    if (btn.length) {
+        if (!$("#new-wrapper").is(":visible")) {
             $.get({
                 url: '/tasks/new',
                 dataType: 'json'
             }).then((data) => {
-                $('#modalDialog').html(data.html);
-                modal.toggle();
+                $('#new-wrapper').html(data.html);
                 var options = {
                     display: {
                         buttons: {
@@ -26,9 +30,15 @@ $(document).ready(function () {
                 }
                 var start = new tempusDominus.TempusDominus(document.getElementById('datetime-picker-start'), options);
                 var end = new tempusDominus.TempusDominus(document.getElementById('datetime-picker-due'), options);
+                $("#new-wrapper").css("display", "flex");
             });
         } else {
-            modal.toggle();
+            $("#new-wrapper").toggle();
         }
-    });
-});
+    }
+
+    if (target.matches("#new-filter") && $("#new-wrapper").is(":visible")) {
+        console.log("hi");
+        $("#new-wrapper").toggle();
+    }
+}

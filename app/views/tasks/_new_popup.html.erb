@@ -1,7 +1,7 @@
-<section class="new-wrapper">
-    <div class="mid-section">
-        <%= form_with model: @task, url: tasks_path, method: :post, local: true do |form| %>
-            <%= render 'form_fields', f: form, submit_text: 'Create task' %>
-        <% end %>
-    </div>
+<section class="mid-section">
+    <%= form_with model: @task, url: tasks_path, method: :post, local: true do |form| %>
+        <%= render 'form_fields', f: form, submit_text: 'Create task' %>
+    <% end %>
 </section>
+<div id="new-filter">
+</div>
