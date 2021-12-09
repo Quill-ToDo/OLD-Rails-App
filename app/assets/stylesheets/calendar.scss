@@ -9,6 +9,10 @@
   padding: calc(var(--inner-box-padding) / 2);
 }
 
+.fc a {
+  text-decoration: none;
+}
+
 .fc .fc-header-toolbar.fc-toolbar {
   padding: var(--inner-box-padding) var(--inner-box-padding) 0
     var(--inner-box-padding);

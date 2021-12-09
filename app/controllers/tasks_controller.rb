@@ -10,39 +10,79 @@ class TasksController < ApplicationController
     @upcoming = upcoming_tasks
   end
 
-  def update_partials
+  def list
     @overdue = overdue_tasks
     @today_due = today_due_tasks
     @today_work = today_work_tasks
     @upcoming = upcoming_tasks
     respond_to do |format|
       format.js do
-        render action: 'update_partials' and return
+        render json: {
+          html: render_to_string(partial: 'list',
+                                 locals: { overdue: @overdue, today_due: @today_due,
+                                           today_work: @today_work, upcoming: @upcoming })
+        }
+        return
       end
       format.html do
-        redirect_to root_path
+        redirect_to root_path and return
       end
     end
   end
 
   def new
     @task = Task.new
+    if params[:start] && params[:due]
+      @task.start = DateTime.parse(params[:start])
+      @task.due = DateTime.parse(params[:due])
+    end
+    respond_to do |format|
+      format.js do
+        render json: {
+          html: render_to_string(partial: 'new_popup')
+        } and return
+      end
+      format.html { render }
+    end
   end
 
   def create
     @task = Task.new(task_params)
     @task.user_id = current_user.id if @task.user_id.nil?
     if @task.save
-      flash[:notice] = "New task #{@task.title} created"
-      redirect_to root_path and return
+      respond_to do |format|
+        format.js do
+          render json: { "message": 'Successfully created task' }
+        end
+        format.html do
+          flash[:notice] = "New task #{@task.title} created"
+          redirect_to root_path
+        end
+      end
     else
       flash[:alert] = 'Failed to create new task'
-      redirect_to new_task_path and return
+      redirect_to root_path and return
     end
   end
 
   def show
     @task = Task.find(params[:id])
+    respond_to do |format|
+      format.js do
+        # When refreshed
+        if params[:full]
+          render json: {
+            html: render_to_string(partial: 'show_popup')
+          } and return
+        end
+        if params[:inner]
+          render json: {
+            html: render_to_string(partial: 'show_popup_data')
+          } and return
+        end
+      end
+      format.html
+    end
   end
 
   def edit
@@ -55,7 +95,7 @@ class TasksController < ApplicationController
       flash[:notice] = "Task #{@task.title} successfully updated"
       return if params['task'].include?('calendar')
 
-      redirect_to task_path(@task)
+      redirect_to root_path
     else
       # save failed
       flash[:alert] = "Task couldn't be updated"
@@ -90,6 +130,7 @@ class TasksController < ApplicationController
                   end
 
       h[:end] = task.due.to_datetime.iso8601
+      h[:color] = '#414141' if task.complete?
       events << h
     end
     render json: events.to_json
@@ -99,13 +140,18 @@ class TasksController < ApplicationController
     t = Task.find(params[:id])
     t.complete_task
     t.save
-    redirect_to root_path
+    respond_to do |format|
+      format.html do
+        redirect_to root_path
+      end
+      format.js
+    end
   end
 
   private
 
-  def date_formatter(to_format)
-    DateTime.strptime(to_format, '%m/%d/%Y %I:%M %p')
+  def formatter_for_datepicker(to_format)
+    DateTime.strptime(to_format, '%m/%d/%Y, %l:%M %p')
   rescue StandardError
     DateTime.parse(to_format)
   end
@@ -137,21 +183,27 @@ class TasksController < ApplicationController
     h = p.to_hash
     if h.include?('start') && h['start'] != ''
       begin
-        h['start'] = date_formatter(h['start'])
+        h['start'] = if h.include?('update')
+                       DateTime.parse(h['start'])
+                     else
+                       formatter_for_datepicker(h['start'])
+                     end
       rescue ArgumentError
         h['start'] = nil
       end
     end
     if h.include?('due')
       begin
-        h['due'] = if !h.include?('calendar') || h.include?('update')
+        h['due'] = if h.include?('update')
                      if h['due'] == ''
                        h['start']
                      else
-                       date_formatter(h['due'])
+                       DateTime.parse(h['due'])
                      end
+                   elsif h.include?('calendar')
+                     formatter_for_datepicker(h['due'])
                    else
-                     DateTime.parse(h['due']).yesterday
+                     formatter_for_datepicker(h['due']).yesterday
                    end
       rescue ArgumentError
         return

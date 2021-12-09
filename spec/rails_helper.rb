@@ -58,7 +58,7 @@ RSpec.configure do |config|
 
     DatabaseCleaner.clean_with(:truncation)
 
-    config.include WaitForAjax, type: :feature
+    config.include WaitForAjax,type: :feature
   end
 
   config.before(:each) do

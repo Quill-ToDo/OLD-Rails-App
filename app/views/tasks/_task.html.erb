@@ -1,3 +1,8 @@
+<% 
+# Set defaults
+local = false
+%>
+
 <div class="task-wrapper">
     <div class="check-box-wrapper"> 
         <% if local_assigns[:task].complete%>
@@ -13,10 +18,11 @@
     </div>
     <div class="title-date-wrapper">
         <% if local_assigns[:task].complete %>
-            <p class="title"><%= link_to local_assigns[:task].title, task_path(local_assigns[:task]), class:"completed", "data-task-id" => local_assigns[:task].id %></p>
-            <% else %>
-            <p class="title"><%= link_to local_assigns[:task].title, task_path(local_assigns[:task]), "data-task-id" => local_assigns[:task].id  %></p>
-            <% end %>
+            <p class="title <%= local_assigns[:title_classes] %>"><%= link_to local_assigns[:task].title, task_path(local_assigns[:task]), local: local, "data-task-id" => local_assigns[:task].id, complete: "" %></p>
+        <% else %>
+            <p class="title <%= local_assigns[:title_classes] %>"><%= link_to local_assigns[:task].title, task_path(local_assigns[:task]), local: local, "data-task-id" => local_assigns[:task].id %></p>
+        <% end %>
+        
         <p class="date"><%= local_assigns[:task].due.strftime(format='%-m/%-d/%y') %></p>
     </div>
 </div>

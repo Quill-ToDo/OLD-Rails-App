@@ -2,11 +2,11 @@
 
 require 'rails_helper'
 
-RSpec.describe 'create page', type: :view do
+RSpec.describe 'the calendar view', type: :feature, js: true do
   include Devise::Test::IntegrationHelpers
 
   before :each do
-    @user = User.create(email: 'admin@colgate.edu', password: 'testtest')
+    @user = User.create(email: 'admin2@colgate.edu', password: 'testtest')
     sign_in @user
     visit root_path
   end
@@ -19,6 +19,7 @@ RSpec.describe 'create page', type: :view do
 
   it 'should allow a user to create a task if signed in' do
     find('#btn-add').click
+    wait_for_ajax
     fill_in 'Title', with: 'foo'
     fill_in 'Description', with: 'description'
     fill_in 'Start', with: '11/18/2021 4:22 PM'
@@ -44,7 +45,6 @@ RSpec.describe 'create page', type: :view do
     fill_in 'Start', with: '11/19/2021 4:22 PM'
     fill_in 'Due', with: '11/18/2021 4:22 PM'
     click_on 'Create task'
-    expect(page.current_path).to eq(new_task_path)
     expect(page).to have_content('Failed to create new task')
   end
 
@@ -66,7 +66,7 @@ RSpec.describe 'create page', type: :view do
     fill_in 'Description', with: 'description'
     fill_in 'Due', with: 'asdf'
     click_on 'Create task'
-    expect(page.current_path).to eq(new_task_path)
+    expect(page.current_path).to eq(root_path)
     expect(page).to have_content('Failed to create new task')
   end
 end

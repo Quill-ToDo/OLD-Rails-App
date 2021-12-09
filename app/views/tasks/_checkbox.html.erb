@@ -1,0 +1,13 @@
+
+<div class="check-box-wrapper"> 
+    <% if local_assigns[:task].complete%>
+        <input type="checkbox" data-task-id="<%=local_assigns[:task].id%>" aria-labelledby="<%=local_assigns[:task].title%>" checked>
+    <% else %>
+        <input type="checkbox" data-task-id="<%=local_assigns[:task].id%>" aria-labelledby="<%=local_assigns[:task].title%>">
+    <% end %>
+    <% if local_assigns[:type] == :due %>
+        <span class="checkmark"></span>
+    <% else %>
+    <span class="checkmark round"></span>
+    <% end %>
+</div>
