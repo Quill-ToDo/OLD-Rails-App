@@ -32,6 +32,10 @@ class TasksController < ApplicationController
 
   def new
     @task = Task.new
+    if params[:start] && params[:due]
+      @task.start = DateTime.parse(params[:start])
+      @task.due =  DateTime.parse(params[:due])
+    end
     respond_to do |format|
       format.js do
         render json: {

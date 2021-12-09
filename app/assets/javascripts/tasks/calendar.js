@@ -18,31 +18,35 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
             }],
             select: function (info) {
-                var title = prompt('Enter Title');
-                if (title) {
-                    $.post(
-                            "/tasks", {
-                                task: {
-                                    title: title,
-                                    start: info.start,
-                                    due: info.end,
-                                    data: JSON,
-                                    calendar: true,
-                                    dataType: 'json'
-                                }
-                            }).fail((status) => {
-                            console.log(status)
-                            alert("ERROR: Task could not be created!");
-                        }).done(function () {
-                            calendar.refetchEvents();
-                            renderList().catch(err => {
-                                console.log(err)
-                            });
-                        })
-                        .always(function () {
-                            calendar.unselect();
-                        });
-                }
+                newPopupRender({
+                    start: info.start,
+                    due: info.end
+                });
+                // var title = prompt('Enter Title');
+                // if (title) {
+                //     $.post(
+                //             "/tasks", {
+                //                 task: {
+                //                     title: title,
+                //                     start: info.start,
+                //                     due: info.end,
+                //                     data: JSON,
+                //                     calendar: true,
+                //                     dataType: 'json'
+                //                 }
+                //             }).fail((status) => {
+                //             console.log(status)
+                //             alert("ERROR: Task could not be created!");
+                //         }).done(function () {
+                //             calendar.refetchEvents();
+                //             renderList().catch(err => {
+                //                 console.log(err)
+                //             });
+                //         })
+                //         .always(function () {
+                //             calendar.unselect();
+                //         });
+                // }
             },
             editable: true,
             droppable: true,
