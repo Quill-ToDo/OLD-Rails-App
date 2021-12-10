@@ -23,6 +23,9 @@ local = false
             <p class="title <%= local_assigns[:title_classes] %>"><%= link_to local_assigns[:task].title, task_path(local_assigns[:task]), local: local, "data-task-id" => local_assigns[:task].id %></p>
         <% end %>
         
-        <p class="date"><%= local_assigns[:task].due.strftime(format='%-m/%-d/%y') %></p>
+        <div class="date-time-wrapper"> 
+            <p class="date"><%= local_assigns[:task].due.strftime(format='%-m/%-d/%y') %></p>
+            <p class="time"><%= local_assigns[:task].due.strftime(format='%l:%M %p') %></p>
+        </div>
     </div>
 </div>

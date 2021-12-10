@@ -27,7 +27,10 @@
             <% if @task.start == nil %>
                 <p class="subtle"> Not set </p>
             <% else %> 
+            <div class="date-time-wrapper">
                 <p class="date"><%= @task.start.strftime(format='%-m/%-d/%y') %></p> 
+                <p class="time"><%= @task.start.strftime(format='%l:%M %p') %></p>
+            </div>
             <% end %> 
         </div>
         <div> 
@@ -35,7 +38,10 @@
             <% if @task.due == nil %>
                 <p class="subtle"> Not set </p>
             <% else %> 
+            <div class="date-time-wrapper">
                 <p class="date"><%= @task.due.strftime(format='%-m/%-d/%y') %></p>
+                <p class="time"><%= @task.due.strftime(format='%l:%M %p') %></p>
+            </div>
             <% end %> 
         </div>
     </div>

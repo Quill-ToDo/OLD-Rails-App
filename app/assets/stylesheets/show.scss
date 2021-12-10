@@ -50,9 +50,9 @@
 
 #show-wrapper .task-wrapper {
   display: flex;
+  padding-left: 10px;
   align-items: baseline;
-  // display:
-  margin-left: 10px;
+  overflow: hidden;
 }
 
 #show-wrapper .check-box-wrapper {
@@ -69,6 +69,7 @@
   width: 100%;
   display: flex;
   justify-content: center;
+  align-items: flex-start;
   gap: 10%;
 }
 
@@ -88,6 +89,14 @@
 
 #show-wrapper .task-wrapper .date-wrapper p {
   font-size: 18px;
+}
+
+#show-wrapper .date-wrapper p.date {
+  font-size: var(--p-size);
+}
+
+#show-wrapper .date-wrapper p.time {
+  font-size: var(--p-size);
 }
 
 .btn-incomplete {

@@ -32,7 +32,6 @@
 
 #show-wrapper h3 {
   font-size: var(--h4-size);
-
 }
 
 .dark-section {
@@ -79,8 +78,9 @@ li:not(:last-child) {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
-  align-items: baseline;
-  gap: 10px;
+  align-items: center;
+  column-gap: 10px;
+  row-gap: 3px;
   margin: 0;
   width: 100%;
   padding-bottom: 3px;
@@ -93,15 +93,15 @@ li:not(:last-child) {
   text-decoration: none;
 }
 
-.task-wrapper p.date,
-#show-wrapper .date-wrapper p.date {
+p.date,
+p.time {
   color: var(--subdued);
   font-family: "Azeret Mono", monospace;
   font-size: var(--smaller-p-size);
 }
 
-#show-wrapper .date-wrapper p.date {
-  font-size: var(--p-size);
+p.time {
+  font-size: calc(var(--smaller-p-size) - 3px);
 }
 
 .title-date-wrapper a[complete],
@@ -200,4 +200,18 @@ li:not(:last-child) {
   border-left: none;
   rotate: 45deg;
   transition: rotate 0.1s ease-in-out;
+}
+
+.date-time-wrapper {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  column-gap: 10px;
+  row-gap: 3px;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.task-wrapper .date-time-wrapper {
+  flex-direction: column;
 }
