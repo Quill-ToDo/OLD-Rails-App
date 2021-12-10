@@ -30,6 +30,9 @@ gem 'bootsnap', '>= 1.4.4', require: false
 # Secure User Authentication
 gem 'devise'
 
+#Bootstrapping the Devise pages
+gem 'devise-bootstrapped'
+
 group :development, :test do
   # Use sqlite3 as the database for Active Record
   gem 'sqlite3', '~> 1.4'

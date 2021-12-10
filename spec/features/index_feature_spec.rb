@@ -12,7 +12,7 @@ RSpec.describe 'index page', type: :feature, js: true do
       email = 'beepbeep@beep.com'
       pass = 'beepbeep'
       user = User.create(email: email, password: pass)
-      fill_in 'Email', with: email
+      fill_in 'Email Address', with: email
       fill_in 'Password',	with: pass 
       click_on 'Log in'
       expect(current_path).to eq(root_path)  
