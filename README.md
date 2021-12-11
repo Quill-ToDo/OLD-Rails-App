@@ -42,7 +42,8 @@ $ bundle install
    - `$ git checkout [feature branch name]`
    - `$ git push origin [feature branch name]`
 9. To merge to main, on GitHub, click pull request button on code page and submit a pull request.
-10. Moniter the PR and make any changes necessary! Thank you for helping!! ✨
+   - Link the issue to the PR so that when the PR is closed, the issue is as well.
+11. Moniter the PR and make any changes necessary! Thank you for helping!! ✨
 
 ### To test your feature
 #### Install Selenium drivers for JS tests
