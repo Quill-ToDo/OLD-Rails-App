@@ -50,7 +50,6 @@ group :test do
   gem 'rexml'
   gem 'selenium-webdriver', '~> 4.0.3'
   gem 'webdrivers'
-  gem 'execjs'
 end
 
 group :development do

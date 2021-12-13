@@ -225,6 +225,8 @@ textarea {
 .alert-pop-up {
   z-index: 5;
   border-radius: 10px;
+  max-width: 500px;
+  overflow: hidden;
   position: relative;
   padding: 10px;
   box-shadow: 10px 10px 20px var(--darkest-dark);
@@ -247,7 +249,7 @@ textarea {
 
 .alert-pop-up.notice {
   background-color: var(--notice-bg);
-  right: -50vw;
+  right: -550px;
   opacity: 100%;
   animation: alert-slide-out 10s ease-in-out;
 }
@@ -292,7 +294,6 @@ textarea {
 
 hr {
   width: 60%;
-  /* border: none; */
   color: var(--mid-font);
   background-color: linear-gradient(
     90deg,
@@ -304,7 +305,6 @@ hr {
   margin: auto;
   margin-top: 20px;
   margin-bottom: 20px;
-  border: 0;
   opacity: 0.4;
 }
 

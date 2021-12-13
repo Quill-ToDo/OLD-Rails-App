@@ -106,7 +106,7 @@ class TasksController < ApplicationController
   def destroy
     @task = Task.find(params[:id])
     @task.destroy
-    flash[:alert] = "#{@task.title} deleted"
+    flash[:notice] = "#{@task.title} deleted"
     redirect_to root_path
   end
 
